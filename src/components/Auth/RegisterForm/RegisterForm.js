@@ -15,10 +15,10 @@ export function RegisterForm() {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        console.log(formValue);
         const response = await authCtrl.register(formValue);
-        console.log(response);
-        //router.push("/");
+        if (response.status == 201) {
+          router.push("/");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -36,7 +36,7 @@ export function RegisterForm() {
           error={formik.errors.email}
         />
         <Form.Input
-          name="username"
+          name="nombre"
           type="text"
           placeholder="Nombre de usuario"
           value={formik.values.username}
@@ -46,14 +46,6 @@ export function RegisterForm() {
       </Form.Group>
 
       <Form.Group widths="equal">
-        <Form.Input
-          name="name"
-          type="text"
-          placeholder="Nombre y apellidos"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.errors.name}
-        />
         <Form.Input
           name="password"
           type="password"

@@ -6,11 +6,11 @@ import { useRouter } from "next/router";
 
 export function AuthLayout(props) {
   const { children } = props;
-  const { user } = useAuth();
+  const { accessToken } = useAuth();
   const router = useRouter();
 
-  if (user) {
-    router.push("/");
+  if (accessToken) {
+    router.push("/home");
     return null;
   }
 

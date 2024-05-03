@@ -1,22 +1,27 @@
 import { useAuth } from "@/hooks";
 import { Button } from "semantic-ui-react";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
-  const { user, logout } = useAuth();
+  const { accessToken, logout } = useAuth();
+  const router = useRouter();
+
+  if (!accessToken) {
+    router.push("/");
+    return null;
+  }
 
   return (
     <>
       <div>
-        <h2>Laboratorios</h2>
-
-        {user ? (
+        {accessToken ? (
           <div>
-            <p>Hola, {user.email}</p>
+            <p>Bienvenido</p>
             <Button onClick={logout}>Cerrar Sesion</Button>
           </div>
         ) : (
           <div>
-            <a href="/join/login">Iniciar Sesion</a>
+            <a href="/">Iniciar Sesion</a>
           </div>
         )}
       </div>

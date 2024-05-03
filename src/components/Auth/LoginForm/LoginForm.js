@@ -18,8 +18,9 @@ export function LoginForm() {
     onSubmit: async (formValue) => {
       try {
         const response = await authCtrl.login(formValue);
-        login(response.token);
-        //router.push("/");
+        if (response.token) {
+          login(response.token);
+        }
       } catch (error) {
         console.error(error);
       }
