@@ -7,10 +7,11 @@ export default function Layout({ children }) {
     <>
       <div className="min-h-screen">
         <div className="flex">
-          <Sidebar />
-          <div className="flex flex-col flex-grow w-screen md:w-full min-h-screen">
-            {children}
+          <div class="w-1/6 min-w-40">
+            <Sidebar />
           </div>
+
+          <div class="w-5/6 ">{children}</div>
         </div>
       </div>
     </>
