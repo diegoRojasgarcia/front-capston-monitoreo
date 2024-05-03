@@ -31,7 +31,7 @@ export function Sidebar() {
 
               <li>
                 <a
-                  href="#"
+                  href="/Labs/y-103"
                   class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                 >
                   <span class="inline-flex justify-center items-center ml-4">
@@ -58,7 +58,7 @@ export function Sidebar() {
 
               <li>
                 <a
-                  href="#"
+                  href="/Labs/y-107"
                   class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                 >
                   <span class="inline-flex justify-center items-center ml-4">
@@ -85,7 +85,7 @@ export function Sidebar() {
 
               <li>
                 <a
-                  href="#"
+                  href="/Labs/x-206"
                   class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                 >
                   <span class="inline-flex justify-center items-center ml-4">
@@ -112,7 +112,7 @@ export function Sidebar() {
 
               <li>
                 <a
-                  href="#"
+                  href="/Labs/x-207"
                   class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                 >
                   <span class="inline-flex justify-center items-center ml-4">
