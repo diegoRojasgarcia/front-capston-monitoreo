@@ -1,30 +1,23 @@
+import Layout from "@/components/sidebar";
 import { useAuth } from "@/hooks";
-import { Button } from "semantic-ui-react";
 import { useRouter } from "next/router";
 
 export default function HomePage() {
-  const { accessToken, logout } = useAuth();
+  const { accessToken, logout, user } = useAuth();
   const router = useRouter();
 
+  //si no es un usuario logeado, redireccionamos al login
   if (!accessToken) {
     router.push("/");
+    logout();
     return null;
   }
 
   return (
-    <>
-      <div>
-        {accessToken ? (
-          <div>
-            <p>Bienvenido</p>
-            <Button onClick={logout}>Cerrar Sesion</Button>
-          </div>
-        ) : (
-          <div>
-            <a href="/">Iniciar Sesion</a>
-          </div>
-        )}
+    <Layout>
+      <div className="min-h-screen flex flex-col">
+        <div className="m-auto"></div>
       </div>
-    </>
+    </Layout>
   );
 }
