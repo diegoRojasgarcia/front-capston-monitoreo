@@ -25,15 +25,9 @@ export function Sidebar() {
             <div>Sistema De Monitoreo EIC</div>
           </div>
 
-          <div class="overflow-y-auto overflow-x-hidden flex-grow">
-            <ul class="flex flex-col py-4 space-y-3">
-              <li class="px-5">
-                <div class="flex flex-row items-center h-24">
-                  <div class="text-xl font-light tracking-wide text-gray-100">
-                    Menu
-                  </div>
-                </div>
-              </li>
+          <div class="overflow-y-auto overflow-x-auto flex-grow">
+            <ul class="flex flex-col items-center py-4 space-y-4">
+              <li class="h-6"></li>
 
               <li>
                 <a
