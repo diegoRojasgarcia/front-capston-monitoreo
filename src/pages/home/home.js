@@ -1,6 +1,7 @@
 import Layout from "@/components/sidebar";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
+import { Button } from "semantic-ui-react";
 
 export default function HomePage({ title }) {
   const { accessToken, logout, user } = useAuth();
@@ -18,6 +19,14 @@ export default function HomePage({ title }) {
       <div className="min-h-screen flex flex-col">
         <div className="m-auto">
           <h1 className="text-4xl">{title}</h1>
+        </div>
+
+        <div>
+          {title ? (
+            <div class="flex items-center justify-center pb-12 ">
+              <Button>Monitoriar</Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </Layout>

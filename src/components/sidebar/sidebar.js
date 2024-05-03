@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import logo from "@/img/logoUcn.png";
 import { Button } from "semantic-ui-react";
 import { useAuth } from "@/hooks";
+import Link from "next/link";
 
 export function Sidebar() {
   const { accessToken, user, logout } = useAuth();
@@ -19,7 +20,9 @@ export function Sidebar() {
       <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-Sky-600 ">
         <div class="fixed flex flex-col top-0 left-0 w-80 bg-black h-full ">
           <div class="flex items-center justify-center pt-24">
-            <img src={logo.src} alt="Company Logo" width={100} height={200} />
+            <Link href="/home">
+              <img src={logo.src} alt="Company Logo" width={100} height={200} />
+            </Link>
           </div>
           <div class="flex text-xl items-center justify-center h-1/6 border-b-2 text-gray-500">
             <div>Sistema De Monitoreo EIC</div>
