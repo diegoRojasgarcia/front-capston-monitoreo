@@ -1,6 +1,13 @@
+import { LabsLayout } from "@/components/labs";
+import Layout from "@/components/sidebar";
 import React from "react";
-import HomePage from "@/pages/home/home";
 
-export default function y103() {
-  return <HomePage title="Laboratorio Y-103" />;
+export default function x103() {
+  return (
+    <>
+      <Layout>
+        <LabsLayout lab={"lab103"}>lab103</LabsLayout>
+      </Layout>
+    </>
+  );
 }

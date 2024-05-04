@@ -1,5 +1,5 @@
 // @/components/Layout/index.js
-import React, { useState } from "react";
+import React from "react";
 import { Sidebar } from "./sidebar";
 
 export default function Layout({ children }) {
@@ -7,11 +7,11 @@ export default function Layout({ children }) {
     <>
       <div className="min-h-screen">
         <div className="flex">
-          <div class="w-1/6 min-w-40">
+          <div className="w-1/6 min-w-64">
             <Sidebar />
           </div>
 
-          <div class="w-5/6 ">{children}</div>
+          <div className="w-5/6">{children}</div>
         </div>
       </div>
     </>

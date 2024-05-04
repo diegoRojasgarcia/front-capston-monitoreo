@@ -20,10 +20,6 @@ export function AuthLayout(props) {
         <Link href="/">
           <Image src="/images/logoUcn.png" alt="UCN" />
         </Link>
-
-        <Link href="/">
-          <Icon name="close" />
-        </Link>
       </div>
 
       <div className={styles.blockLeft}>{children}</div>
