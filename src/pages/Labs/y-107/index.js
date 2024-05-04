@@ -6,11 +6,7 @@ export default function y107() {
   return (
     <>
       <Layout>
-        <LabsLayout lab={"lab107"}>
-          <div>
-            <h3>lab107</h3>
-          </div>
-        </LabsLayout>
+        <LabsLayout lab={"lab107"}></LabsLayout>
       </Layout>
     </>
   );

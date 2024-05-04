@@ -6,11 +6,7 @@ export default function x206() {
   return (
     <>
       <Layout>
-        <LabsLayout lab={"lab206"}>
-          <div>
-            <h3>lab206</h3>
-          </div>
-        </LabsLayout>
+        <LabsLayout lab={"lab206"}></LabsLayout>
       </Layout>
     </>
   );

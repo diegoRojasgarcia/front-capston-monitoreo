@@ -28,7 +28,7 @@ export function LabsLayout({ lab }) {
           <Button>Computador</Button>
         </div>
 
-        <div className={styles.block}></div>
+        <div className={styles.block}>{lab}</div>
       </div>
     </>
   );

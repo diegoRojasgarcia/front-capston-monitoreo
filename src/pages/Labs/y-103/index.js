@@ -6,7 +6,7 @@ export default function x103() {
   return (
     <>
       <Layout>
-        <LabsLayout lab={"lab103"}>lab103</LabsLayout>
+        <LabsLayout lab={"lab103"}></LabsLayout>
       </Layout>
     </>
   );
