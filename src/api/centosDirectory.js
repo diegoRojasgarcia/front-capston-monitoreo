@@ -42,4 +42,26 @@ export class centosDirectory {
       throw error;
     }
   }
+
+  async deleteFile(lab) {
+    try {
+      console.log("eliminando archivo en el lab: ", lab);
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABS}`;
+      const params = {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(lab),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.folders;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

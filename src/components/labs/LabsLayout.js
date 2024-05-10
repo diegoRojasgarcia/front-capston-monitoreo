@@ -11,12 +11,16 @@ export function LabsLayout({ lab }) {
 
   const cDirectory = new centosDirectory();
 
-  console.log(lab);
-
   //open dialog
   const handleClickMonitor = () => {
     cDirectory.createFile({ lab: lab }).then((response) => {
       console.log("archivo enviado");
+    });
+  };
+
+  const handleClickSMonitor = () => {
+    cDirectory.deleteFile({ lab: lab }).then((response) => {
+      console.log("archivo eliminado");
     });
   };
 
@@ -31,6 +35,7 @@ export function LabsLayout({ lab }) {
           <Button>Fecha</Button>
           <Button>Computador</Button>
           <Button onClick={handleClickMonitor}>Monitorear</Button>
+          <Button onClick={handleClickSMonitor}>Stop Monitoreo</Button>
         </div>
 
         <div className={styles.block}>{lab}</div>
