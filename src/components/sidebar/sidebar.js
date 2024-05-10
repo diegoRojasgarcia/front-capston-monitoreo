@@ -1,12 +1,27 @@
 // @/components/Layout/Sidebar.js
 import { useRouter } from "next/router";
+import React, { useState } from "react";
 import logo from "@/img/logoUcn.png";
 import { Button } from "semantic-ui-react";
 import { useAuth } from "@/hooks";
 import Link from "next/link";
+import { centosDirectory } from "@/api";
+
+const cDirectory = new centosDirectory();
 
 export function Sidebar() {
   const { accessToken, user, logout } = useAuth();
+  const [stateLabs, setStateLabs] = useState([]);
+
+  React.useEffect(() => {
+    cDirectory.getLabs().then((response) => {
+      setStateLabs(response);
+    });
+  }, []);
+
+  const handleLabClick = async (lab) => {
+    localStorage.setItem("selectedLabs", lab);
+  };
 
   return (
     <>
@@ -23,86 +38,43 @@ export function Sidebar() {
         <div className="overflow-y-auto overflow-x-auto flex-grow">
           <ul className="flex flex-col items-center py-4 space-y-4 pt-6">
             <li className="h-6">MENU</li>
-            <li>
-              <Link
-                href="/Labs/y-103"
-                className="relative flex flex-row  items-center h-10  focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
-              >
-                <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    ></path>
-                  </svg>
-                </span>
-                <span className="ml-2 text-xl tracking-wide truncate ">
-                  Laboratorio y-103
-                </span>
-              </Link>
-            </li>
 
-            <li>
-              <Link
-                href="/Labs/y-107"
-                className="relative flex flex-row  items-center h-10  focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
-              >
-                <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+            {stateLabs.length > 0 ? (
+              <li>
+                {stateLabs.map((labs) => (
+                  <Link
+                    key={labs}
+                    href={`/home/${labs}`}
+                    onClick={() => handleLabClick(labs)}
+                    className="relative flex flex-row  items-center h-8 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    ></path>
-                  </svg>
-                </span>
-                <span className="ml-2 text-xl tracking-wide truncate ">
-                  Laboratorio y-107
-                </span>
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/Labs/x-206"
-                className="relative flex flex-row  items-center h-10 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
-              >
-                <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    ></path>
-                  </svg>
-                </span>
-                <span className="ml-2 text-xl tracking-wide truncate ">
-                  Laboratorio x-206
-                </span>
-              </Link>
-            </li>
+                    <span className="inline-flex justify-center items-center ml-4">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        ></path>
+                      </svg>
+                    </span>
+                    <span className="ml-2 text-xl tracking-wide truncate ">
+                      {labs}
+                    </span>
+                  </Link>
+                ))}
+              </li>
+            ) : (
+              <div className="flex justify-center text-cyan-100">
+                Cargando Laboratorios...
+              </div>
+            )}
           </ul>
         </div>
 
