@@ -1,16 +1,23 @@
 import { useState, useEffect, createContext } from "react";
-import { Token, User } from "@/api";
+import { Token, User, LabMonitoring } from "@/api";
 
 const tokenCtrl = new Token();
 const userCtrl = new User();
+const labCtrl = new LabMonitoring();
 
 export const AuthContext = createContext();
 
 export function AuthProvider(props) {
   const { children } = props;
+
+  // usuario
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  //laboratorio
+  const [isMonitoring, setIsMonitoring] = useState(false);
+  const [labmonitoring, setLabmonitoring] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -50,11 +57,34 @@ export function AuthProvider(props) {
     setUser(null);
   };
 
+  //laboratorio
+  const startMonitor = async (lab) => {
+    try {
+      labCtrl.setLabMonitoring(lab);
+      labCtrl.setIsMonitoring(true);
+      setLabmonitoring(labCtrl.getLabMonitoring());
+      setIsMonitoring(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const stopMonitor = () => {
+    labCtrl.removeLabMonitoring();
+    labCtrl.setIsMonitoring(false);
+    setLabmonitoring(null);
+    setIsMonitoring(false);
+  };
+
   const data = {
     accessToken: token,
     user,
     login,
     logout,
+    startMonitor,
+    stopMonitor,
+    isMonitoring,
+    labmonitoring,
   };
 
   if (loading) return null;

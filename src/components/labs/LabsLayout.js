@@ -11,7 +11,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 
 // Top films as rated by IMDb users. http://www.imdb.com/chart/top
@@ -35,7 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export function LabsLayout({ lab }) {
-  const { accessToken } = useAuth();
+  const { accessToken, startMonitor, stopMonitor, isMonitoring } = useAuth();
   const router = useRouter();
   const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
@@ -46,6 +45,15 @@ export function LabsLayout({ lab }) {
   const loading = open && options.length === 0;
   const [value, setValue] = React.useState(options[0]);
   const [inputValue, setInputValue] = React.useState("");
+
+  var ismonitoring = localStorage.getItem("Ismonitoring");
+  var labmonitoring = localStorage.getItem("Labmonitoring");
+  var selectedLab = localStorage.getItem("selectedLabs");
+
+  React.useEffect(() => {
+    const showButtomStop = ismonitoring && labmonitoring === selectedLab;
+    setShowButtonStopMntor(showButtomStop);
+  }, [selectedLab]);
 
   React.useEffect(() => {
     let active = true;
@@ -81,17 +89,19 @@ export function LabsLayout({ lab }) {
 
   //open dialog
   const handleClickMonitor = () => {
-    cDirectory.createFile({ lab: lab }).then((response) => {
-      console.log("archivo enviado");
-    });
+    // cDirectory.createFile({ lab: lab }).then((response) => {
+    //   console.log("archivo enviado");
+    // });
+    startMonitor(lab);
     setShowButtonStopMntor(true);
     setOpenDialogMntor(false);
   };
 
   const handleClickSMonitor = () => {
-    cDirectory.deleteFile({ lab: lab }).then((response) => {
-      console.log("archivo eliminado");
-    });
+    // cDirectory.deleteFile({ lab: lab }).then((response) => {
+    //   console.log("archivo eliminado");
+    // });
+    stopMonitor();
     setShowButtonStopMntor(false);
   };
 

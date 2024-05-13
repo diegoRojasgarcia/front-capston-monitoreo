@@ -2,6 +2,7 @@ import Layout from "@/components/sidebar";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 import { LabsLayout } from "@/components/labs";
+import { LabProvider } from "@/contexts";
 
 export default function HomePage({ title }) {
   const { accessToken, logout, user } = useAuth();
