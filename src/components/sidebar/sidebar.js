@@ -31,13 +31,13 @@ export function Sidebar() {
             <img src={logo.src} alt="Company Logo" width={100} height={200} />
           </Link>
         </div>
-        <div className="relative flex flex-row text-xl items-center justify-center h-1/6 border-b-2 text-gray-500">
-          <div>Sistema De Monitoreo EIC</div>
+        <div className="relative flex flex-row text-xl text-white items-center justify-center h-1/6 border-b-2 ">
+          <div className="text-white">Sistema De Monitoreo EIC</div>
         </div>
 
         <div className="overflow-y-auto overflow-x-auto flex-grow">
           <ul className="flex flex-col items-center py-4 space-y-4 pt-6">
-            <li className="h-6">MENU</li>
+            <li className="h-6 text-white">MENU</li>
 
             {stateLabs.length > 0 ? (
               <li>
@@ -46,13 +46,13 @@ export function Sidebar() {
                     key={labs}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
-                    className="relative flex flex-row  items-center h-8 focus:outline-none hover:bg-gray-600 text-gray-600 hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
+                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
                   >
-                    <span className="inline-flex justify-center items-center ml-4">
+                    <span className="inline-flex justify-center items-center ml-4 ">
                       <svg
                         className="w-5 h-5"
                         fill="none"
-                        stroke="currentColor"
+                        stroke="white"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
@@ -64,7 +64,7 @@ export function Sidebar() {
                         ></path>
                       </svg>
                     </span>
-                    <span className="ml-2 text-xl tracking-wide truncate ">
+                    <span className="ml-2 text-2xl text-white tracking-wide truncate ">
                       {labs}
                     </span>
                   </Link>
