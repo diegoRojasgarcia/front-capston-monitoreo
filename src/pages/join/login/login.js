@@ -8,7 +8,7 @@ export default function LoginPage() {
     <>
       <AuthLayout>
         <div className={styles.signIn}>
-          <h3 className="text-white text-3xl">Sistema de monitoreo EIC</h3>
+          <h3 className="text-white text-4xl">Sistema de monitoreo EIC</h3>
           <LoginForm />
           <div className={styles.actions}>
             <Link href="/join/register">Atras</Link>
