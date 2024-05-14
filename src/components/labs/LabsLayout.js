@@ -14,12 +14,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 
 // Top films as rated by IMDb users. http://www.imdb.com/chart/top
-const Fechas = [
-  { title: "2024-05-12" },
-  { title: "2024-05-15" },
-  { title: "2024-05-07" },
-  { title: "2024-04-12" },
-];
+const Fechas = [];
 
 function sleep(duration) {
   return new Promise((resolve) => {
@@ -55,6 +50,8 @@ export function LabsLayout({ lab }) {
     setShowButtonStopMntor(showButtomStop);
   }, [selectedLab]);
 
+  const cDirectory = new centosDirectory();
+
   React.useEffect(() => {
     let active = true;
 
@@ -64,9 +61,9 @@ export function LabsLayout({ lab }) {
 
     (async () => {
       await sleep(1e3); // For demo purposes.
-
+      const dates = await cDirectory.getDates(selectedLab);
       if (active) {
-        setOptions([...Fechas]);
+        setOptions([...dates]);
       }
     })();
 
@@ -81,10 +78,12 @@ export function LabsLayout({ lab }) {
     }
   }, [open]);
 
-  const cDirectory = new centosDirectory();
-
   const handleOpenDialogMntor = () => {
     setOpenDialogMntor(true);
+  };
+
+  const handleCloseDialogMntor = () => {
+    setOpenDialogMntor(false);
   };
 
   //open dialog
@@ -103,10 +102,6 @@ export function LabsLayout({ lab }) {
     // });
     stopMonitor();
     setShowButtonStopMntor(false);
-  };
-
-  const handleCloseDialogMntor = () => {
-    setOpenDialogMntor(false);
   };
 
   if (!accessToken) {
@@ -143,7 +138,7 @@ export function LabsLayout({ lab }) {
               isOptionEqualToValue={(option, value) =>
                 option.title === value.title
               }
-              getOptionLabel={(option) => option.title}
+              getOptionLabel={(option) => option.nombre}
               options={options}
               loading={loading}
               renderInput={(params) => (

@@ -29,7 +29,7 @@ export class centosDirectory {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(lab),
+        body: JSON.stringify({ lab: lab }),
       };
       const response = await fetch(url, params);
       const result = await response.json();

@@ -11,7 +11,7 @@ export const ENV = {
     },
     LABS: {
       LABS: "labs/",
-      DATES: "labs/date",
+      DATES: "labs/dates/",
     },
   },
   TOKEN: "token",
