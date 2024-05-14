@@ -60,7 +60,7 @@ export function LabsLayout({ lab }) {
     }
 
     (async () => {
-      await sleep(1e3); // For demo purposes.
+      await sleep(500); // For demo purposes.
       const dates = await cDirectory.getDates(selectedLab);
       if (active) {
         setOptions([...dates]);
@@ -88,18 +88,18 @@ export function LabsLayout({ lab }) {
 
   //open dialog
   const handleClickMonitor = () => {
-    // cDirectory.createFile({ lab: lab }).then((response) => {
-    //   console.log("archivo enviado");
-    // });
+    cDirectory.createFile({ lab: lab }).then((response) => {
+      console.log("archivo enviado");
+    });
     startMonitor(lab);
     setShowButtonStopMntor(true);
     setOpenDialogMntor(false);
   };
 
   const handleClickSMonitor = () => {
-    // cDirectory.deleteFile({ lab: lab }).then((response) => {
-    //   console.log("archivo eliminado");
-    // });
+    cDirectory.deleteFile({ lab: lab }).then((response) => {
+      console.log("archivo eliminado");
+    });
     stopMonitor();
     setShowButtonStopMntor(false);
   };
