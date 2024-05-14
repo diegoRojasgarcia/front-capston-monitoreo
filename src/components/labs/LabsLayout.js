@@ -13,7 +13,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 
-// Top films as rated by IMDb users. http://www.imdb.com/chart/top
 const Fechas = [];
 
 function sleep(duration) {
@@ -135,9 +134,6 @@ export function LabsLayout({ lab }) {
               onClose={() => {
                 setOpen(false);
               }}
-              isOptionEqualToValue={(option, value) =>
-                option.title === value.title
-              }
               getOptionLabel={(option) => option.nombre}
               options={options}
               loading={loading}
