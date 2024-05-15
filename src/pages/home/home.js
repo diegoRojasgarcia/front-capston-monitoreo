@@ -1,7 +1,7 @@
 import Layout from "@/components/sidebar";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
-import { LabsLayout } from "@/components/labs";
+import { LabsLayout } from "@/layouts/LabsLayout";
 import { LabProvider } from "@/contexts";
 
 export default function HomePage({ title }) {

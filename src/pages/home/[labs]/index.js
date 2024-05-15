@@ -1,4 +1,4 @@
-import { LabsLayout } from "@/components/labs";
+import { LabsLayout } from "@/layouts/LabsLayout";
 import Layout from "@/components/sidebar";
 import React, { useEffect } from "react";
 

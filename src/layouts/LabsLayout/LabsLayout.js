@@ -4,41 +4,33 @@ import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { centosDirectory } from "@/api";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
-
-const Fechas = [];
-
-function sleep(duration) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, duration);
-  });
-}
+import { AutocompleteFecha } from "@/components/Buttons/autocomplete/fechas";
+import { AutocompletePcs } from "@/components/Buttons";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export function LabsLayout({ lab }) {
-  const { accessToken, startMonitor, stopMonitor, isMonitoring } = useAuth();
+  const { accessToken, startMonitor, stopMonitor } = useAuth();
   const router = useRouter();
   const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
 
   //para las fechas
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
-  const loading = open && options.length === 0;
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState("");
+  const [openFechas, setOpenFechas] = React.useState(false);
+  const [valueFecha, setValueFecha] = React.useState(null);
+  const [inputValueFecha, setInputValueFecha] = React.useState("");
+
+  //para los computadores
+  const [openPcs, setOpenPcs] = React.useState(false);
+  const [valuePcs, setValuePcs] = React.useState(null);
+  const [inputValuePcs, setInputValuePcs] = React.useState("");
 
   var ismonitoring = localStorage.getItem("Ismonitoring");
   var labmonitoring = localStorage.getItem("Labmonitoring");
@@ -50,32 +42,6 @@ export function LabsLayout({ lab }) {
   }, [selectedLab]);
 
   const cDirectory = new centosDirectory();
-
-  React.useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
-
-    (async () => {
-      await sleep(500); // For demo purposes.
-      const dates = await cDirectory.getDates(selectedLab);
-      if (active) {
-        setOptions([...dates]);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);
-
-  React.useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    }
-  }, [open]);
 
   const handleOpenDialogMntor = () => {
     setOpenDialogMntor(true);
@@ -113,13 +79,31 @@ export function LabsLayout({ lab }) {
       <div className="min-h-screen flex flex-col">
         <div className={styles.topBar}>
           <div className="flex inline-flexbox">
-            <Autocomplete
+            <AutocompleteFecha
+              openFechas={openFechas}
+              setOpenFechas={setOpenFechas}
+              valueFecha={valueFecha}
+              inputValue={inputValueFecha}
+              setValueFecha={setValueFecha}
+              setInputValueFecha={setInputValueFecha}
+            />
+
+            <AutocompletePcs
+              openPcs={openPcs}
+              setOpenPcs={setOpenPcs}
+              valuePcs={valuePcs}
+              inputValue={inputValuePcs}
+              setValuePcs={setValuePcs}
+              setInputValuePcs={setInputValuePcs}
+              valueFecha={valueFecha}
+            />
+            {/* <Autocomplete
               id="asynchronous-demo"
-              value={value || null}
+              value={valueFecha || null}
               onChange={(event, newValue) => {
-                setValue(newValue);
+                setValueFecha(newValue);
               }}
-              inputValue={inputValue}
+              inputValue={inputValueFecha}
               onInputChange={(event, newInputValue) => {
                 setInputValue(newInputValue);
               }}
@@ -127,32 +111,32 @@ export function LabsLayout({ lab }) {
                 width: 200,
                 marginRight: 2,
               }}
-              open={open}
+              open={openFechas}
               onOpen={() => {
-                setOpen(true);
+                setOpenFechas(true);
               }}
               onClose={() => {
-                setOpen(false);
+                setOpenFechas(false);
               }}
               getOptionLabel={(option) => option.nombre}
-              options={options}
-              loading={loading}
+              options={fechas}
+              loading={loadingFechas}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Fecha"
+                  label="Fechas"
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
                       <React.Fragment>
-                        {loading ? <CircularProgress size={20} /> : null}
+                        {loadingFechas ? <CircularProgress size={20} /> : null}
                         {params.InputProps.endAdornment}
                       </React.Fragment>
                     ),
                   }}
                 />
               )}
-            />
+            /> */}
 
             <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
             <Dialog

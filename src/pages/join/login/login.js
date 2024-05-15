@@ -11,7 +11,7 @@ export default function LoginPage() {
           <h3 className="text-white text-4xl">Sistema de monitoreo EIC</h3>
           <LoginForm />
           <div className={styles.actions}>
-            <Link href="/join/register">Atras</Link>
+            <Link href="/join/register">Atrás</Link>
           </div>
         </div>
       </AuthLayout>
