@@ -37,7 +37,7 @@ export function Sidebar() {
 
         <div className="overflow-y-auto overflow-x-auto flex-grow">
           <ul className="flex flex-col items-center py-4 space-y-4 pt-6">
-            <li className="h-6 text-white">MENU</li>
+            <li className="h-6 text-white">Laboratorios</li>
 
             {stateLabs.length > 0 ? (
               <li>
@@ -46,7 +46,7 @@ export function Sidebar() {
                     key={labs}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
-                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-200 border-l-4 border-transparent hover:border-indigo-300 pr-6"
+                    className="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-indigo-300 pr-6 mt-2"
                   >
                     <span className="inline-flex justify-center items-center ml-4 ">
                       <svg

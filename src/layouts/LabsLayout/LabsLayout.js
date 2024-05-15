@@ -16,9 +16,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const cDirectory = new centosDirectory();
+
 export function LabsLayout({ lab }) {
   const { accessToken, startMonitor, stopMonitor } = useAuth();
   const router = useRouter();
+
+  var ismonitoring = localStorage.getItem("Ismonitoring");
+  var labmonitoring = localStorage.getItem("Labmonitoring");
+  var selectedLab = localStorage.getItem("selectedLabs");
+
   const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
 
@@ -32,16 +39,10 @@ export function LabsLayout({ lab }) {
   const [valuePcs, setValuePcs] = React.useState(null);
   const [inputValuePcs, setInputValuePcs] = React.useState("");
 
-  var ismonitoring = localStorage.getItem("Ismonitoring");
-  var labmonitoring = localStorage.getItem("Labmonitoring");
-  var selectedLab = localStorage.getItem("selectedLabs");
-
   React.useEffect(() => {
     const showButtomStop = ismonitoring && labmonitoring === selectedLab;
     setShowButtonStopMntor(showButtomStop);
   }, [selectedLab]);
-
-  const cDirectory = new centosDirectory();
 
   const handleOpenDialogMntor = () => {
     setOpenDialogMntor(true);
@@ -97,46 +98,6 @@ export function LabsLayout({ lab }) {
               setInputValuePcs={setInputValuePcs}
               valueFecha={valueFecha}
             />
-            {/* <Autocomplete
-              id="asynchronous-demo"
-              value={valueFecha || null}
-              onChange={(event, newValue) => {
-                setValueFecha(newValue);
-              }}
-              inputValue={inputValueFecha}
-              onInputChange={(event, newInputValue) => {
-                setInputValue(newInputValue);
-              }}
-              sx={{
-                width: 200,
-                marginRight: 2,
-              }}
-              open={openFechas}
-              onOpen={() => {
-                setOpenFechas(true);
-              }}
-              onClose={() => {
-                setOpenFechas(false);
-              }}
-              getOptionLabel={(option) => option.nombre}
-              options={fechas}
-              loading={loadingFechas}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Fechas"
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: (
-                      <React.Fragment>
-                        {loadingFechas ? <CircularProgress size={20} /> : null}
-                        {params.InputProps.endAdornment}
-                      </React.Fragment>
-                    ),
-                  }}
-                />
-              )}
-            /> */}
 
             <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
             <Dialog
@@ -158,7 +119,9 @@ export function LabsLayout({ lab }) {
               </DialogActions>
             </Dialog>
             {showButtonStopMntor ? (
-              <Button onClick={handleClickSMonitor}>Detener Monitoreo</Button>
+              <div className={styles.Button} onClick={handleClickSMonitor}>
+                Detener Monitoreo
+              </div>
             ) : null}
           </div>
         </div>
