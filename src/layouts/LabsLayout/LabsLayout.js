@@ -112,30 +112,29 @@ export function LabsLayout({ lab }) {
                 <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
               )}
             </div>
+            <Dialog
+              open={openDialogMntor}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleCloseDialogMntor}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  Comenzará la monitorización en el laboratorio <b>{lab}</b>,
+                  estás seguro?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialogMntor}>Salir</Button>
+                <Button onClick={handleClickMonitor}>Monitorear</Button>
+              </DialogActions>
+            </Dialog>
           </div>
-
-          <Dialog
-            open={openDialogMntor}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleCloseDialogMntor}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                Comenzará la monitorización en el laboratorio <b>{lab}</b>,
-                estás seguro?
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialogMntor}>Salir</Button>
-              <Button onClick={handleClickMonitor}>Monitorear</Button>
-            </DialogActions>
-          </Dialog>
         </div>
-      </div>
 
-      <div className={styles.block}>{lab}</div>
+        <div className={styles.block}>{lab}</div>
+      </div>
     </>
   );
 }
