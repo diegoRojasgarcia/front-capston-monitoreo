@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const cDirectory = new centosDirectory();
 
 export function LabsLayout({ lab }) {
-  const { accessToken, startMonitor, stopMonitor } = useAuth();
+  const { accessToken, user, startMonitor, stopMonitor } = useAuth();
   const router = useRouter();
 
   var ismonitoring = localStorage.getItem("Ismonitoring");
@@ -40,7 +40,7 @@ export function LabsLayout({ lab }) {
   const [inputValuePcs, setInputValuePcs] = React.useState("");
 
   React.useEffect(() => {
-    const showButtomStop = ismonitoring && labmonitoring === selectedLab;
+    let showButtomStop = ismonitoring && labmonitoring === selectedLab;
     setShowButtonStopMntor(showButtomStop);
   }, [selectedLab]);
 
@@ -70,7 +70,7 @@ export function LabsLayout({ lab }) {
     setShowButtonStopMntor(false);
   };
 
-  if (!accessToken) {
+  if (!user) {
     router.push("/");
     return null;
   }
@@ -79,55 +79,63 @@ export function LabsLayout({ lab }) {
     <>
       <div className="min-h-screen flex flex-col">
         <div className={styles.topBar}>
-          <div className="flex inline-flexbox">
-            <AutocompleteFecha
-              openFechas={openFechas}
-              setOpenFechas={setOpenFechas}
-              valueFecha={valueFecha}
-              inputValue={inputValueFecha}
-              setValueFecha={setValueFecha}
-              setInputValueFecha={setInputValueFecha}
-            />
+          <div className={styles.blockleft}>
+            <div className="flex inline-flexbox">
+              <AutocompleteFecha
+                openFechas={openFechas}
+                setOpenFechas={setOpenFechas}
+                valueFecha={valueFecha}
+                inputValue={inputValueFecha}
+                setValueFecha={setValueFecha}
+                setInputValueFecha={setInputValueFecha}
+              />
 
-            <AutocompletePcs
-              openPcs={openPcs}
-              setOpenPcs={setOpenPcs}
-              valuePcs={valuePcs}
-              inputValue={inputValuePcs}
-              setValuePcs={setValuePcs}
-              setInputValuePcs={setInputValuePcs}
-              valueFecha={valueFecha}
-            />
-
-            <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
-            <Dialog
-              open={openDialogMntor}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleCloseDialogMntor}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  Comenzará la monitorización en el laboratorio {lab}, estás
-                  seguro?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseDialogMntor}>Salir</Button>
-                <Button onClick={handleClickMonitor}>Monitorear</Button>
-              </DialogActions>
-            </Dialog>
-            {showButtonStopMntor ? (
-              <div className={styles.Button} onClick={handleClickSMonitor}>
-                Detener Monitoreo
-              </div>
-            ) : null}
+              <AutocompletePcs
+                openPcs={openPcs}
+                setOpenPcs={setOpenPcs}
+                valuePcs={valuePcs}
+                inputValue={inputValuePcs}
+                setValuePcs={setValuePcs}
+                setInputValuePcs={setInputValuePcs}
+                valueFecha={valueFecha}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.block}>{lab}</div>
+          <div className={styles.blockRight}>
+            <div className="flex inline-flexbox">
+              {showButtonStopMntor ? (
+                <div className={styles.Button} onClick={handleClickSMonitor}>
+                  Detener Monitoreo
+                </div>
+              ) : (
+                <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
+              )}
+            </div>
+          </div>
+
+          <Dialog
+            open={openDialogMntor}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleCloseDialogMntor}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Comenzará la monitorización en el laboratorio <b>{lab}</b>,
+                estás seguro?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialogMntor}>Salir</Button>
+              <Button onClick={handleClickMonitor}>Monitorear</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
+
+      <div className={styles.block}>{lab}</div>
     </>
   );
 }

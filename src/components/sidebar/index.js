@@ -18,11 +18,11 @@ export default function Layout({ children }) {
     <>
       <div className="min-h-screen">
         <div className="flex">
-          <div className="w-1/6 min-w-64 ">
+          <div className="min-w-64">
             <Sidebar />
           </div>
 
-          <div className="w-5/6">{children}</div>
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </>

@@ -25,7 +25,7 @@ export function Sidebar() {
 
   return (
     <>
-      <div className="fixed flex flex-col top-0 left-0 w-1/6 bg-black h-full min-w-64">
+      <div className="fixed flex flex-col top-0 left-0 bg-gray-700 h-full min-w-64">
         <div className="flex items-center justify-center pt-24">
           <Link href="/home">
             <img src={logo.src} alt="Company Logo" width={100} height={200} />
@@ -37,7 +37,9 @@ export function Sidebar() {
 
         <div className="overflow-y-auto overflow-x-auto flex-grow">
           <ul className="flex flex-col items-center py-4 space-y-4 pt-6">
-            <li className="h-6 text-white">Laboratorios</li>
+            <li className="h-12 text-xl p-3 text-white border-b-2">
+              Laboratorios
+            </li>
 
             {stateLabs.length > 0 ? (
               <li>
