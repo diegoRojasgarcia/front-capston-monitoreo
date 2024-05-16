@@ -2,7 +2,7 @@ import { Button } from "semantic-ui-react";
 import styles from "./LabsLayout.module.scss";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { centosDirectory } from "@/api";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,6 +11,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 import { AutocompleteFecha } from "@/components/Buttons/autocomplete/fechas";
 import { AutocompletePcs } from "@/components/Buttons";
+import ReactPlayer from "react-player/lazy";
+import video from ".";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -109,8 +111,11 @@ export function LabsLayout({ lab }) {
                   Detener Monitoreo
                 </div>
               ) : (
-                <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
+                <>
+                  <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
+                </>
               )}
+              <Button>Programar Monitoreo</Button>
             </div>
             <Dialog
               open={openDialogMntor}
@@ -133,7 +138,22 @@ export function LabsLayout({ lab }) {
           </div>
         </div>
 
-        <div className={styles.block}>{lab}</div>
+        <div className={styles.block}>
+          {/* <ReactPlayer
+            url="https://www.youtube.com/watch?v=WmV5QKhmd0g&list=RDWmV5QKhmd0g&start_radio=1"
+            controls
+          /> */}
+          {/* <video
+            className="fm-video video-js vjs-16-9 vjs-big-play-centered"
+            data-setup="{}"
+            controls
+          >
+            <source
+              src="../../../videos/testVideo.mp4"
+              type="video/mp4"
+            ></source>
+          </video> */}
+        </div>
       </div>
     </>
   );

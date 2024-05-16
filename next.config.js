@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const { withNextVideo } = require("next-video/process");
+
 const nextConfig = {
   reactStrictMode: false,
   async headers() {
@@ -25,4 +27,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withNextVideo(nextConfig);
