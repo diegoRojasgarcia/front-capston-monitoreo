@@ -107,9 +107,9 @@ export function LabsLayout({ lab }) {
           <div className={styles.blockRight}>
             <div className="flex inline-flexbox">
               {showButtonStopMntor ? (
-                <div className={styles.Button} onClick={handleClickSMonitor}>
+                <Button basic color="orange" onClick={handleClickSMonitor}>
                   Detener Monitoreo
-                </div>
+                </Button>
               ) : (
                 <>
                   <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
