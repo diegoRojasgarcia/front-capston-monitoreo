@@ -242,6 +242,13 @@ export function LabsLayout({ lab }) {
               type="video/mp4"
             ></source>
           </video> */}
+          {/* <div class="grid h-auto place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible ">
+            <img
+              class="object-cover object-center w-full "
+              src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2832&amp;q=80"
+              alt="nature image"
+            />
+          </div> */}
         </div>
       </div>
     </>
