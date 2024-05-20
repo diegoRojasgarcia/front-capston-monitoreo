@@ -2,7 +2,7 @@ import { Button } from "semantic-ui-react";
 import styles from "./LabsLayout.module.scss";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { centosDirectory } from "@/api";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,6 +13,7 @@ import { AutocompleteFecha } from "@/components/Buttons/autocomplete/fechas";
 import { AutocompletePcs } from "@/components/Buttons";
 import ReactPlayer from "react-player/lazy";
 import video from ".";
+import Datepicker from "react-tailwindcss-datepicker";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +24,15 @@ const cDirectory = new centosDirectory();
 export function LabsLayout({ lab }) {
   const { accessToken, user, startMonitor, stopMonitor } = useAuth();
   const router = useRouter();
+
+  //datepicker
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
+  });
+
+  const [dates, setDates] = useState(["2024-05-17", "17-05-2024"]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   var ismonitoring = localStorage.getItem("Ismonitoring");
   var labmonitoring = localStorage.getItem("Labmonitoring");
@@ -91,7 +101,6 @@ export function LabsLayout({ lab }) {
                 setValueFecha={setValueFecha}
                 setInputValueFecha={setInputValueFecha}
               />
-
               <AutocompletePcs
                 openPcs={openPcs}
                 setOpenPcs={setOpenPcs}
@@ -101,6 +110,15 @@ export function LabsLayout({ lab }) {
                 setInputValuePcs={setInputValuePcs}
                 valueFecha={valueFecha}
               />
+              {/* <Datepicker
+                primaryColor={"orange"}
+                value={value}
+                asSingle={true}
+                useRange={false}
+                displayFormat={"DD/MM/YYYY"}
+                onChange={(date) => setSelectedDate(date)}
+                includeDates={"2024-05-17"}
+              />{" "} */}
             </div>
           </div>
 
