@@ -35,9 +35,9 @@ export function Sidebar() {
           <div className="text-white">Sistema De Monitoreo EIC</div>
         </div>
 
-        <div className="relative flex flex-row text-sm text-white items-center justify-center h-10 pb-2  border-b-2">
+        {/* <div className="relative flex flex-row text-sm text-white items-center justify-center h-10 pb-2  border-b-2">
           <div className="text-white ">{user.email}</div>
-        </div>
+        </div> */}
 
         <div className="overflow-y-auto overflow-x-auto flex-grow">
           <ul className="flex flex-col items-center py-4 space-y-4 pt-6">

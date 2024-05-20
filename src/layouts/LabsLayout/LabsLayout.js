@@ -220,8 +220,8 @@ export function LabsLayout({ lab }) {
                 </div>
               </DialogContent>
               <DialogActions className="mb-4 mr-3">
-                <Button onClick={handleCloseDialogStopMntor}>Salir</Button>
-                <Button onClick={handleClickSMonitor}>Stop</Button>
+                <Button onClick={handleCloseDialogStopMntor}>No</Button>
+                <Button onClick={handleClickSMonitor}>Si</Button>
               </DialogActions>
             </Dialog>
           </div>
