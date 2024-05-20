@@ -31,11 +31,11 @@ export function Sidebar() {
             <img src={logo.src} alt="Company Logo" width={100} height={200} />
           </Link>
         </div>
-        <div className="relative flex flex-row text-xl text-white items-center justify-center mt-20">
+        <div className="relative flex flex-row text-xl text-white items-center justify-center mt-20 mb-4">
           <div className="text-white">Sistema De Monitoreo EIC</div>
         </div>
 
-        <div className="relative flex flex-row text-sm text-white items-center justify-center h-20 border-b-2">
+        <div className="relative flex flex-row text-sm text-white items-center justify-center h-10 pb-2  border-b-2">
           <div className="text-white ">{user.email}</div>
         </div>
 

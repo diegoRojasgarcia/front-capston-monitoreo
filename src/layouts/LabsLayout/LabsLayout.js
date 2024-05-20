@@ -41,6 +41,8 @@ export function LabsLayout({ lab }) {
   const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
 
+  const [openDialogStopMntor, setOpenDialogStopMntor] = React.useState(false);
+
   //para las fechas
   const [openFechas, setOpenFechas] = React.useState(false);
   const [valueFecha, setValueFecha] = React.useState(null);
@@ -64,6 +66,14 @@ export function LabsLayout({ lab }) {
     setOpenDialogMntor(false);
   };
 
+  const handleOpenDialogStopMntor = () => {
+    setOpenDialogStopMntor(true);
+  };
+
+  const handleCloseDialogStopMntor = () => {
+    setOpenDialogStopMntor(false);
+  };
+
   //open dialog
   const handleClickMonitor = () => {
     cDirectory.createFile({ lab: lab }).then((response) => {
@@ -79,6 +89,7 @@ export function LabsLayout({ lab }) {
       console.log("archivo eliminado");
     });
     stopMonitor();
+    setOpenDialogStopMntor(false);
     setShowButtonStopMntor(false);
   };
 
@@ -125,7 +136,11 @@ export function LabsLayout({ lab }) {
           <div className={styles.blockRight}>
             <div className="flex inline-flexbox">
               {showButtonStopMntor ? (
-                <Button basic color="orange" onClick={handleClickSMonitor}>
+                <Button
+                  basic
+                  color="orange"
+                  onClick={handleOpenDialogStopMntor}
+                >
                   Detener Monitoreo
                 </Button>
               ) : (
@@ -175,6 +190,38 @@ export function LabsLayout({ lab }) {
               <DialogActions className="mb-4 mr-3">
                 <Button onClick={handleCloseDialogMntor}>Salir</Button>
                 <Button onClick={handleClickMonitor}>Monitorear</Button>
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              open={openDialogStopMntor}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleCloseDialogStopMntor}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogContent>
+                <div className="w-[38rem] pt-2">
+                  <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-4 h-4 -mt-px"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    Se detendrá la monitorización en el laboratorio{" "}
+                    <b>{selectedLab}</b>, estás seguro?
+                  </p>
+                </div>
+              </DialogContent>
+              <DialogActions className="mb-4 mr-3">
+                <Button onClick={handleCloseDialogStopMntor}>Salir</Button>
+                <Button onClick={handleClickSMonitor}>Stop</Button>
               </DialogActions>
             </Dialog>
           </div>
