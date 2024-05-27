@@ -63,16 +63,16 @@ export class centosDirectory {
     }
   }
 
-  async createFile(lab) {
+  async createFile(payload) {
     try {
-      console.log("creando archivo en el lab: ", lab);
+      console.log("creando archivo en el lab: ", payload);
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABS}`;
       const params = {
         method: "Post",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(lab),
+        body: JSON.stringify(payload),
       };
       const response = await fetch(url, params);
       const result = await response.json();
@@ -102,6 +102,27 @@ export class centosDirectory {
       if (response.status !== 200) throw result;
 
       return result.folders;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async existFile(lab) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.VALIDATE}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(lab),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
     } catch (error) {
       throw error;
     }

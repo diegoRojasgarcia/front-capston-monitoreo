@@ -5,11 +5,11 @@ import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
-  const { accessToken, logout, user } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   //si no es un usuario logeado, redireccionamos al login
-  if (!accessToken) {
+  if (!user) {
     router.push("/");
     return null;
   }

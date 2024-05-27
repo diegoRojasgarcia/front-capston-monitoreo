@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { LabsLayout } from "@/layouts/LabsLayout";
 
 export default function HomePage({ title }) {
-  const { accessToken, logout, user } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   //si no es un usuario logeado, redireccionamos al login

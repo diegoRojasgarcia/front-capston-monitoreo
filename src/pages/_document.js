@@ -9,8 +9,6 @@ export default function Document() {
           href="//vjs.zencdn.net/8.3.0/video-js.min.css"
           rel="stylesheet"
         ></Link>
-        <script src="js/video.js"></script>
-        <script src="//vjs.zencdn.net/8.3.0/video.min.js"></script>
       </Head>
       <body>
         <Main />
