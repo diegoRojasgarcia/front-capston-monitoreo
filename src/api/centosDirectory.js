@@ -65,7 +65,6 @@ export class centosDirectory {
 
   async createFile(payload) {
     try {
-      console.log("creando archivo en el lab: ", payload);
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABS}`;
       const params = {
         method: "Post",
@@ -79,7 +78,7 @@ export class centosDirectory {
 
       if (response.status !== 201) throw result;
 
-      return result.folders;
+      return result;
     } catch (error) {
       throw error;
     }

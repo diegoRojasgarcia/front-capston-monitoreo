@@ -4,21 +4,10 @@ import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { centosDirectory } from "@/api";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import { Form } from "semantic-ui-react";
-import { useFormik } from "formik";
-import Slide from "@mui/material/Slide";
 import { AutocompleteFecha, AutocompletePcs } from "@/components/Buttons";
-import {
-  initialValues,
-  validationSchema,
-} from "./formsActivity/activityForm.form";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import { Dialogmonitor } from "@/components/Dialog/Dialogmonitor";
+import { Dialogstopmonitor } from "@/components/Dialog";
+import { Dialogprogramacion } from "@/components/Dialog/Dialogprogramacion";
 
 const cDirectory = new centosDirectory();
 
@@ -26,37 +15,29 @@ export function LabsLayout({ lab }) {
   const { user, startMonitor, stopMonitor } = useAuth();
   const router = useRouter();
 
-  const formik = useFormik({
-    initialValues: initialValues(),
-    validationSchema: validationSchema(),
-    validateOnChange: false,
-    onSubmit: async (formValue) => {
-      cDirectory
-        .createFile({ lab: lab, actividad: formValue.actividad })
-        .then((response) => {
-          startMonitor(lab);
-          setShowButtonStopMntor(true);
-          setOpenDialogMntor(false);
-          console.log("archivo enviado");
-        });
-    },
-  });
+  if (!user) {
+    router.push("/");
+    return null;
+  }
 
   //datepicker
-  const [value, setValue] = useState({
+  const [valueDateP, setValueDateP] = useState({
     startDate: new Date(),
     endDate: new Date().setMonth(11),
   });
 
-  const [selectedDate, setSelectedDate] = useState(null);
-
   var selectedLab = localStorage.getItem("selectedLabs");
 
+  //open dialog de monitoreo
   const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
-  const [existFile, setExistFile] = React.useState(false);
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
-
   const [openDialogStopMntor, setOpenDialogStopMntor] = React.useState(false);
+
+  //open dialog de programacion del monitoreo
+  const [openDialogProg, setOpenDialogProg] = React.useState(false);
+
+  //boton monitoreo - stop monitoreo
+  const [existFile, setExistFile] = React.useState(false);
 
   //para las fechas
   const [openFechas, setOpenFechas] = React.useState(false);
@@ -81,45 +62,27 @@ export function LabsLayout({ lab }) {
     setShowButtonStopMntor(showButtomStop);
   }, [lab]);
 
+  //dialog monitoreo
   const handleOpenDialogMntor = () => {
     setOpenDialogMntor(true);
   };
-
   const handleCloseDialogMntor = () => {
     setOpenDialogMntor(false);
   };
-
   const handleOpenDialogStopMntor = () => {
     setOpenDialogStopMntor(true);
   };
-
   const handleCloseDialogStopMntor = () => {
     setOpenDialogStopMntor(false);
   };
 
-  //open dialog
-  const handleClickMonitor = () => {
-    cDirectory.createFile({ lab: lab }).then((response) => {
-      console.log("archivo enviado");
-    });
-    startMonitor(lab);
-    setShowButtonStopMntor(true);
-    setOpenDialogMntor(false);
+  //digalog programacion del monitoreo
+  const handleOpenDialogProg = () => {
+    setOpenDialogProg(true);
   };
-
-  const handleClickSMonitor = () => {
-    cDirectory.deleteFile({ lab: lab }).then((response) => {
-      console.log("archivo eliminado");
-    });
-    stopMonitor();
-    setOpenDialogStopMntor(false);
-    setShowButtonStopMntor(false);
+  const handleCloseDialogProg = () => {
+    setOpenDialogProg(false);
   };
-
-  if (!user) {
-    router.push("/");
-    return null;
-  }
 
   return (
     <>
@@ -144,15 +107,6 @@ export function LabsLayout({ lab }) {
                 setInputValuePcs={setInputValuePcs}
                 valueFecha={valueFecha}
               />
-              {/* <Datepicker
-                primaryColor={"orange"}
-                value={value}
-                asSingle={true}
-                useRange={false}
-                displayFormat={"DD/MM/YYYY"}
-                onChange={(date) => setSelectedDate(date)}
-                includeDates={"2024-05-17"}
-              />{" "} */}
             </div>
           </div>
 
@@ -171,88 +125,36 @@ export function LabsLayout({ lab }) {
                   <Button onClick={handleOpenDialogMntor}>Monitorear</Button>
                 </>
               )}
-              <Button>Programar Monitoreo</Button>
+              <Button onClick={handleOpenDialogProg}>
+                Programar Monitoreo
+              </Button>
             </div>
-            <Dialog
-              open={openDialogMntor}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleCloseDialogMntor}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <Form onSubmit={formik.handleSubmit}>
-                <DialogContent>
-                  <div className="w-[38rem] pt-2">
-                    <Form.Input
-                      name="actividad"
-                      type="text"
-                      placeholder="Actividad"
-                      value={formik.values.actividad}
-                      onChange={formik.handleChange}
-                      error={formik.errors.actividad}
-                    />
-                    <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-4 h-4 -mt-px"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      Para empezar la monitorización en el laboratorio{" "}
-                      <b>{selectedLab}</b>
-                      ingresa la actividad
-                    </p>
-                  </div>
-                </DialogContent>
-                <DialogActions className="mb-4 mr-4">
-                  <Button type="submit" loading={formik.isSubmitting}>
-                    Monitorear
-                  </Button>
-                  <Button className="h-12" onClick={handleCloseDialogMntor}>
-                    Salir
-                  </Button>
-                </DialogActions>
-              </Form>
-            </Dialog>
-
-            <Dialog
-              open={openDialogStopMntor}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleCloseDialogStopMntor}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogContent>
-                <div className="w-[38rem] pt-2">
-                  <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-4 h-4 -mt-px"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    Se detendrá la monitorización en el laboratorio{" "}
-                    <b>{selectedLab}</b>, estás seguro?
-                  </p>
-                </div>
-              </DialogContent>
-              <DialogActions className="mb-4 mr-3">
-                <Button onClick={handleCloseDialogStopMntor}>No</Button>
-                <Button onClick={handleClickSMonitor}>Si</Button>
-              </DialogActions>
-            </Dialog>
+            <Dialogmonitor
+              openDialogMntor={openDialogMntor}
+              handleCloseDialogMntor={handleCloseDialogMntor}
+              lab={lab}
+              startMonitor={startMonitor}
+              setOpenDialogMntor={setOpenDialogMntor}
+              setShowButtonStopMntor={setShowButtonStopMntor}
+              selectedLab={selectedLab}
+            />
+            <Dialogstopmonitor
+              openDialogStopMntor={openDialogStopMntor}
+              handleCloseDialogStopMntor={handleCloseDialogStopMntor}
+              selectedLab={selectedLab}
+              stopMonitor={stopMonitor}
+              lab={lab}
+              setShowButtonStopMntor={setShowButtonStopMntor}
+              setOpenDialogStopMntor={setOpenDialogStopMntor}
+            />
+            <Dialogprogramacion
+              openDialogProg={openDialogProg}
+              handleCloseDialogProg={handleCloseDialogProg}
+              selectedLab={selectedLab}
+              lab={lab}
+              valueDateP={valueDateP}
+              setValueDateP={setValueDateP}
+            />
           </div>
         </div>
 
