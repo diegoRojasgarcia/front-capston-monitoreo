@@ -22,7 +22,7 @@ export function LabsLayout({ lab }) {
 
   //datepicker
   const [valueDateP, setValueDateP] = useState({
-    startDate: new Date(),
+    startDate: "",
     endDate: new Date().setMonth(11),
   });
 

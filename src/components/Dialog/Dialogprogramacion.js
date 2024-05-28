@@ -34,14 +34,19 @@ export function Dialogprogramacion({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      console.log(
-        valueDateP.startDate,
-        formValue.actividad,
-        valueTimerInic.hour(),
-        valueTimerInic.minute(),
-        valueTimerFin.hour(),
-        valueTimerFin.minute()
-      );
+      const infoArch =
+        valueDateP.startDate +
+        "," +
+        formValue.actividad +
+        "," +
+        valueTimerInic.hour() +
+        ":" +
+        valueTimerInic.minute() +
+        "," +
+        valueTimerFin.hour() +
+        ":" +
+        valueTimerFin.minute();
+      console.log(infoArch);
     },
   });
 
@@ -65,8 +70,8 @@ export function Dialogprogramacion({
           <div className="flex justify-start pb-2"> Fecha</div>
 
           <Datepicker
-            placeholder={"Fecha programación"}
-            containerClassName=""
+            placeholder={"Fecha programación (dd/mm/aaa)"}
+            minDate={new Date(Date.now())}
             inputClassName="border-4 border-black hover:border-orange-400 rounded-lg py-3.5 h-22"
             primaryColor={"amber"}
             toggleClassName="absolute bg-orange-300 rounded-r-lg text-white right-0 h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
