@@ -1,5 +1,6 @@
 import { Dialog } from "@mui/material";
 import React from "react";
+import dayjs from "dayjs";
 import Slide from "@mui/material/Slide";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -7,10 +8,13 @@ import { Form } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useFormik } from "formik";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   initialValues,
   validationSchema,
-} from "@/layouts/LabsLayout/formsActivity/activityForm.form";
+} from "@/layouts/LabsLayout/formsFecha/programacionForm.form";
+import { TimePicker } from "@mui/x-date-pickers";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,25 +23,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export function Dialogprogramacion({
   openDialogProg,
   handleCloseDialogProg,
-  selectedLab,
   lab,
   valueDateP,
   setValueDateP,
 }) {
+  const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
+  const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      await cDirectory
-        .createFile({ lab: lab, actividad: formValue.actividad })
-        .then((response) => {
-          if ((response = 200)) {
-            startMonitor(lab);
-            setShowButtonStopMntor(true);
-            setOpenDialogMntor(false);
-          }
-        });
+      console.log(
+        valueDateP.startDate,
+        formValue.actividad,
+        valueTimerInic.hour(),
+        valueTimerInic.minute(),
+        valueTimerFin.hour(),
+        valueTimerFin.minute()
+      );
     },
   });
 
@@ -54,7 +58,7 @@ export function Dialogprogramacion({
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
             <p>
-              Programación de monitoreo {""}
+              Programación de monitoreo en {""}
               <b>{lab}</b>
             </p>
           </div>
@@ -75,73 +79,24 @@ export function Dialogprogramacion({
             onChange={setValueDateP}
           />
 
-          <div className="pt-16">
-            <label
-              for="start-time"
-              class="block mb-2 font-medium text-gray-900 dark:text-white"
-            >
-              Hora Inicio
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <input
-                type="time"
-                id="start-time"
-                class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                value="00:00"
-                required
+          <div className="pt-16 ">
+            <div className=" flex justify-start pb-2">Hora Inicio</div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                value={valueTimerInic}
+                onChange={(newValue) => setValueTimerInic(newValue)}
               />
-            </div>
+            </LocalizationProvider>
           </div>
-          <div className="pt-16">
-            <label
-              for="end-time"
-              class="block mb-2 font-medium text-gray-900 dark:text-white"
-            >
-              Hora Término
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <input
-                type="time"
-                id="end-time"
-                class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                value="00:00"
-                required
+          <div className="pt-16 ">
+            <div className=" flex justify-start pb-2">Hora Término</div>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                value={valueTimerFin}
+                onChange={(newValue) => setValueTimerFin(newValue)}
               />
-            </div>
+            </LocalizationProvider>
           </div>
 
           <div className="w-[38rem] pt-16">
