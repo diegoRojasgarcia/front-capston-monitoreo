@@ -35,7 +35,7 @@ export function Dialogmonitor({
       await cDirectory
         .createFile({ lab: lab, actividad: formValue.actividad })
         .then((response) => {
-          if ((response = 200)) {
+          if (response.status == 200) {
             startMonitor(lab);
             setShowButtonStopMntor(true);
             setOpenDialogMntor(false);

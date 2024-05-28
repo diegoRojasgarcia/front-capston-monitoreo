@@ -84,6 +84,27 @@ export class centosDirectory {
     }
   }
 
+  async createFileProg(payload) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.PROG}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async deleteFile(lab) {
     try {
       console.log("eliminando archivo en el lab: ", lab);

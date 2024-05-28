@@ -149,6 +149,7 @@ export function LabsLayout({ lab }) {
             />
             <Dialogprogramacion
               openDialogProg={openDialogProg}
+              setOpenDialogProg={setOpenDialogProg}
               handleCloseDialogProg={handleCloseDialogProg}
               selectedLab={selectedLab}
               lab={lab}

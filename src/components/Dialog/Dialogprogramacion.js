@@ -15,13 +15,17 @@ import {
   validationSchema,
 } from "@/layouts/LabsLayout/formsFecha/programacionForm.form";
 import { TimePicker } from "@mui/x-date-pickers";
+import { centosDirectory } from "@/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const cDirectory = new centosDirectory();
+
 export function Dialogprogramacion({
   openDialogProg,
+  setOpenDialogProg,
   handleCloseDialogProg,
   lab,
   valueDateP,
@@ -46,7 +50,15 @@ export function Dialogprogramacion({
         valueTimerFin.hour() +
         ":" +
         valueTimerFin.minute();
-      console.log(infoArch);
+
+      await cDirectory
+        .createFileProg({ lab: lab, content: infoArch })
+        .then((response) => {
+          console.log(response.status);
+          if (response.status == 200) {
+            setOpenDialogProg(false);
+          }
+        });
     },
   });
 

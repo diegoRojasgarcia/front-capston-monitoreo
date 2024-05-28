@@ -14,6 +14,7 @@ export const ENV = {
       DATES: "labs/dates/",
       PCS: "labs/pcs/",
       VALIDATE: "labs/existFile",
+      PROG: "labs/prog",
     },
   },
   TOKEN: "token",
