@@ -49,6 +49,10 @@ export function LabsLayout({ lab }) {
   const [valuePcs, setValuePcs] = React.useState(null);
   const [inputValuePcs, setInputValuePcs] = React.useState("");
 
+  const [openActividades, setOpenActividades] = React.useState(false);
+  const [valueActividad, setValueActividad] = React.useState(null);
+  const [inputValueActividad, setInputValueActividad] = React.useState("");
+
   React.useEffect(() => {
     try {
       cDirectory.existFile({ lab: selectedLab }).then((response) => {

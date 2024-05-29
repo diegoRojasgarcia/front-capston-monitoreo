@@ -41,15 +41,15 @@ export function Dialogprogramacion({
       const infoArch =
         valueDateP.startDate +
         "," +
-        formValue.actividad +
-        "," +
         valueTimerInic.hour() +
         ":" +
         valueTimerInic.minute() +
         "," +
         valueTimerFin.hour() +
         ":" +
-        valueTimerFin.minute();
+        valueTimerFin.minute() +
+        "," +
+        formValue.actividad;
 
       await cDirectory
         .createFileProg({ lab: lab, content: infoArch })
