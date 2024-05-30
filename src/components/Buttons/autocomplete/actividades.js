@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-
+import React from "react";
+import { centosDirectory } from "@/api";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
-import { centosDirectory } from "@/api";
 import { TextField } from "@mui/material";
 
 function sleep(duration) {
@@ -13,91 +12,90 @@ function sleep(duration) {
   });
 }
 
-export function AutocompletePcs({
-  openPcs,
-  setOpenPcs,
-  valuePcs,
-  setValuePcs,
-  inputValuePcs,
-  setInputValuePcs,
-  valueFecha,
+export function AutocompleteActividad({
+  openActividades,
+  setOpenActividades,
   valueActividad,
+  setValueActividad,
+  inputValuePcs,
+  setInputValueActividad,
+  valueFecha,
 }) {
-  const [pcs, setPcs] = React.useState([]);
-  const loadingPcs = openPcs && pcs.length === 0;
-  const cDirectory = new centosDirectory();
+  const [actividades, setActividades] = React.useState([]);
+  const loadingActividades = openActividades && actividades.length === 0;
   var selectedLab = localStorage.getItem("selectedLabs");
+
+  const cDirectory = new centosDirectory();
 
   //fetch pcs open autocomplete
   React.useEffect(() => {
     let active = true;
 
-    if (!loadingPcs) {
+    if (!loadingActividades) {
       return undefined;
     }
 
     (async () => {
       await sleep(500); // For demo purposes.
-      var pcss = [];
-      if (valueFecha && valueActividad && selectedLab) {
-        pcss = await cDirectory.getPcs(
+      var actividadess = [];
+      if (valueFecha && selectedLab) {
+        actividadess = await cDirectory.getActividades(
           selectedLab,
-          valueFecha.nombre,
-          valueActividad.nombre
+          valueFecha.nombre
         );
       }
 
       //validar que valueFecha tenga valor!!!
       if (active) {
-        setPcs([...pcss]);
+        setActividades([...actividadess]);
       }
     })();
 
     return () => {
       active = false;
     };
-  }, [loadingPcs]);
+  }, [loadingActividades]);
   //recarga de datos
   React.useEffect(() => {
-    if (!openPcs) {
-      setPcs([]);
+    if (!openActividades) {
+      setActividades([]);
     }
-  }, [openPcs]);
+  }, [openActividades]);
 
   return (
     <Autocomplete
-      value={valuePcs || null}
+      value={valueActividad || null}
       onChange={(event, newValue) => {
-        setValuePcs(newValue);
+        setValueActividad(newValue);
       }}
       inputValue={inputValuePcs}
       onInputChange={(event, newInputValue) => {
-        setInputValuePcs(newInputValue);
+        setInputValueActividad(newInputValue);
       }}
       id="asynchronous-demo"
       sx={{
         width: 200,
         marginRight: 2,
       }}
-      open={openPcs}
+      open={openActividades}
       onOpen={() => {
-        setOpenPcs(true);
+        setOpenActividades(true);
       }}
       onClose={() => {
-        setOpenPcs(false);
+        setOpenActividades(false);
       }}
       getOptionLabel={(option) => option.nombre}
-      options={pcs}
-      loading={loadingPcs}
+      options={actividades}
+      loading={loadingActividades}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Computador"
+          label="Actividad"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
-                {loadingPcs ? <CircularProgress size={20} /> : null}
+                {loadingActividades ? <CircularProgress size={20} /> : null}
                 {params.InputProps.endAdornment}
               </React.Fragment>
             ),

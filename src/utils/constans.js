@@ -12,6 +12,7 @@ export const ENV = {
     LABS: {
       LABS: "labs/",
       DATES: "labs/dates/",
+      ACTIVIDADES: "labs/actividades/",
       PCS: "labs/pcs/",
       VALIDATE: "labs/existFile",
       PROG: "labs/prog",

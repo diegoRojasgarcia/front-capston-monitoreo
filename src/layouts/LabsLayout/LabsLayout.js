@@ -4,7 +4,11 @@ import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { centosDirectory } from "@/api";
-import { AutocompleteFecha, AutocompletePcs } from "@/components/Buttons";
+import {
+  AutocompleteActividad,
+  AutocompleteFecha,
+  AutocompletePcs,
+} from "@/components/Buttons";
 import { Dialogmonitor } from "@/components/Dialog/Dialogmonitor";
 import { Dialogstopmonitor } from "@/components/Dialog";
 import { Dialogprogramacion } from "@/components/Dialog/Dialogprogramacion";
@@ -102,6 +106,15 @@ export function LabsLayout({ lab }) {
                 setValueFecha={setValueFecha}
                 setInputValueFecha={setInputValueFecha}
               />
+              <AutocompleteActividad
+                openActividades={openActividades}
+                setOpenActividades={setOpenActividades}
+                valueActividad={valueActividad}
+                inputValue={inputValueActividad}
+                setValueActividad={setValueActividad}
+                valueFecha={valueFecha}
+                setInputValueActividad={setInputValueActividad}
+              />
               <AutocompletePcs
                 openPcs={openPcs}
                 setOpenPcs={setOpenPcs}
@@ -110,6 +123,7 @@ export function LabsLayout({ lab }) {
                 setValuePcs={setValuePcs}
                 setInputValuePcs={setInputValuePcs}
                 valueFecha={valueFecha}
+                valueActividad={valueActividad}
               />
             </div>
           </div>
