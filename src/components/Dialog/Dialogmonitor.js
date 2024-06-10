@@ -54,7 +54,7 @@ export function Dialogmonitor({
     >
       <Form onSubmit={formik.handleSubmit}>
         <DialogContent>
-          <div className="w-[38rem] pt-2">
+          <div className="pt-2">
             <Form.Input
               name="actividad"
               type="text"
@@ -76,8 +76,8 @@ export function Dialogmonitor({
                   clipRule="evenodd"
                 ></path>
               </svg>
-              Para empezar la monitorización en el laboratorio{" "}
-              <b>{selectedLab}</b>
+              Para empezar la monitorización en el laboratorio {selectedLab}{" "}
+              {""}
               ingresa la actividad
             </p>
           </div>

@@ -71,7 +71,7 @@ export function Dialogprogramacion({
       aria-describedby="alert-dialog-slide-description"
     >
       <Form onSubmit={formik.handleSubmit}>
-        <DialogContent className="h-[42rem] w-[42rem]">
+        <DialogContent className="lg:w-[34rem]">
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
             <p>
@@ -116,7 +116,7 @@ export function Dialogprogramacion({
             </LocalizationProvider>
           </div>
 
-          <div className="w-[38rem] pt-16">
+          <div className="pt-16">
             <div className=" flex justify-start pb-2"> Actividad</div>
             <Form.Input
               name="actividad"

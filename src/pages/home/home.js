@@ -16,9 +16,7 @@ export default function HomePage({ title }) {
   return (
     <>
       <Layout pageTitle={title}>
-        <div className="min-h-screen flex flex-col">
-          {title ? <LabsLayout /> : null}
-        </div>
+        <div className="flex flex-col">{title ? <LabsLayout /> : null}</div>
       </Layout>
     </>
   );

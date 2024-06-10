@@ -25,7 +25,7 @@ export function Sidebar() {
 
   return (
     <>
-      <div className="fixed flex flex-col top-0 left-0 bg-gray-700 h-full min-w-64">
+      <div className="fixed flex flex-col top-0 left-0 bg-gray-900 h-full min-w-64">
         <div className="flex items-center justify-center pt-24">
           <Link href="/home">
             <img src={logo.src} alt="Company Logo" width={100} height={200} />

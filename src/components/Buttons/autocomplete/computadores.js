@@ -76,7 +76,7 @@ export function AutocompletePcs({
       }}
       id="asynchronous-demo"
       sx={{
-        width: 200,
+        width: 160,
         marginRight: 2,
       }}
       open={openPcs}

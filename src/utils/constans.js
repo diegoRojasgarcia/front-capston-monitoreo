@@ -1,6 +1,7 @@
 export const ENV = {
   SERVER_HOST: "",
   API_URL: "http://localhost:4000",
+  API_LV: "http://localhost:8000",
   ENDPOINTS: {
     AUTH: {
       REGISTER: "auth/register",

@@ -39,7 +39,7 @@ export function Dialogstopmonitor({
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent>
-        <div className="w-[38rem] pt-2">
+        <div className="pt-2">
           <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,8 +53,8 @@ export function Dialogstopmonitor({
                 clipRule="evenodd"
               ></path>
             </svg>
-            Se detendrá la monitorización en el laboratorio <b>{selectedLab}</b>
-            , estás seguro?
+            Se detendrá la monitorización en el laboratorio {selectedLab}, estás
+            seguro?
           </p>
         </div>
       </DialogContent>
