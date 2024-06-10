@@ -58,12 +58,12 @@ export function NavListMenu({ lab }) {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList
-          onClick={handleOpenDialogProg}
-          className="hidden rounded-xl lg:block"
-        >
+        <MenuList className="hidden rounded-xl lg:block">
           <ul className="grid grid-cols-1 outline-none outline-0">
-            <MenuItem className="flex items-center rounded-lg">
+            <MenuItem
+              onClick={handleOpenDialogProg}
+              className="flex items-center rounded-lg"
+            >
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}
                 {React.createElement(PencilSquareIcon, {
