@@ -7,8 +7,6 @@ export function VideoComp({ valueFecha, valueActividad, valuePcs }) {
   const [mp4Files, setMp4Files] = useState([]);
   const [currentVideo, setCurrentVideo] = useState(null);
 
-  console.log(valueFecha, valueActividad, valuePcs);
-
   useEffect(() => {
     if (valuePcs) setPath(valueFecha + "/" + valueActividad + "/" + valuePcs);
   }, [valueFecha, valueActividad, valuePcs]);
@@ -23,7 +21,7 @@ export function VideoComp({ valueFecha, valueActividad, valuePcs }) {
     try {
       const baseURL = "http://192.168.100.25/videos/";
       console.log(`Fetching files from: ${baseURL}${currentPath}`);
-      //const response = await axios.get(`${baseURL}${currentPath}`);
+      const response = await fetch(`${baseURL}${currentPath}`);
       console.log("Response received:", response.data);
 
       const parser = new DOMParser();
