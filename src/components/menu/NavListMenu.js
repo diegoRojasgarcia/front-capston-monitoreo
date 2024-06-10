@@ -87,7 +87,7 @@ export function NavListMenu({ lab }) {
                 </Typography>
               </div>
             </MenuItem>
-            <MenuItem className="flex items-center rounded-lg">
+            {/* <MenuItem className="flex items-center rounded-lg">
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}
                 {React.createElement(VideoCameraIcon, {
@@ -110,7 +110,7 @@ export function NavListMenu({ lab }) {
                   Visualización live view del laboratorio
                 </Typography>
               </div>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={logout} className="flex items-center rounded-lg">
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}

@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
 
-export function VideoComp({ valueFecha, valueActividad, valuePcs }) {
+export function VideoComp({
+  valueFecha,
+  valueActividad,
+  valuePcs,
+  selectedLab,
+}) {
   const [path, setPath] = useState("");
   const [files, setFiles] = useState([]);
   const [mp4Files, setMp4Files] = useState([]);
   const [currentVideo, setCurrentVideo] = useState(null);
 
   useEffect(() => {
-    if (valuePcs) setPath(valueFecha + "/" + valueActividad + "/" + valuePcs);
+    if (valuePcs)
+      setPath(
+        selectedLab + "/" + valueFecha + "/" + valueActividad + "/" + valuePcs
+      );
   }, [valueFecha, valueActividad, valuePcs]);
 
   useEffect(() => {
@@ -49,7 +57,16 @@ export function VideoComp({ valueFecha, valueActividad, valuePcs }) {
   };
 
   return (
-    <div>
+    <div className="text-white">
+      {/* <div
+        className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-neutral-100 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        role="status"
+      >
+        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+          Loading...
+        </span>
+      </div> */}
+      Cargando video
       {mp4Files.length > 0 && (
         <div>
           <h2>MP4 Files</h2>

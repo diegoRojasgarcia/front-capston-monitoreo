@@ -232,11 +232,14 @@ export function LabsLayout({ lab }) {
       {/* Contenido de la pagina */}
 
       <div className={styles.block}>
-        <VideoComp
-          valueFecha={valueFecha ? valueFecha.nombre : null}
-          valueActividad={valueActividad ? valueActividad.nombre : null}
-          valuePcs={valuePcs ? valuePcs.nombre : null}
-        />
+        {valuePcs ? (
+          <VideoComp
+            selectedLab={selectedLab}
+            valueFecha={valueFecha ? valueFecha.nombre : null}
+            valueActividad={valueActividad ? valueActividad.nombre : null}
+            valuePcs={valuePcs ? valuePcs.nombre : null}
+          />
+        ) : null}
       </div>
     </>
   );
