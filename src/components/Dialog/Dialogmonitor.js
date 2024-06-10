@@ -3,7 +3,16 @@ import { Button } from "semantic-ui-react";
 import Slide from "@mui/material/Slide";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Form } from "semantic-ui-react";
+import {
+  FormTextArea,
+  FormSelect,
+  FormRadio,
+  FormInput,
+  FormGroup,
+  FormCheckbox,
+  FormButton,
+  Form,
+} from "semantic-ui-react";
 import React from "react";
 import { useFormik } from "formik";
 import { centosDirectory } from "@/api";
@@ -80,6 +89,10 @@ export function Dialogmonitor({
               {""}
               ingresa la actividad
             </p>
+            {/* <FormGroup inline className="pt-6">
+              <label>Bloqueos</label>
+              <FormRadio label="IAS" />
+            </FormGroup> */}
           </div>
         </DialogContent>
         <DialogActions className="mb-4 mr-4">
