@@ -137,7 +137,7 @@ export function LabsLayout({ lab }) {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="hidden sm:inline-block text-gray- bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
+            <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
               {showButtonStopMntor ? (
                 <button
                   className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
