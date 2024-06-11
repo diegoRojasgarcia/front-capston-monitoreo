@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
 
@@ -29,7 +30,7 @@ export function VideoComp({
     try {
       const baseURL = "http://192.168.100.25/videos/";
       console.log(`Fetching files from: ${baseURL}${currentPath}`);
-      const response = await fetch(`${baseURL}${currentPath}`);
+      const response = await axios(`${baseURL}${currentPath}`);
       console.log("Response received:", response.data);
 
       const parser = new DOMParser();
