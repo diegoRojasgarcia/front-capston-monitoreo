@@ -46,7 +46,7 @@ export function NavListMenu({ lab }) {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center py-5 pr-4 font-medium text-gray-900 bg-gray-300"
+              className="flex items-center py-5 pr-4 font-medium text-gray-900 bg-gray-300 hover:bg-gray-400"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >

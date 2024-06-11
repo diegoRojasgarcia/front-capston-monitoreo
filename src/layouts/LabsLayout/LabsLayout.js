@@ -13,6 +13,7 @@ import { Dialogstopmonitor } from "@/components/Dialog";
 import { Dialogprogramacion } from "@/components/Dialog/Dialogprogramacion";
 import { NavListMenu } from "@/components/menu";
 import { VideoComp } from "@/components/Video";
+import { Bars4Icon } from "@heroicons/react/24/solid";
 
 const cDirectory = new centosDirectory();
 
@@ -159,19 +160,23 @@ export function LabsLayout({ lab }) {
               <NavListMenu lab={lab} />
             </button>
             <button
-              className="sm:hidden bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded"
+              className="sm:hidden bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded"
               onClick={() => setIsOpen(!isOpen)}
             >
-              Menú
+              {" "}
+              {React.createElement(Bars4Icon, {
+                strokeWidth: 2,
+                className: "w-6",
+              })}
             </button>
           </div>
         </div>
         {isOpen && (
-          <div className="sm:hidden bg-gray-700 text-white">
+          <div className="sm:hidden bg-gray-700 text-white justify-center">
             {showButtonStopMntor ? (
               <button
                 onClick={handleOpenDialogStopMntor}
-                className="block w-full text-left px-4 py-2 text-orange-600"
+                className="block w-full px-4 py-2 text-orange-600 bg-gray-400 hover:bg-gray-500"
               >
                 Detener Monitoreo
               </button>
@@ -179,7 +184,7 @@ export function LabsLayout({ lab }) {
               <>
                 <button
                   onClick={handleOpenDialogMntor}
-                  className="block w-full text-left px-4 py-2"
+                  className="block w-full px-4 py-2 bg-gray-400 hover:bg-gray-500 "
                 >
                   Monitorear
                 </button>{" "}
@@ -187,13 +192,13 @@ export function LabsLayout({ lab }) {
             )}
             <button
               onClick={handleOpenDialogProg}
-              className="block w-full text-left px-4 py-2"
+              className="block w-full px-4 py-2 bg-gray-400 hover:bg-gray-500"
             >
               Programar monitoreo
             </button>
             <button
               onClick={logout}
-              className="block w-full text-left px-4 py-2"
+              className="block w-full  px-4 py-2 bg-gray-400 hover:bg-gray-500"
             >
               Salir
             </button>
