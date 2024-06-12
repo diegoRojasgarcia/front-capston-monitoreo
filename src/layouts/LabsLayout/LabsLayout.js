@@ -15,10 +15,11 @@ import {
   Dialogopcion,
   Dialogmonitorprueba,
 } from "@/components/Dialog";
-import { NavListMenu } from "@/components/menu";
+import { NavListMenu } from "@/components/navlistmenu";
 import { VideoComp } from "@/components/Video";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
+import { Dialogopcionprogramacion } from "@/components/Dialog/Dialogopcionprogramacion";
 
 const cDirectory = new centosDirectory();
 
@@ -76,6 +77,11 @@ export function LabsLayout({ lab }) {
   const [valueActividad, setValueActividad] = React.useState(null);
   const [inputValueActividad, setInputValueActividad] = React.useState("");
 
+  const [openDialogOpcionProgramacion, setOpenDialogOpcionProgramacion] = React.useState(false);
+
+  const [OpenDialogProgActividad, setOpenDialogProgActividad] = React.useState(false);
+
+
   React.useEffect(() => {
     try {
       cDirectory.existFile({ lab: selectedLab }).then((response) => {
@@ -124,7 +130,17 @@ export function LabsLayout({ lab }) {
     setOpenDialogProg(true);
   };
   const handleCloseDialogProg = () => {
-    setOpenDialogProg(false);
+    setOpenDialogProgActividad(false);
+  };
+
+
+   //dialog monitoreo
+   const handleOpenDialogOpcionProgramacion = () => {
+    setOpenDialogOpcionProgramacion(true);
+  };
+
+  const handleCloseDialogOpcionProgramacion = () => {
+    setOpenDialogOpcionProgramacion(false);
   };
 
   return (
@@ -207,7 +223,7 @@ export function LabsLayout({ lab }) {
               )}
             </button>
             <button className="hidden sm:inline-block  text-white font-bold  rounded">
-              <NavListMenu lab={lab} />
+              <NavListMenu lab={lab} setIsConfirmOpen={setIsConfirmOpen} />
             </button>
             <button
               className="sm:hidden bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded"
@@ -241,7 +257,7 @@ export function LabsLayout({ lab }) {
               </>
             )}
             <button
-              onClick={handleOpenDialogProg}
+              onClick={handleOpenDialogOpcionProgramacion}
               className="block w-full px-4 py-2 bg-gray-400 hover:bg-gray-500"
             >
               Programar monitoreo
@@ -266,6 +282,7 @@ export function LabsLayout({ lab }) {
         handleOpenDialogMntorActividad={handleOpenDialogMntorActividad}
         setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
         handleOpenDialogMntorPrueba={handleOpenDialogMntorPrueba}
+        message={"Selecciona una opción para el"}
       />
 
       <Dialogmonitoractividad
@@ -301,16 +318,27 @@ export function LabsLayout({ lab }) {
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
-      <Dialogprogramacion
-        openDialogProg={openDialogProg}
-        setOpenDialogProg={setOpenDialogProg}
+        <Dialogopcionprogramacion
+        openDialogOpcionProgramacion={openDialogOpcionProgramacion}
+        handleCloseDialogOpcionProgramacion={handleCloseDialogOpcionProgramacion}
+        setOpenDialogOpcionProgramacion={setOpenDialogOpcionProgramacion}
+        setOpenDialogProgActividad={setOpenDialogProgActividad}
+        message={"Que actividad vas a programar en el "}
+        lab={lab}
+        setIsConfirmOpen={setIsConfirmOpen}
+      />
+
+        <Dialogprogramacion
+        OpenDialogProgActividad={OpenDialogProgActividad}
         handleCloseDialogProg={handleCloseDialogProg}
-        selectedLab={selectedLab}
         lab={lab}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
+        setOpenDialogProgActividad={setOpenDialogProgActividad}
+        setIsConfirmOpen={setIsConfirmOpen}
       />
 
+        
       <ConfirmDialog
         message="La acción se ha realizado correctamente."
         isOpen={isConfirmOpen}

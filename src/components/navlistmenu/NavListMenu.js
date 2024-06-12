@@ -9,17 +9,19 @@ import {
 } from "@material-tailwind/react";
 import {
   Bars4Icon,
-  VideoCameraIcon,
   XMarkIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "@/hooks";
-import { Dialogprogramacion } from "@/components/Dialog/Dialogprogramacion";
+import { Dialogopcionprogramacion } from "../Dialog/Dialogopcionprogramacion";
+import { Dialogprogramacion } from "../Dialog";
 
-export function NavListMenu({ lab }) {
+export function NavListMenu({ lab, setIsConfirmOpen}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { logout } = useAuth();
+  const [openDialogOpcionProgramacion, setOpenDialogOpcionProgramacion] = React.useState(false);
+  const [OpenDialogProgActividad, setOpenDialogProgActividad] = React.useState(false);
   const [openDialogProg, setOpenDialogProg] = React.useState(false);
   //datepicker
   const [valueDateP, setValueDateP] = useState({
@@ -27,12 +29,20 @@ export function NavListMenu({ lab }) {
     endDate: new Date().setMonth(11),
   });
 
+  //dialog monitoreo
+  const handleOpenDialogOpcionProgramacion = () => {
+    setOpenDialogOpcionProgramacion(true);
+  };
+  const handleCloseDialogOpcionProgramacion = () => {
+    setOpenDialogOpcionProgramacion(false);
+  };
+
   //digalog programacion del monitoreo
   const handleOpenDialogProg = () => {
-    setOpenDialogProg(true);
+    setOpenDialogProgActividad(true);
   };
-  const handleCloseDialogProg = () => {
-    setOpenDialogProg(false);
+  const handleCloseDialogProg= () => {
+    setOpenDialogProgActividad(false);
   };
 
   return (
@@ -58,10 +68,9 @@ export function NavListMenu({ lab }) {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden rounded-xl lg:block">
+        <MenuList onClick={handleOpenDialogOpcionProgramacion}  className="hidden rounded-xl lg:block">
           <ul className="grid grid-cols-1 outline-none outline-0">
             <MenuItem
-              onClick={handleOpenDialogProg}
               className="flex items-center rounded-lg"
             >
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
@@ -138,13 +147,26 @@ export function NavListMenu({ lab }) {
           </ul>
         </MenuList>
       </Menu>
+
+      <Dialogopcionprogramacion
+        openDialogOpcionProgramacion={openDialogOpcionProgramacion}
+        handleCloseDialogOpcionProgramacion={handleCloseDialogOpcionProgramacion}
+        setOpenDialogOpcionProgramacion={setOpenDialogOpcionProgramacion}
+        message={"Que actividad vas a programar en el "}
+        lab={lab}
+        setOpenDialogProgActividad={setOpenDialogProgActividad}
+        setIsConfirmOpen={setIsConfirmOpen}
+      />
+
       <Dialogprogramacion
-        openDialogProg={openDialogProg}
+        OpenDialogProgActividad={OpenDialogProgActividad}
         setOpenDialogProg={setOpenDialogProg}
         handleCloseDialogProg={handleCloseDialogProg}
+        setOpenDialogProgActividad={setOpenDialogProgActividad}
         lab={lab}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
+        setIsConfirmOpen={setIsConfirmOpen}
       />
     </React.Fragment>
   );

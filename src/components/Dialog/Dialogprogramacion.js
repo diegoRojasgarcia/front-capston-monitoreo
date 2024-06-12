@@ -24,12 +24,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const cDirectory = new centosDirectory();
 
 export function Dialogprogramacion({
-  openDialogProg,
-  setOpenDialogProg,
+  OpenDialogProgActividad,
   handleCloseDialogProg,
   lab,
   valueDateP,
   setValueDateP,
+  setOpenDialogProg,
+  setIsConfirmOpen,
+  setOpenDialogProgActividad
 }) {
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
@@ -55,7 +57,9 @@ export function Dialogprogramacion({
         .createFileProg({ lab: lab, content: infoArch })
         .then((response) => {
           if (response.status == 200) {
+            setOpenDialogProgActividad(false);
             setOpenDialogProg(false);
+            setIsConfirmOpen(true)
           }
         });
     },
@@ -63,7 +67,7 @@ export function Dialogprogramacion({
 
   return (
     <Dialog
-      open={openDialogProg}
+      open={OpenDialogProgActividad}
       TransitionComponent={Transition}
       keepMounted
       onClose={handleCloseDialogProg}
