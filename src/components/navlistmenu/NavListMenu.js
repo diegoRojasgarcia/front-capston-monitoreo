@@ -11,6 +11,7 @@ import {
   Bars4Icon,
   XMarkIcon,
   PencilSquareIcon,
+  VideoCameraIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "@/hooks";
 import {

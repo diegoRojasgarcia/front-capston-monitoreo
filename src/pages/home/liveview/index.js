@@ -1,11 +1,11 @@
-import { LabsLayout } from "@/layouts/LabsLayout";
 import Layout from "@/components/sidebar";
 import React, { useEffect } from "react";
 import { centosDirectory } from "@/api";
 import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
+import { LiveViewLayout } from "@/layouts/LiveviewLayout";
 
-export default function Labs() {
+export default function liveview() {
   const [lab, setLab] = React.useState("");
   const { user } = useAuth();
   const router = useRouter();
@@ -25,9 +25,7 @@ export default function Labs() {
 
   return (
     <>
-      <Layout>
-        <LabsLayout lab={lab}></LabsLayout>
-      </Layout>
+      <LiveViewLayout lab={lab}></LiveViewLayout>
     </>
   );
 }

@@ -11,20 +11,17 @@ import {
 import {
   Dialogmonitoractividad,
   Dialogstopmonitor,
-  Dialogprogramacion,
   Dialogopcion,
   Dialogmonitorprueba,
   Dialogprogramacionactividad,
 } from "@/components/Dialog";
 import { NavListMenu } from "@/components/navlistmenu";
 import { VideoComp } from "@/components/Video";
-import { Bars4Icon } from "@heroicons/react/24/solid";
+import { Bars4Icon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 import { Dialogopcionprogramacion } from "@/components/Dialog/Dialogopcionprogramacion";
-import {
-  DialogprogramacionPrueba,
-  Dialogprogramacionprueba,
-} from "@/components/Dialog/DialogprogramacionPrueba";
+import { Dialogprogramacionprueba } from "@/components/Dialog/DialogprogramacionPrueba";
+import Link from "next/link";
 
 const cDirectory = new centosDirectory();
 
@@ -199,37 +196,31 @@ export function LabsLayout({ lab }) {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            {/* <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
+            <button className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
               {showButtonStopMntor ? (
-                <button
-                  className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
-                  onClick={handleOpenDialogStopMntor}
-                >
-                  Detener Monitoreo
-                </button>
-              ) : (
                 <>
-                  <button
-                    className="px-4 h-16 rounded-xl"
-                    onClick={handleOpenDialogMntor}
-                  >
-                    Monitorear
-                  </button>
+                  <div className="flex items-center space-x-4">
+                    <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
+                      {" "}
+                      <Link href="/home/liveview">
+                        {React.createElement(VideoCameraIcon, {
+                          strokeWidth: 2,
+                          className: " text-gray-900 w-6",
+                        })}
+                      </Link>
+                    </button>
+                    <button
+                      className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
+                      onClick={handleOpenDialogStopMntor}
+                    >
+                      Detener Monitoreo
+                    </button>
+                  </div>
                 </>
-              )}
-            </button> */}
-            <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
-              {showButtonStopMntor ? (
-                <button
-                  className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
-                  onClick={handleOpenDialogStopMntor}
-                >
-                  Detener Monitoreo
-                </button>
               ) : (
                 <>
                   <button
-                    className="px-4 h-16 rounded-xl"
+                    className="px-4 h-16 rounded-xl bg-gray-300 hover:bg-gray-400  text-gray-600 "
                     onClick={handleOpenDialogOpcion}
                   >
                     Monitorear
