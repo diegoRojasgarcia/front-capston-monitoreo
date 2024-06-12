@@ -10,13 +10,20 @@ export function VideoComp({
 }) {
   const [path, setPath] = useState("");
   const [files, setFiles] = useState([]);
-  const [mp4Files, setMp4Files] = useState([]);
+  const [mp4Files, setMp4Files] = useState("");
   const [currentVideo, setCurrentVideo] = useState(null);
 
   useEffect(() => {
     if (valuePcs)
       setPath(
-        selectedLab + "/" + valueFecha + "/" + valueActividad + "/" + valuePcs
+        selectedLab +
+          "/" +
+          valueFecha +
+          "/" +
+          valueActividad +
+          "/" +
+          valuePcs +
+          "/"
       );
   }, [valueFecha, valueActividad, valuePcs]);
 
@@ -45,17 +52,22 @@ export function VideoComp({
       const dirs = links.filter((link) => link.endsWith("/"));
       const mp4s = links.filter((link) => link.endsWith(".mp4"));
 
+      console.log(mp4s[0]);
+      const namevide = mp4s[0];
+
       setFiles(dirs);
-      setMp4Files(mp4s);
+      setMp4Files(mp4s[0]);
+
+      setCurrentVideo(`${baseURL}${path}${namevide}`);
     } catch (error) {
       console.error("Error fetching files:", error);
     }
   };
 
-  const playVideo = (videoFile) => {
-    const baseURL = "http://192.168.100.25/videos";
-    setCurrentVideo(`${baseURL}${path}${videoFile}`);
-  };
+  // const playVideo = (videoFile) => {
+  //   const baseURL = "http://192.168.100.25/videos/";
+  //   setCurrentVideo(`${baseURL}${path}${videoFile}`);
+  // };
 
   return (
     <div className="text-white">
@@ -67,10 +79,8 @@ export function VideoComp({
           Loading...
         </span>
       </div> */}
-      Cargando video
-      {mp4Files.length > 0 && (
+      {/* {mp4Files.length > 0 && (
         <div>
-          <h2>MP4 Files</h2>
           <ul>
             {mp4Files.map((file) => (
               <li key={file}>
@@ -79,11 +89,10 @@ export function VideoComp({
             ))}
           </ul>
         </div>
-      )}
+      )} */}
       {currentVideo && (
         <div>
-          <h2>Playing: {currentVideo}</h2>
-          <video width="640" height="480" controls>
+          <video width="1240" height="720" controls>
             <source src={currentVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

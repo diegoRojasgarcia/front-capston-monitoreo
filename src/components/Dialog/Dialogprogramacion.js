@@ -54,7 +54,6 @@ export function Dialogprogramacion({
       await cDirectory
         .createFileProg({ lab: lab, content: infoArch })
         .then((response) => {
-          console.log(response.status);
           if (response.status == 200) {
             setOpenDialogProg(false);
           }

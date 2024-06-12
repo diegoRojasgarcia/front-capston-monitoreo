@@ -8,19 +8,23 @@ import {
   AutocompleteFecha,
   AutocompletePcs,
 } from "@/components/Buttons";
-import { Dialogmonitor } from "@/components/Dialog/Dialogmonitor";
-import { Dialogstopmonitor } from "@/components/Dialog";
-import { Dialogprogramacion } from "@/components/Dialog/Dialogprogramacion";
+import {
+  Dialogmonitoractividad,
+  Dialogstopmonitor,
+  Dialogprogramacion,
+  Dialogopcion,
+  Dialogmonitorprueba,
+} from "@/components/Dialog";
 import { NavListMenu } from "@/components/menu";
 import { VideoComp } from "@/components/Video";
 import { Bars4Icon } from "@heroicons/react/24/solid";
+import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 
 const cDirectory = new centosDirectory();
 
 export function LabsLayout({ lab }) {
   const { user, startMonitor, stopMonitor, logout } = useAuth();
   const router = useRouter();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   if (!user) {
@@ -36,8 +40,17 @@ export function LabsLayout({ lab }) {
 
   var selectedLab = localStorage.getItem("selectedLabs");
 
-  //open dialog de monitoreo
-  const [openDialogMntor, setOpenDialogMntor] = React.useState(false);
+  //open dialog de Opcion
+  const [openDialogOpcion, setOpenDialogOpcion] = React.useState(false);
+
+  //open dialog de monitoreo actividad
+  const [openDialogMntorActividad, setOpenDialogMntorActividad] =
+    React.useState(false);
+
+  //open dialog de monitoreo actividad
+  const [openDialogMntorPrueba, setOpenDialogMntorPrueba] =
+    React.useState(false);
+
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
   const [openDialogStopMntor, setOpenDialogStopMntor] = React.useState(false);
 
@@ -51,6 +64,8 @@ export function LabsLayout({ lab }) {
   const [openFechas, setOpenFechas] = React.useState(false);
   const [valueFecha, setValueFecha] = React.useState(null);
   const [inputValueFecha, setInputValueFecha] = React.useState("");
+
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   //para los computadores
   const [openPcs, setOpenPcs] = React.useState(false);
@@ -75,19 +90,35 @@ export function LabsLayout({ lab }) {
   }, [lab]);
 
   //dialog monitoreo
-  const handleOpenDialogMntor = () => {
-    setOpenDialogMntor(true);
+  const handleOpenDialogOpcion = () => {
+    setOpenDialogOpcion(true);
   };
-  const handleCloseDialogMntor = () => {
-    setOpenDialogMntor(false);
+  const handleCloseDialogOpcion = () => {
+    setOpenDialogOpcion(false);
   };
+
+  //dialog monitoreo actividad
+  const handleOpenDialogMntorActividad = () => {
+    setOpenDialogMntorActividad(true);
+  };
+  const handleCloseDialogMntorActividad = () => {
+    setOpenDialogMntorActividad(false);
+  };
+
+  //dialog monitoreo prueba
+  const handleOpenDialogMntorPrueba = () => {
+    setOpenDialogMntorPrueba(true);
+  };
+  const handleCloseDialogMntorPrueba = () => {
+    setOpenDialogMntorPrueba(false);
+  };
+
   const handleOpenDialogStopMntor = () => {
     setOpenDialogStopMntor(true);
   };
   const handleCloseDialogStopMntor = () => {
     setOpenDialogStopMntor(false);
   };
-
   //digalog programacion del monitoreo
   const handleOpenDialogProg = () => {
     setOpenDialogProg(true);
@@ -137,7 +168,7 @@ export function LabsLayout({ lab }) {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
+            {/* <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
               {showButtonStopMntor ? (
                 <button
                   className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
@@ -150,6 +181,25 @@ export function LabsLayout({ lab }) {
                   <button
                     className="px-4 h-16 rounded-xl"
                     onClick={handleOpenDialogMntor}
+                  >
+                    Monitorear
+                  </button>
+                </>
+              )}
+            </button> */}
+            <button className="hidden sm:inline-block text-gray-600 bg-gray-300 hover:bg-gray-400 h-16 font-bold rounded-xl">
+              {showButtonStopMntor ? (
+                <button
+                  className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
+                  onClick={handleOpenDialogStopMntor}
+                >
+                  Detener Monitoreo
+                </button>
+              ) : (
+                <>
+                  <button
+                    className="px-4 h-16 rounded-xl"
+                    onClick={handleOpenDialogOpcion}
                   >
                     Monitorear
                   </button>
@@ -183,7 +233,7 @@ export function LabsLayout({ lab }) {
             ) : (
               <>
                 <button
-                  onClick={handleOpenDialogMntor}
+                  onClick={handleOpenDialogOpcion}
                   className="block w-full px-4 py-2 bg-gray-400 hover:bg-gray-500 "
                 >
                   Monitorear
@@ -206,15 +256,40 @@ export function LabsLayout({ lab }) {
         )}
       </div>
 
-      <Dialogmonitor
-        openDialogMntor={openDialogMntor}
-        handleCloseDialogMntor={handleCloseDialogMntor}
-        lab={lab}
-        startMonitor={startMonitor}
-        setOpenDialogMntor={setOpenDialogMntor}
+      <Dialogopcion
+        openDialogOpcion={openDialogOpcion}
+        handleCloseDialogOpcion={handleCloseDialogOpcion}
+        setOpenDialogOpcion={setOpenDialogOpcion}
         setShowButtonStopMntor={setShowButtonStopMntor}
         selectedLab={selectedLab}
+        setOpenDialogMntorActividad={setOpenDialogMntorActividad}
+        handleOpenDialogMntorActividad={handleOpenDialogMntorActividad}
+        setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
+        handleOpenDialogMntorPrueba={handleOpenDialogMntorPrueba}
       />
+
+      <Dialogmonitoractividad
+        openDialogMntorActividad={openDialogMntorActividad}
+        handleCloseDialogMntorActividad={handleCloseDialogMntorActividad}
+        lab={lab}
+        startMonitor={startMonitor}
+        setOpenDialogMntorActividad={setOpenDialogMntorActividad}
+        setShowButtonStopMntor={setShowButtonStopMntor}
+        selectedLab={selectedLab}
+        setIsConfirmOpen={setIsConfirmOpen}
+      />
+
+      <Dialogmonitorprueba
+        openDialogMntorPrueba={openDialogMntorPrueba}
+        handleCloseDialogMntorPrueba={handleCloseDialogMntorPrueba}
+        lab={lab}
+        startMonitor={startMonitor}
+        setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
+        setShowButtonStopMntor={setShowButtonStopMntor}
+        selectedLab={selectedLab}
+        setIsConfirmOpen={setIsConfirmOpen}
+      />
+
       <Dialogstopmonitor
         openDialogStopMntor={openDialogStopMntor}
         handleCloseDialogStopMntor={handleCloseDialogStopMntor}
@@ -223,7 +298,9 @@ export function LabsLayout({ lab }) {
         lab={lab}
         setShowButtonStopMntor={setShowButtonStopMntor}
         setOpenDialogStopMntor={setOpenDialogStopMntor}
+        setIsConfirmOpen={setIsConfirmOpen}
       />
+
       <Dialogprogramacion
         openDialogProg={openDialogProg}
         setOpenDialogProg={setOpenDialogProg}
@@ -232,6 +309,12 @@ export function LabsLayout({ lab }) {
         lab={lab}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
+      />
+
+      <ConfirmDialog
+        message="La acción se ha realizado correctamente."
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
       />
 
       {/* Contenido de la pagina */}

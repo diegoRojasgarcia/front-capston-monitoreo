@@ -20,14 +20,15 @@ export function Dialogstopmonitor({
   setShowButtonStopMntor,
   setOpenDialogStopMntor,
   lab,
+  setIsConfirmOpen,
 }) {
   const handleClickSMonitor = () => {
     cDirectory.deleteFile({ lab: lab }).then((response) => {
-      console.log("archivo eliminado");
+      stopMonitor();
+      setOpenDialogStopMntor(false);
+      setShowButtonStopMntor(false);
+      setIsConfirmOpen(true);
     });
-    stopMonitor();
-    setOpenDialogStopMntor(false);
-    setShowButtonStopMntor(false);
   };
 
   return (

@@ -27,14 +27,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const cDirectory = new centosDirectory();
 
-export function Dialogmonitor({
-  openDialogMntor,
-  handleCloseDialogMntor,
+export function Dialogmonitorprueba({
+  openDialogMntorPrueba,
+  handleCloseDialogMntorPrueba,
   lab,
   startMonitor,
-  setOpenDialogMntor,
+  setOpenDialogMntorPrueba,
   setShowButtonStopMntor,
   selectedLab,
+  setIsConfirmOpen,
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const options = [
@@ -57,7 +58,8 @@ export function Dialogmonitor({
           if (response.status == 200) {
             startMonitor(lab);
             setShowButtonStopMntor(true);
-            setOpenDialogMntor(false);
+            setOpenDialogMntorPrueba(false);
+            setIsConfirmOpen(true);
           }
         });
     },
@@ -81,10 +83,10 @@ export function Dialogmonitor({
 
   return (
     <Dialog
-      open={openDialogMntor}
+      open={openDialogMntorPrueba}
       TransitionComponent={Transition}
       keepMounted
-      onClose={handleCloseDialogMntor}
+      onClose={handleCloseDialogMntorPrueba}
       aria-describedby="alert-dialog-slide-description"
     >
       <Form onSubmit={formik.handleSubmit}>
@@ -98,52 +100,7 @@ export function Dialogmonitor({
               onChange={formik.handleChange}
               error={formik.errors.actividad}
             />
-            {/* <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-4 h-4 -mt-px"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              Para empezar la monitorización en el laboratorio {selectedLab}{" "}
-              {""}
-              ingresa la actividad
-            </p> */}
-            {/* <FormGroup inline className="pt-6">
-              <label>Bloqueos</label>
-              <FormRadio label="IAS" />
-            </FormGroup> */}
           </div>
-
-          {/* <p className="flex justify-start pb-2 mt-4 font-sans text-l px-1">
-            Acceso a ias ?
-          </p> */}
-          {/* <div class="mt-2 px-1">
-            <label class="inline-flex items-center">
-              <input
-                type="radio"
-                class="form-radio"
-                name="accountType"
-                value="personal"
-              ></input>
-              <span class="ml-2">Sí</span>
-            </label>
-            <label class="inline-flex items-center ml-6">
-              <input
-                type="radio"
-                class="form-radio"
-                name="accountType"
-                value="busines"
-              ></input>
-              <span class="ml-2">No</span>
-            </label>
-          </div> */}
           <div className="pt-6 ">
             <h1 className="text-xl mb-4">Aplicaciones no permitidas</h1>
             <div className="mb-4 pt-4">
@@ -205,7 +162,7 @@ export function Dialogmonitor({
           <Button
             type="button"
             className="big ui basic button border"
-            onClick={handleCloseDialogMntor}
+            onClick={handleCloseDialogMntorPrueba}
           >
             Salir
           </Button>
