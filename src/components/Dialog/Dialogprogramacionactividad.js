@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const cDirectory = new centosDirectory();
 
-export function Dialogprogramacion({
+export function Dialogprogramacionactividad({
   OpenDialogProgActividad,
   handleCloseDialogProg,
   lab,
@@ -31,7 +31,7 @@ export function Dialogprogramacion({
   setValueDateP,
   setOpenDialogProg,
   setIsConfirmOpen,
-  setOpenDialogProgActividad
+  setOpenDialogProgActividad,
 }) {
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
@@ -59,7 +59,7 @@ export function Dialogprogramacion({
           if (response.status == 200) {
             setOpenDialogProgActividad(false);
             setOpenDialogProg(false);
-            setIsConfirmOpen(true)
+            setIsConfirmOpen(true);
           }
         });
     },
@@ -78,7 +78,7 @@ export function Dialogprogramacion({
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
             <p>
-              Programación de monitoreo en {""}
+              Programación de <b>Actividad</b> en {""}
               <b>{lab}</b>
             </p>
           </div>

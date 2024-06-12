@@ -14,12 +14,17 @@ import {
   Dialogprogramacion,
   Dialogopcion,
   Dialogmonitorprueba,
+  Dialogprogramacionactividad,
 } from "@/components/Dialog";
 import { NavListMenu } from "@/components/navlistmenu";
 import { VideoComp } from "@/components/Video";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 import { Dialogopcionprogramacion } from "@/components/Dialog/Dialogopcionprogramacion";
+import {
+  DialogprogramacionPrueba,
+  Dialogprogramacionprueba,
+} from "@/components/Dialog/DialogprogramacionPrueba";
 
 const cDirectory = new centosDirectory();
 
@@ -77,10 +82,13 @@ export function LabsLayout({ lab }) {
   const [valueActividad, setValueActividad] = React.useState(null);
   const [inputValueActividad, setInputValueActividad] = React.useState("");
 
-  const [openDialogOpcionProgramacion, setOpenDialogOpcionProgramacion] = React.useState(false);
+  const [openDialogOpcionProgramacion, setOpenDialogOpcionProgramacion] =
+    React.useState(false);
 
-  const [OpenDialogProgActividad, setOpenDialogProgActividad] = React.useState(false);
+  const [OpenDialogProgActividad, setOpenDialogProgActividad] =
+    React.useState(false);
 
+  const [OpenDialogProgPrueba, setOpenDialogProgPrueba] = React.useState(false);
 
   React.useEffect(() => {
     try {
@@ -133,9 +141,16 @@ export function LabsLayout({ lab }) {
     setOpenDialogProgActividad(false);
   };
 
+  //digalog programacion del monitoreo
+  const handleOpenDialogProgPrueba = () => {
+    setOpenDialogProgPrueba(true);
+  };
+  const handleCloseDialogProgPrueba = () => {
+    setOpenDialogProgPrueba(false);
+  };
 
-   //dialog monitoreo
-   const handleOpenDialogOpcionProgramacion = () => {
+  //dialog monitoreo
+  const handleOpenDialogOpcionProgramacion = () => {
     setOpenDialogOpcionProgramacion(true);
   };
 
@@ -318,17 +333,20 @@ export function LabsLayout({ lab }) {
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
-        <Dialogopcionprogramacion
+      <Dialogopcionprogramacion
         openDialogOpcionProgramacion={openDialogOpcionProgramacion}
-        handleCloseDialogOpcionProgramacion={handleCloseDialogOpcionProgramacion}
+        handleCloseDialogOpcionProgramacion={
+          handleCloseDialogOpcionProgramacion
+        }
         setOpenDialogOpcionProgramacion={setOpenDialogOpcionProgramacion}
         setOpenDialogProgActividad={setOpenDialogProgActividad}
+        setOpenDialogProgPrueba={setOpenDialogProgPrueba}
         message={"Que actividad vas a programar en el "}
         lab={lab}
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
-        <Dialogprogramacion
+      <Dialogprogramacionactividad
         OpenDialogProgActividad={OpenDialogProgActividad}
         handleCloseDialogProg={handleCloseDialogProg}
         lab={lab}
@@ -338,7 +356,17 @@ export function LabsLayout({ lab }) {
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
-        
+      <Dialogprogramacionprueba
+        OpenDialogProgPrueba={OpenDialogProgPrueba}
+        setOpenDialogProg={setOpenDialogProgPrueba}
+        handleCloseDialogProgPrueba={handleCloseDialogProgPrueba}
+        setOpenDialogProgPrueba={setOpenDialogProgPrueba}
+        lab={lab}
+        valueDateP={valueDateP}
+        setValueDateP={setValueDateP}
+        setIsConfirmOpen={setIsConfirmOpen}
+      />
+
       <ConfirmDialog
         message="La acción se ha realizado correctamente."
         isOpen={isConfirmOpen}

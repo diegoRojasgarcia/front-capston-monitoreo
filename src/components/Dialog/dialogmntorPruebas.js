@@ -91,6 +91,13 @@ export function Dialogmonitorprueba({
     >
       <Form onSubmit={formik.handleSubmit}>
         <DialogContent>
+          <div className="py-6 text-xl flex items-center justify-center">
+            {" "}
+            <p>
+              Programación de <b>Evaluación</b> en {""}
+              <b>{lab}</b>
+            </p>
+          </div>
           <div className="pt-2">
             <Form.Input
               name="actividad"

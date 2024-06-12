@@ -3,9 +3,7 @@ import { Button } from "semantic-ui-react";
 import Slide from "@mui/material/Slide";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import {
-  Form,
-} from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { centosDirectory } from "@/api";
@@ -58,6 +56,13 @@ export function Dialogmonitoractividad({
     >
       <Form onSubmit={formik.handleSubmit}>
         <DialogContent>
+          <div className="py-6 text-xl flex items-center justify-center">
+            {" "}
+            <p>
+              Programación de <b>Actividad</b> en {""}
+              <b>{lab}</b>
+            </p>
+          </div>
           <div className="pt-2">
             <Form.Input
               name="actividad"
