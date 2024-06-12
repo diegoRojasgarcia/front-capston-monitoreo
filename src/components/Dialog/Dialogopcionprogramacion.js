@@ -38,7 +38,7 @@ export function Dialogopcionprogramacion({
     >
       <DialogContent>
         <div className="flex items-center justify-center text-center sm:block sm:p-0">
-          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle w-200">
+          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden transform transition-all sm:align-middle w-200">
             <div className="bg-white ">
               <div className="sm:flex sm:items-start sm:justify-center">
                 <div className="mt-3 text-center justify-center">
