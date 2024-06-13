@@ -52,7 +52,7 @@ export function Sidebar() {
                     key={labs}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
-                    className="relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-indigo-300 pr-6 mt-2"
+                    className="relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
                   >
                     <span className="inline-flex justify-center items-center ml-4 ">
                       <svg
