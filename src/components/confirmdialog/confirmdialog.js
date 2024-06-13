@@ -21,7 +21,7 @@ const ConfirmDialog = ({ message, isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed bottom-0 inset-x-0 bg-green-200 text-white text-center py-4 transition-transform transform ${
+      className={`fixed bottom-0 inset-x-0 bg-green-200 text-white text-center py-3 transition-transform transform ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
       style={{ transitionDuration: "300ms" }}

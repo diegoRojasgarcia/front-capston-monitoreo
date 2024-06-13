@@ -52,7 +52,7 @@ export function Sidebar() {
                     key={labs}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
-                    className="relative flex flex-row items-center h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-indigo-300 pr-6 mt-2"
+                    className="relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-indigo-300 pr-6 mt-2"
                   >
                     <span className="inline-flex justify-center items-center ml-4 ">
                       <svg
@@ -100,13 +100,13 @@ export function Sidebar() {
             </div>
           )}
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path
             fill="#155e75"
             fillOpacity="1"
             d="M0,256L48,224C96,192,192,128,288,122.7C384,117,480,171,576,165.3C672,160,768,96,864,96C960,96,1056,160,1152,154.7C1248,149,1344,75,1392,37.3L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
-        </svg>
+        </svg> */}
       </div>
     </>
   );

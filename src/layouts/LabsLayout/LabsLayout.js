@@ -162,7 +162,7 @@ export function LabsLayout({ lab }) {
         <div className="mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center">
             <div className="hidden sm:inline-block  text-white font-bold  rounded">
-              <AutocompleteFecha 
+              <AutocompleteFecha
                 openFechas={openFechas}
                 setOpenFechas={setOpenFechas}
                 valueFecha={valueFecha}
@@ -170,9 +170,9 @@ export function LabsLayout({ lab }) {
                 setValueFecha={setValueFecha}
                 setInputValueFecha={setInputValueFecha}
               />
-            </div>    
+            </div>
             <div className="hidden sm:inline-block  text-white font-bold  rounded">
-            <AutocompleteActividad
+              <AutocompleteActividad
                 openActividades={openActividades}
                 setOpenActividades={setOpenActividades}
                 valueActividad={valueActividad}
@@ -181,9 +181,9 @@ export function LabsLayout({ lab }) {
                 valueFecha={valueFecha}
                 setInputValueActividad={setInputValueActividad}
               />
-            </div> 
+            </div>
             <div className="hidden sm:inline-block  text-white font-bold  rounded">
-            <AutocompletePcs
+              <AutocompletePcs
                 openPcs={openPcs}
                 setOpenPcs={setOpenPcs}
                 valuePcs={valuePcs}
@@ -193,7 +193,7 @@ export function LabsLayout({ lab }) {
                 valueFecha={valueFecha}
                 valueActividad={valueActividad}
               />
-            </div> 
+            </div>
           </div>
           <div className="flex items-center space-x-4">
             <div className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">

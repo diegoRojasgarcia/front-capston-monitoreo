@@ -3,12 +3,8 @@ import { useAuth } from "@/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { centosDirectory } from "@/api";
-import {
-  Dialogstopmonitor,
-} from "@/components/Dialog";
-import {
-  ArrowRightEndOnRectangleIcon,
-} from "@heroicons/react/24/solid";
+import { Dialogstopmonitor } from "@/components/Dialog";
+import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 import Link from "next/link";
 
@@ -23,7 +19,6 @@ export function LiveViewLayout({ lab }) {
     return null;
   }
 
-
   var selectedLab = localStorage.getItem("selectedLabs");
 
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
@@ -32,7 +27,6 @@ export function LiveViewLayout({ lab }) {
   //boton monitoreo - stop monitoreo
   const [existFile, setExistFile] = React.useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
 
   React.useEffect(() => {
     try {
@@ -73,12 +67,12 @@ export function LiveViewLayout({ lab }) {
                 <>
                   <div className="flex items-center space-x-4">
                     <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
-                      <Link href="/home">
+                      <Link href={`/home/${lab}`}>
                         {React.createElement(ArrowRightEndOnRectangleIcon, {
                           strokeWidth: 2,
                           className: " text-gray-900 w-6",
                         })}
-                      </Link>{" "}
+                      </Link>
                     </button>
                     <button
                       className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
@@ -122,9 +116,7 @@ export function LiveViewLayout({ lab }) {
 
       {/* Contenido de la pagina */}
 
-      <div className={styles.block}>
-        LiveView del { lab }
-      </div>
+      <div className={styles.block}>LiveView del {lab}</div>
     </>
   );
 }
