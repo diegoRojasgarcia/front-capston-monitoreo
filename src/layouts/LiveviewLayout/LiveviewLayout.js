@@ -4,92 +4,35 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { centosDirectory } from "@/api";
 import {
-  AutocompleteActividad,
-  AutocompleteFecha,
-  AutocompletePcs,
-} from "@/components/Buttons";
-import {
-  Dialogmonitoractividad,
   Dialogstopmonitor,
-  Dialogopcion,
-  Dialogmonitorprueba,
-  Dialogprogramacionactividad,
 } from "@/components/Dialog";
-import { NavListMenu } from "@/components/navlistmenu";
-import { VideoComp } from "@/components/Video";
 import {
-  Bars4Icon,
-  VideoCameraIcon,
   ArrowRightEndOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
-import { Dialogopcionprogramacion } from "@/components/Dialog/Dialogopcionprogramacion";
-import { Dialogprogramacionprueba } from "@/components/Dialog/DialogprogramacionPrueba";
 import Link from "next/link";
 
 const cDirectory = new centosDirectory();
 
 export function LiveViewLayout({ lab }) {
-  const { user, startMonitor, stopMonitor, logout } = useAuth();
+  const { user, stopMonitor } = useAuth();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
 
   if (!user) {
     router.push("/");
     return null;
   }
 
-  //datepicker
-  const [valueDateP, setValueDateP] = useState({
-    startDate: "",
-    endDate: new Date().setMonth(11),
-  });
 
   var selectedLab = localStorage.getItem("selectedLabs");
-
-  //open dialog de Opcion
-  const [openDialogOpcion, setOpenDialogOpcion] = React.useState(false);
-
-  //open dialog de monitoreo actividad
-  const [openDialogMntorActividad, setOpenDialogMntorActividad] =
-    React.useState(false);
-
-  //open dialog de monitoreo actividad
-  const [openDialogMntorPrueba, setOpenDialogMntorPrueba] =
-    React.useState(false);
 
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
   const [openDialogStopMntor, setOpenDialogStopMntor] = React.useState(false);
 
-  //open dialog de programacion del monitoreo
-  const [openDialogProg, setOpenDialogProg] = React.useState(false);
-
   //boton monitoreo - stop monitoreo
   const [existFile, setExistFile] = React.useState(false);
-
-  //para las fechas
-  const [openFechas, setOpenFechas] = React.useState(false);
-  const [valueFecha, setValueFecha] = React.useState(null);
-  const [inputValueFecha, setInputValueFecha] = React.useState("");
-
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  //para los computadores
-  const [openPcs, setOpenPcs] = React.useState(false);
-  const [valuePcs, setValuePcs] = React.useState(null);
-  const [inputValuePcs, setInputValuePcs] = React.useState("");
-
-  const [openActividades, setOpenActividades] = React.useState(false);
-  const [valueActividad, setValueActividad] = React.useState(null);
-  const [inputValueActividad, setInputValueActividad] = React.useState("");
-
-  const [openDialogOpcionProgramacion, setOpenDialogOpcionProgramacion] =
-    React.useState(false);
-
-  const [OpenDialogProgActividad, setOpenDialogProgActividad] =
-    React.useState(false);
-
-  const [OpenDialogProgPrueba, setOpenDialogProgPrueba] = React.useState(false);
 
   React.useEffect(() => {
     try {
@@ -103,14 +46,6 @@ export function LiveViewLayout({ lab }) {
     let showButtomStop = existFile;
     setShowButtonStopMntor(showButtomStop);
   }, [lab]);
-
-  //dialog monitoreo
-  const handleOpenDialogOpcion = () => {
-    setOpenDialogOpcion(true);
-  };
-  const handleCloseDialogOpcion = () => {
-    setOpenDialogOpcion(false);
-  };
 
   const handleOpenDialogStopMntor = () => {
     setOpenDialogStopMntor(true);
@@ -133,7 +68,7 @@ export function LiveViewLayout({ lab }) {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
+            <div className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
               {showButtonStopMntor ? (
                 <>
                   <div className="flex items-center space-x-4">
@@ -163,7 +98,7 @@ export function LiveViewLayout({ lab }) {
                   </Link>{" "}
                 </button>
               )}
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -188,14 +123,7 @@ export function LiveViewLayout({ lab }) {
       {/* Contenido de la pagina */}
 
       <div className={styles.block}>
-        {valuePcs ? (
-          <VideoComp
-            selectedLab={selectedLab}
-            valueFecha={valueFecha ? valueFecha.nombre : null}
-            valueActividad={valueActividad ? valueActividad.nombre : null}
-            valuePcs={valuePcs ? valuePcs.nombre : null}
-          />
-        ) : null}
+        LiveView del { lab }
       </div>
     </>
   );

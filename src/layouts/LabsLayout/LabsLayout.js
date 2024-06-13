@@ -161,8 +161,8 @@ export function LabsLayout({ lab }) {
       <div className="bg-white text-white max-w-full">
         <div className="mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center">
-            <button className="hidden sm:inline-block text-white font-bold rounded">
-              <AutocompleteFecha
+            <div className="hidden sm:inline-block  text-white font-bold  rounded">
+              <AutocompleteFecha 
                 openFechas={openFechas}
                 setOpenFechas={setOpenFechas}
                 valueFecha={valueFecha}
@@ -170,9 +170,9 @@ export function LabsLayout({ lab }) {
                 setValueFecha={setValueFecha}
                 setInputValueFecha={setInputValueFecha}
               />
-            </button>
-            <button className="hidden sm:inline-block  text-white font-bold  rounded">
-              <AutocompleteActividad
+            </div>    
+            <div className="hidden sm:inline-block  text-white font-bold  rounded">
+            <AutocompleteActividad
                 openActividades={openActividades}
                 setOpenActividades={setOpenActividades}
                 valueActividad={valueActividad}
@@ -181,9 +181,9 @@ export function LabsLayout({ lab }) {
                 valueFecha={valueFecha}
                 setInputValueActividad={setInputValueActividad}
               />
-            </button>
-            <button className="hidden sm:inline-block  text-white font-bold  rounded">
-              <AutocompletePcs
+            </div> 
+            <div className="hidden sm:inline-block  text-white font-bold  rounded">
+            <AutocompletePcs
                 openPcs={openPcs}
                 setOpenPcs={setOpenPcs}
                 valuePcs={valuePcs}
@@ -193,10 +193,10 @@ export function LabsLayout({ lab }) {
                 valueFecha={valueFecha}
                 valueActividad={valueActividad}
               />
-            </button>
+            </div> 
           </div>
           <div className="flex items-center space-x-4">
-            <button className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
+            <div className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
               {showButtonStopMntor ? (
                 <>
                   <div className="flex items-center space-x-4">
@@ -227,7 +227,7 @@ export function LabsLayout({ lab }) {
                   </button>
                 </>
               )}
-            </button>
+            </div>
             <button className="hidden sm:inline-block  text-white font-bold  rounded">
               <NavListMenu lab={lab} setIsConfirmOpen={setIsConfirmOpen} />
             </button>
