@@ -1,6 +1,6 @@
 // @/components/Layout/Sidebar.js
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/img/logoUcn.png";
 import { Button } from "semantic-ui-react";
 import { useAuth } from "@/hooks";
@@ -12,6 +12,8 @@ const cDirectory = new centosDirectory();
 export function Sidebar() {
   const { accessToken, user, logout } = useAuth();
   const [stateLabs, setStateLabs] = useState([]);
+  const [storedValue, setStoredValue] = useState("");
+  const [sleclab, setSleclab] = useState("");
 
   React.useEffect(() => {
     cDirectory.getLabs().then((response) => {
@@ -21,7 +23,13 @@ export function Sidebar() {
 
   const handleLabClick = async (lab) => {
     localStorage.setItem("selectedLabs", lab);
+    setSleclab(lab);
   };
+
+  useEffect(() => {
+    const value = localStorage.getItem("Labmonitoring");
+    setStoredValue(value);
+  }, [sleclab]);
 
   return (
     <>
@@ -44,7 +52,6 @@ export function Sidebar() {
             <li className="h-12 text-xl p-3 text-white border-b-2">
               Laboratorios
             </li>
-
             {stateLabs.length > 0 ? (
               <li>
                 {stateLabs.map((labs) => (
@@ -52,7 +59,7 @@ export function Sidebar() {
                     key={labs}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
-                    className="relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-600 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
+                    className="relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-800 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
                   >
                     <span className="inline-flex justify-center items-center ml-4 ">
                       <svg
@@ -70,7 +77,13 @@ export function Sidebar() {
                         ></path>
                       </svg>
                     </span>
-                    <span className="ml-2 text-2xl text-white tracking-wide truncate ">
+                    <span
+                      className={`block text-lg font-medium ${
+                        labs == storedValue
+                          ? "text-orange-300 ml-3 pt-1"
+                          : "text-white ml-3 pt-1"
+                      }`}
+                    >
                       {labs}
                     </span>
                   </Link>
