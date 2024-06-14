@@ -8,6 +8,7 @@ import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 import Link from "next/link";
 import { AutocompletePcs } from "@/components/Buttons";
+import DirectoryViewer from "@/components/DirectoryViewer/DirectoryViewer";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -156,8 +157,14 @@ export function LiveViewLayout({ lab, actividad }) {
       {/* Contenido de la pagina */}
 
       <div className={styles.block}>
-        LiveView del {lab} en la actividad {actividad} fecha: {currentDate} y pc{" "}
-        {valuePc}
+        <DirectoryViewer
+          lab={lab}
+          actividad={actividad}
+          currentDate={currentDate}
+          currentPC={valuePc}
+        />
+        {/* LiveView del {lab} en la actividad {actividad} fecha: {currentDate} y pc{" "}
+        {valuePc} */}
       </div>
     </>
   );
