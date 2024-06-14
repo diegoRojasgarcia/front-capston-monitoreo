@@ -27,7 +27,6 @@ export function Dialogstopmonitor({
       stopMonitor(lab);
       setOpenDialogStopMntor(false);
       setShowButtonStopMntor(false);
-      localStorage.setItem("selectedLabs", null);
       localStorage.setItem("actividadmonitoring", null);
       setIsConfirmOpen(true);
     });

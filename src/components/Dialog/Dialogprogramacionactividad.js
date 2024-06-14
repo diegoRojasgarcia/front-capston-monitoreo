@@ -82,7 +82,7 @@ export function Dialogprogramacionactividad({
               <b>{lab}</b>
             </p>
           </div>
-          <h1 className="text-lg mb-4">Fecha</h1>
+          <h1 className="text-lg mb-2">Fecha</h1>
 
           <Datepicker
             placeholder={"Fecha programación (dd/mm/aaa)"}
@@ -100,7 +100,7 @@ export function Dialogprogramacionactividad({
           />
 
           <div className="pt-8 ">
-            <h1 className="text-lg mb-4">Hora Inicio</h1>
+            <h1 className="text-lg mb-2">Hora Inicio</h1>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 value={valueTimerInic}
@@ -109,7 +109,7 @@ export function Dialogprogramacionactividad({
             </LocalizationProvider>
           </div>
           <div className="pt-8 ">
-            <h1 className="text-lg mb-4">Hora Término</h1>
+            <h1 className="text-lg mb-2">Hora Término</h1>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -119,8 +119,7 @@ export function Dialogprogramacionactividad({
             </LocalizationProvider>
           </div>
 
-          <div className="pt-8">
-            <h1 className="text-lg mb-4">Actividad</h1>
+          <div className="pt-12">
             <Form.Input
               name="actividad"
               type="text"
@@ -130,6 +129,22 @@ export function Dialogprogramacionactividad({
               error={formik.errors.actividad}
             />
           </div>
+          <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-4 h-4 -mt-px"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+            Para empezar la monitorización en el laboratorio {lab} {""}
+            ingresa la actividad
+          </p>
         </DialogContent>
 
         <DialogActions className="mb-4 mr-4">

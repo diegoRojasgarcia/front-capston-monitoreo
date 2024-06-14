@@ -97,7 +97,7 @@ export function LiveViewLayout({ lab, actividad }) {
               {showButtonStopMntor ? (
                 <>
                   <div className="flex items-center space-x-4">
-                    <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
+                    {/* <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
                       <Link href={`/home/${lab}`}>
                         {React.createElement(ArrowRightEndOnRectangleIcon, {
                           strokeWidth: 2,
@@ -110,6 +110,14 @@ export function LiveViewLayout({ lab, actividad }) {
                       onClick={handleOpenDialogStopMntor}
                     >
                       Detener Monitoreo
+                    </button> */}
+                    <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
+                      <Link href={`/home/${lab}`}>
+                        {React.createElement(ArrowRightEndOnRectangleIcon, {
+                          strokeWidth: 2,
+                          className: " text-gray-900 w-6",
+                        })}
+                      </Link>
                     </button>
                   </div>
                 </>

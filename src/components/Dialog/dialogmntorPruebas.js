@@ -100,7 +100,7 @@ export function Dialogmonitorprueba({
             />
           </div>
           <div className="pt-6 ">
-            <h1 className="text-lg mb-4">Aplicaciones no permitidas</h1>
+            <h1 className="text-lg mb-2">Aplicaciones no permitidas</h1>
             <div className="mb-4 pt-4">
               <label className="inline-flex items-center">
                 <input
@@ -132,7 +132,7 @@ export function Dialogmonitorprueba({
             <h1 className="text-lg ">Webs no permitidas</h1>
           </div>
           <FormTextArea
-            className="pt-6"
+            className="pt-4"
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
           />
           <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
