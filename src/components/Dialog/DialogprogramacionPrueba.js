@@ -1,10 +1,10 @@
 import { Dialog } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import Slide from "@mui/material/Slide";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Form } from "semantic-ui-react";
+import { Form, FormTextArea } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useFormik } from "formik";
@@ -33,8 +33,35 @@ export function Dialogprogramacionprueba({
   setIsConfirmOpen,
   setOpenDialogProgPrueba,
 }) {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const options = [
+    "Discord",
+    "Steam",
+    "Whatsapp",
+    "OperaGX",
+    "Bing",
+    "Teams",
+    "Mozilla Firefox",
+  ];
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
+
+  const handleCheckboxChange = (option) => {
+    if (selectedOptions.includes(option)) {
+      setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    } else {
+      setSelectedOptions([...selectedOptions, option]);
+    }
+  };
+
+  const handleSelectAllChange = () => {
+    if (selectedOptions.length === options.length) {
+      setSelectedOptions([]);
+    } else {
+      setSelectedOptions(options);
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -99,7 +126,7 @@ export function Dialogprogramacionprueba({
             onChange={setValueDateP}
           />
 
-          <div className="pt-16 ">
+          <div className="pt-8 ">
             <div className=" flex justify-start pb-2">Hora Inicio</div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -108,7 +135,7 @@ export function Dialogprogramacionprueba({
               />
             </LocalizationProvider>
           </div>
-          <div className="pt-16 ">
+          <div className="pt-8 ">
             <div className=" flex justify-start pb-2">Hora Término</div>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -119,7 +146,7 @@ export function Dialogprogramacionprueba({
             </LocalizationProvider>
           </div>
 
-          <div className="pt-16">
+          <div className="pt-8">
             <div className=" flex justify-start pb-2"> Actividad</div>
             <Form.Input
               name="actividad"
@@ -129,6 +156,46 @@ export function Dialogprogramacionprueba({
               onChange={formik.handleChange}
               error={formik.errors.actividad}
             />
+          </div>
+
+          <div className="pt-8">
+            <div className=" flex justify-start ">Webs no permitidas</div>
+          </div>
+          <FormTextArea
+            className="pt-2"
+            placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
+          />
+
+          <div className="pt-4 ">
+            <div className=" flex justify-start pb-2">
+              Aplicaciones no permitidas
+            </div>
+            <div className="mb-4 pt-4">
+              <label className="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  checked={selectedOptions.length === options.length}
+                  onChange={handleSelectAllChange}
+                />
+                <span className="ml-2">Seleccionar todas</span>
+              </label>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {options.map((option) => (
+                <div key={option} className="mb-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-600"
+                      checked={selectedOptions.includes(option)}
+                      onChange={() => handleCheckboxChange(option)}
+                    />
+                    <span className="ml-2">{option}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
         </DialogContent>
 
