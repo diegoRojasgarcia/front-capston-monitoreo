@@ -100,7 +100,7 @@ export function Dialogmonitorprueba({
             />
           </div>
           <div className="pt-6 ">
-            <h1 className="text-xl mb-4">Aplicaciones no permitidas</h1>
+            <h1 className="text-lg mb-4">Aplicaciones no permitidas</h1>
             <div className="mb-4 pt-4">
               <label className="inline-flex items-center">
                 <input
@@ -129,7 +129,7 @@ export function Dialogmonitorprueba({
             </div>
           </div>
           <div>
-            <h1 className="text-xl ">Webs no permitidas</h1>
+            <h1 className="text-lg ">Webs no permitidas</h1>
           </div>
           <FormTextArea
             className="pt-6"

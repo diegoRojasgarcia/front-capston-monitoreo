@@ -109,7 +109,7 @@ export function Dialogprogramacionprueba({
               <b>{lab}</b>
             </p>
           </div>
-          <div className="flex justify-start pb-2"> Fecha</div>
+          <h1 className="text-lg mb-4">Fecha</h1>
 
           <Datepicker
             placeholder={"Fecha programación (dd/mm/aaa)"}
@@ -127,17 +127,17 @@ export function Dialogprogramacionprueba({
           />
 
           <div className="pt-8 ">
-            <div className=" flex justify-start pb-2">Hora Inicio</div>
+            <h1 className="text-lg mb-4">Hora Inicio</h1>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 value={valueTimerInic}
+                sx={{}}
                 onChange={(newValue) => setValueTimerInic(newValue)}
               />
             </LocalizationProvider>
           </div>
           <div className="pt-8 ">
-            <div className=" flex justify-start pb-2">Hora Término</div>
-
+            <h1 className="text-lg mb-4">Hora Término</h1>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 value={valueTimerFin}
@@ -147,7 +147,7 @@ export function Dialogprogramacionprueba({
           </div>
 
           <div className="pt-8">
-            <div className=" flex justify-start pb-2"> Actividad</div>
+            <h1 className="text-lg mb-4">Actividad</h1>
             <Form.Input
               name="actividad"
               type="text"
@@ -158,18 +158,16 @@ export function Dialogprogramacionprueba({
             />
           </div>
 
-          <div className="pt-8">
-            <div className=" flex justify-start ">Webs no permitidas</div>
+          <div className="pt-8 mb-2">
+            <h1 className="text-lg mb-4">Webs no permitidas</h1>
           </div>
           <FormTextArea
             className="pt-2"
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
           />
 
-          <div className="pt-4 ">
-            <div className=" flex justify-start pb-2">
-              Aplicaciones no permitidas
-            </div>
+          <div className="pt-4">
+            <h1 className="text-lg mb-2">Aplicaciones no permitidas</h1>
             <div className="mb-4 pt-4">
               <label className="inline-flex items-center">
                 <input

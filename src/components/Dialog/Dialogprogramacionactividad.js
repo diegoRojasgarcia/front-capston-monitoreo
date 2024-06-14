@@ -82,7 +82,7 @@ export function Dialogprogramacionactividad({
               <b>{lab}</b>
             </p>
           </div>
-          <div className="flex justify-start pb-2"> Fecha</div>
+          <h1 className="text-lg mb-4">Fecha</h1>
 
           <Datepicker
             placeholder={"Fecha programación (dd/mm/aaa)"}
@@ -100,7 +100,7 @@ export function Dialogprogramacionactividad({
           />
 
           <div className="pt-8 ">
-            <div className=" flex justify-start pb-2">Hora Inicio</div>
+            <h1 className="text-lg mb-4">Hora Inicio</h1>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 value={valueTimerInic}
@@ -109,7 +109,7 @@ export function Dialogprogramacionactividad({
             </LocalizationProvider>
           </div>
           <div className="pt-8 ">
-            <div className=" flex justify-start pb-2">Hora Término</div>
+            <h1 className="text-lg mb-4">Hora Término</h1>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -120,7 +120,7 @@ export function Dialogprogramacionactividad({
           </div>
 
           <div className="pt-8">
-            <div className=" flex justify-start pb-2"> Actividad</div>
+            <h1 className="text-lg mb-4">Actividad</h1>
             <Form.Input
               name="actividad"
               type="text"
