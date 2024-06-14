@@ -65,7 +65,7 @@ export function Sidebar() {
                     onClick={() => handleLabClick(labs)}
                     className={`block text-lg font-medium ${
                       labs == sleclab
-                        ? "relative flex flex-row items-center rounded-xl h-12 focus:outline-none bg-gray-800 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
+                        ? "relative flex flex-row items-center rounded-xl h-12 focus:outline-none bg-gray-800 text-white hover:text-gray-100 border-l-4 border-transparent border-orange-400 pr-6 mt-2"
                         : "relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-800 text-white hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
                     }`}
                   >
