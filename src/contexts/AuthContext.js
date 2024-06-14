@@ -18,6 +18,7 @@ export function AuthProvider(props) {
   //laboratorio
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [labmonitoring, setLabmonitoring] = useState(null);
+  const [labmonitorings, setLabmonitorings] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -55,6 +56,8 @@ export function AuthProvider(props) {
     tokenCtrl.removeToken();
     setToken(null);
     setUser(null);
+    localStorage.setItem("selectedLabs", null);
+    localStorage.setItem("actividadmonitoring", null);
   };
 
   //laboratorio
@@ -63,14 +66,16 @@ export function AuthProvider(props) {
       labCtrl.setLabMonitoring(lab);
       labCtrl.setIsMonitoring(true);
       setLabmonitoring(labCtrl.getLabMonitoring());
+      labmonitorings.push(labCtrl.getLabMonitoring());
       setIsMonitoring(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const stopMonitor = () => {
+  const stopMonitor = (lab) => {
     labCtrl.removeLabMonitoring();
+    labmonitorings.pop(lab);
     labCtrl.setIsMonitoring(false);
     setLabmonitoring(null);
     setIsMonitoring(false);
@@ -85,6 +90,7 @@ export function AuthProvider(props) {
     stopMonitor,
     isMonitoring,
     labmonitoring,
+    labmonitorings,
   };
 
   if (loading) return null;

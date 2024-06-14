@@ -33,6 +33,7 @@ export function Dialogmonitoractividad({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
+      localStorage.setItem("actividadmonitoring", formValue.actividad);
       await cDirectory
         .createFile({ lab: lab, actividad: formValue.actividad })
         .then((response) => {
@@ -59,7 +60,7 @@ export function Dialogmonitoractividad({
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
             <p>
-              Programación de <b>Actividad</b> en {""}
+              Monitorización de <b>Actividad</b> en {""}
               <b>{lab}</b>
             </p>
           </div>

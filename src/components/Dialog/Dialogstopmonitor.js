@@ -24,9 +24,11 @@ export function Dialogstopmonitor({
 }) {
   const handleClickSMonitor = () => {
     cDirectory.deleteFile({ lab: lab }).then((response) => {
-      stopMonitor();
+      stopMonitor(lab);
       setOpenDialogStopMntor(false);
       setShowButtonStopMntor(false);
+      localStorage.setItem("selectedLabs", null);
+      localStorage.setItem("actividadmonitoring", null);
       setIsConfirmOpen(true);
     });
   };

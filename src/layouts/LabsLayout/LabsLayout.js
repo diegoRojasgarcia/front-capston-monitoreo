@@ -69,6 +69,7 @@ export function LabsLayout({ lab }) {
   const [inputValueFecha, setInputValueFecha] = React.useState("");
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [labmonitoring, setLabmonitoring] = React.useState(false);
 
   //para los computadores
   const [openPcs, setOpenPcs] = React.useState(false);

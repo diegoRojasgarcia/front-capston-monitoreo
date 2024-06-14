@@ -7,10 +7,20 @@ import { Dialogstopmonitor } from "@/components/Dialog";
 import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import ConfirmDialog from "@/components/confirmdialog/confirmdialog";
 import Link from "next/link";
+import { AutocompletePcs } from "@/components/Buttons";
+
+const getCurrentDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses en JavaScript son de 0 a 11
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
 
 const cDirectory = new centosDirectory();
 
-export function LiveViewLayout({ lab }) {
+export function LiveViewLayout({ lab, actividad }) {
   const { user, stopMonitor } = useAuth();
   const router = useRouter();
 
@@ -19,7 +29,12 @@ export function LiveViewLayout({ lab }) {
     return null;
   }
 
+  const currentDate = getCurrentDate();
+
   var selectedLab = localStorage.getItem("selectedLabs");
+  const actividadmonitoring = localStorage.getItem("actividadmonitoring");
+  const actividadobject = { nombre: actividadmonitoring };
+  const datedobject = { nombre: currentDate };
 
   const [showButtonStopMntor, setShowButtonStopMntor] = React.useState(false);
   const [openDialogStopMntor, setOpenDialogStopMntor] = React.useState(false);
@@ -27,6 +42,11 @@ export function LiveViewLayout({ lab }) {
   //boton monitoreo - stop monitoreo
   const [existFile, setExistFile] = React.useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const [openPcs, setOpenPcs] = React.useState(false);
+  const [valuePcs, setValuePcs] = React.useState(null);
+  const [inputValuePcs, setInputValuePcs] = React.useState("");
+  const [valuePc, setValuePC] = React.useState(null);
 
   React.useEffect(() => {
     try {
@@ -48,15 +68,26 @@ export function LiveViewLayout({ lab }) {
     setOpenDialogStopMntor(false);
   };
 
+  React.useEffect(() => {
+    if (valuePcs) setValuePC(valuePcs.nombre);
+  }, [valuePcs]);
+
   return (
     <>
       {/* TOP BAR */}
       <div className="bg-white text-white max-w-full">
         <div className="mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center">
-            <button className="hidden sm:inline-block rounded-xl mr-2 px-3 h-16 text-gray-600 bg-gray-300 hover:bg-gray-400 font-bold rounded">
-              Computador
-            </button>
+            <AutocompletePcs
+              openPcs={openPcs}
+              setOpenPcs={setOpenPcs}
+              valuePcs={valuePcs}
+              inputValue={inputValuePcs}
+              setValuePcs={setValuePcs}
+              setInputValuePcs={setInputValuePcs}
+              valueFecha={datedobject}
+              valueActividad={actividadobject}
+            />
             <button className="hidden sm:inline-block rounded-xl ml-2 px-3 h-16 text-gray-600 bg-gray-300 hover:bg-gray-400 font-bold  rounded">
               Laboratorio
             </button>
@@ -116,7 +147,10 @@ export function LiveViewLayout({ lab }) {
 
       {/* Contenido de la pagina */}
 
-      <div className={styles.block}>LiveView del {lab}</div>
+      <div className={styles.block}>
+        LiveView del {lab} en la actividad {actividad} fecha: {currentDate} y pc{" "}
+        {valuePc}
+      </div>
     </>
   );
 }

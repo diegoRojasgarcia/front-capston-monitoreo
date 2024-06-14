@@ -3,16 +3,7 @@ import { Button } from "semantic-ui-react";
 import Slide from "@mui/material/Slide";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import {
-  FormTextArea,
-  FormSelect,
-  FormRadio,
-  FormInput,
-  FormGroup,
-  FormCheckbox,
-  FormButton,
-  Form,
-} from "semantic-ui-react";
+import { FormTextArea, Form } from "semantic-ui-react";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { centosDirectory } from "@/api";
@@ -94,7 +85,7 @@ export function Dialogmonitorprueba({
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
             <p>
-              Programación de <b>Evaluación</b> en {""}
+              Monitorización de <b>Evaluación</b> en {""}
               <b>{lab}</b>
             </p>
           </div>

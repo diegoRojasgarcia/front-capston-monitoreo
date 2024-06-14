@@ -10,10 +10,14 @@ import { centosDirectory } from "@/api";
 const cDirectory = new centosDirectory();
 
 export function Sidebar() {
-  const { accessToken, user, logout } = useAuth();
+  const { accessToken, user, logout, labmonitorings } = useAuth();
   const [stateLabs, setStateLabs] = useState([]);
   const [storedValue, setStoredValue] = useState("");
   const [sleclab, setSleclab] = useState("");
+
+  const isMatching = (item) => {
+    return comparisons.includes(item);
+  };
 
   React.useEffect(() => {
     cDirectory.getLabs().then((response) => {
