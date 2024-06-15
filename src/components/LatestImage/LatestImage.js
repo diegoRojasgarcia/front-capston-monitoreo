@@ -17,14 +17,12 @@ const LatestImage = ({ src }) => {
   }, [src]);
 
   return (
-    <div>
-      <div className="p-2 h-screen overflow-hidden">
-        <img
-          src={imageSrc}
-          alt="Latest"
-          className="latest-image w-full h-5/6 object-contain"
-        />
-      </div>
+    <div className="p-2 h-screen overflow-hidden">
+      <img
+        src={imageSrc}
+        alt="Latest"
+        className="latest-image w-full h-5/6 object-contain"
+      />
     </div>
   );
 };
