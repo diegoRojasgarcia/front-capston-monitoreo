@@ -3,45 +3,40 @@ import axios from "axios";
 import LatestImage from "../LatestImage/LatestImage.js";
 
 const DirectoryViewer = ({ lab, actividad, currentDate, currentPC }) => {
-  const [path, setPath] = useState([]);
-  const [latestImageSrc, setLatestImageSrc] = useState(null);
-  const [folders, setFolders] = useState([]);
+  const [path, setPath] = useState("");
+  const [latestImageSrc, setLatestImageSrc] = useState("");
   const [loading, setLoading] = useState(true);
+  const [latestFile, setLatestFile] = useState("");
 
   useEffect(() => {
-    if (currentPC)
-      setPath(
-        lab + "/" + currentDate + "/" + actividad + "/" + currentPC + "/"
-      );
-  }, [currentPC]);
-
-  console.log(path);
+    if (currentPC) {
+      const newPath = `${lab}/${currentDate}/${actividad}/${currentPC}/`;
+      setPath(newPath);
+    }
+  }, [lab, actividad, currentDate, currentPC]);
 
   const fetchFoldersAndLatestImage = useCallback(async () => {
+    if (!path) return;
+
     try {
-      //   const response = await axios.get(
-      //     `http://192.168.100.25/imagenes/${path.join("/")}/`,
-      //     { headers: { Accept: "application/json" } }
-      //   );
-      //   console.log("Directory JSON:", response.data); // Log the directory JSON
       const baseURL = "http://192.168.100.25/imagenes/";
       console.log(`Fetching files from: ${baseURL}${path}`);
-      const response = await axios(`${baseURL}${path}`);
+      const response = await axios.get(`${baseURL}${path}`);
       const files = response.data.filter(
         (item) =>
           item.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(item.name)
       );
-      const folders = response.data.filter((item) => item.type === "directory");
 
+      console.log(`Fetched files from: ${baseURL}${path}`);
       files.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
+
       if (files.length > 0) {
         const latestFile = files[0].name;
-        const newImageSrc = `http://192.168.100.25/imagenes/${path.join(
-          "/"
-        )}/${latestFile}`;
-        setLatestImageSrc(newImageSrc);
+        setLatestFile(latestFile);
+        setLatestImageSrc(`${baseURL}${path}${latestFile}`);
+      } else {
+        setLatestImageSrc("");
       }
-      setFolders(folders.map((folder) => folder.name));
     } catch (error) {
       console.error("Failed to fetch items", error);
     } finally {
@@ -53,7 +48,7 @@ const DirectoryViewer = ({ lab, actividad, currentDate, currentPC }) => {
     fetchFoldersAndLatestImage();
     const interval = setInterval(fetchFoldersAndLatestImage, 4000); // Fetch the directory listing every 4 seconds
     return () => clearInterval(interval); // Cleanup on component unmount
-  }, [path, fetchFoldersAndLatestImage]);
+  }, [fetchFoldersAndLatestImage]);
 
   return <div>{latestImageSrc && <LatestImage src={latestImageSrc} />}</div>;
 };

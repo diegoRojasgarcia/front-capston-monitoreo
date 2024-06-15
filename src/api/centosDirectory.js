@@ -128,7 +128,6 @@ export class centosDirectory {
 
   async deleteFile(lab) {
     try {
-      console.log("eliminando archivo en el lab: ", lab);
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABS}`;
       const params = {
         method: "Delete",

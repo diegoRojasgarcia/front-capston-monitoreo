@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { Button } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
 
 export function VideoComp({
   valueFecha,
@@ -12,6 +11,8 @@ export function VideoComp({
   const [files, setFiles] = useState([]);
   const [mp4Files, setMp4Files] = useState("");
   const [currentVideo, setCurrentVideo] = useState(null);
+  const videoRef = useRef(null);
+  const [currentFrame, setCurrentFrame] = useState(0);
 
   useEffect(() => {
     if (valuePcs)
@@ -64,38 +65,34 @@ export function VideoComp({
     }
   };
 
-  // const playVideo = (videoFile) => {
-  //   const baseURL = "http://192.168.100.25/videos/";
-  //   setCurrentVideo(`${baseURL}${path}${videoFile}`);
-  // };
+  const nextFrame = () => {
+    if (videoRef.current) {
+      const newTime = (currentFrame + 1) / 5;
+      videoRef.current.currentTime = newTime;
+      setCurrentFrame(currentFrame + 1);
+    }
+  };
+
+  const prevFrame = () => {
+    if (videoRef.current && currentFrame > 0) {
+      const newTime = (currentFrame - 1) / 5;
+      videoRef.current.currentTime = newTime;
+      setCurrentFrame(currentFrame - 1);
+    }
+  };
 
   return (
     <div className="text-white">
-      {/* <div
-        className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-neutral-100 motion-reduce:animate-[spin_1.5s_linear_infinite]"
-        role="status"
-      >
-        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-          Loading...
-        </span>
-      </div> */}
-      {/* {mp4Files.length > 0 && (
-        <div>
-          <ul>
-            {mp4Files.map((file) => (
-              <li key={file}>
-                <button onClick={() => playVideo(file)}>{file}</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
       {currentVideo && (
         <div>
-          <video width="1240" height="720" controls>
+          <video ref={videoRef} width="1240" height="720" controls>
             <source src={currentVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          {/* <div>
+            <button onClick={prevFrame}>Previous Frame</button>
+            <button onClick={nextFrame}>Next Frame</button>
+          </div> */}
         </div>
       )}{" "}
     </div>
