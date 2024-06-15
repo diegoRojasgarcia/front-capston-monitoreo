@@ -9,15 +9,40 @@ import { centosDirectory } from "@/api";
 
 const cDirectory = new centosDirectory();
 
+const fetchData = async (item) => {
+  const response = await cDirectory.existFile({ lab: item });
+  const data = await response;
+  return data;
+};
+
 export function Sidebar() {
-  const { accessToken, user, logout, labmonitorings } = useAuth();
+  const { accessToken, logout } = useAuth();
   const [stateLabs, setStateLabs] = useState([]);
-  const [storedValue, setStoredValue] = useState("");
   const [sleclab, setSleclab] = useState("");
 
-  const isMatching = (item) => {
-    return comparisons.includes(item);
-  };
+  const [labsActive, setLabsActive] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchAllData = async () => {
+  //     const allResults = await Promise.all(
+  //       stateLabs.map(async (item) => {
+  //         const result = await fetchData(item);
+  //         if (result.exist) {
+  //           if (!labsActive.includes(item)) {
+  //             const updatedItems = [...labsActive, item];
+  //             setLabsActive(updatedItems);
+  //             localStorage.setItem(
+  //               "labsmonitoring",
+  //               JSON.stringify(updatedItems)
+  //             );
+  //           }
+  //         }
+  //         return result;
+  //       })
+  //     );
+  //   };
+  //   fetchAllData();
+  // }, []);
 
   React.useEffect(() => {
     cDirectory.getLabs().then((response) => {
@@ -30,10 +55,15 @@ export function Sidebar() {
     setSleclab(lab);
   };
 
-  useEffect(() => {
-    const value = localStorage.getItem("Labmonitoring");
-    setStoredValue(value);
-  }, [sleclab]);
+  // useEffect(() => {
+  //   // Guardar el arreglo en el local storage cada vez que se actualiza
+  //   localStorage.setItem("labsmonitoring", JSON.stringify(labsActive));
+  // }, [labsActive]);
+
+  // useEffect(() => {
+  //   const value = localStorage.getItem("Labmonitoring");
+  //   setStoredValue(value);
+  // }, [sleclab]);
 
   return (
     <>
@@ -85,15 +115,7 @@ export function Sidebar() {
                         ></path>
                       </svg>
                     </span>
-                    <span
-                      className={`block text-lg font-medium ${
-                        labs == storedValue
-                          ? "text-orange-300 ml-3 pt-1"
-                          : "text-white ml-3 pt-1"
-                      }`}
-                    >
-                      {labs}
-                    </span>
+                    <span className={"text-white ml-3 pt-1"}>{labs}</span>
                   </Link>
                 ))}
               </li>

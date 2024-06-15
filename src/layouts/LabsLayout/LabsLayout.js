@@ -99,7 +99,7 @@ export function LabsLayout({ lab }) {
     }
     let showButtomStop = existFile;
     setShowButtonStopMntor(showButtomStop);
-  }, [lab]);
+  }, [selectedLab]);
 
   //dialog monitoreo
   const handleOpenDialogOpcion = () => {
