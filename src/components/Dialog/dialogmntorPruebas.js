@@ -11,6 +11,7 @@ import {
   initialValues,
   validationSchema,
 } from "@/layouts/LabsLayout/formsActivity/activityForm.form";
+import { useAuth } from "@/hooks";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,11 +24,18 @@ export function Dialogmonitorprueba({
   handleCloseDialogMntorPrueba,
   lab,
   startMonitor,
-  setOpenDialogMntorPrueba,
   setShowButtonStopMntor,
+  setOpenDialogMntorPrueba,
   selectedLab,
   setIsConfirmOpen,
 }) {
+  const { user } = useAuth();
+  const [textformwebs, setText] = useState("");
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
   const [selectedOptions, setSelectedOptions] = useState([]);
   const options = [
     "Discord",
@@ -43,8 +51,30 @@ export function Dialogmonitorprueba({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
+      const webs = textformwebs;
+      const apps = selectedOptions;
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "w",
+        content: webs,
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "a",
+        content: apps.join(";"),
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "i",
+        content: user.email,
+      });
+
       await cDirectory
-        .createFile({ lab: lab, actividad: formValue.actividad })
+        .createFiles({
+          lab: lab,
+          filename: "c",
+          content: formValue.actividad,
+        })
         .then((response) => {
           if (response.status == 200) {
             startMonitor(lab);
@@ -53,6 +83,17 @@ export function Dialogmonitorprueba({
             setIsConfirmOpen(true);
           }
         });
+
+      // await cDirectory
+      //   .createFile({ lab: lab, actividad: formValue.actividad })
+      //   .then((response) => {
+      //     if (response.status == 200) {
+      //       startMonitor(lab);
+      //       setShowButtonStopMntor(true);
+      //       setOpenDialogMntorPrueba(false);
+      //       setIsConfirmOpen(true);
+      //     }
+      //   });
     },
   });
 
@@ -133,6 +174,8 @@ export function Dialogmonitorprueba({
           </div>
           <FormTextArea
             className="pt-4"
+            value={textformwebs}
+            onChange={handleChange}
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
           />
           <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">

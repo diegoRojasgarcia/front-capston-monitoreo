@@ -5,44 +5,14 @@ import logo from "@/img/logoUcn.png";
 import { Button } from "semantic-ui-react";
 import { useAuth } from "@/hooks";
 import Link from "next/link";
-import { centosDirectory } from "@/api";
+import { User, centosDirectory } from "@/api";
 
 const cDirectory = new centosDirectory();
-
-const fetchData = async (item) => {
-  const response = await cDirectory.existFile({ lab: item });
-  const data = await response;
-  return data;
-};
 
 export function Sidebar() {
   const { accessToken, logout } = useAuth();
   const [stateLabs, setStateLabs] = useState([]);
   const [sleclab, setSleclab] = useState("");
-
-  const [labsActive, setLabsActive] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchAllData = async () => {
-  //     const allResults = await Promise.all(
-  //       stateLabs.map(async (item) => {
-  //         const result = await fetchData(item);
-  //         if (result.exist) {
-  //           if (!labsActive.includes(item)) {
-  //             const updatedItems = [...labsActive, item];
-  //             setLabsActive(updatedItems);
-  //             localStorage.setItem(
-  //               "labsmonitoring",
-  //               JSON.stringify(updatedItems)
-  //             );
-  //           }
-  //         }
-  //         return result;
-  //       })
-  //     );
-  //   };
-  //   fetchAllData();
-  // }, []);
 
   React.useEffect(() => {
     cDirectory.getLabs().then((response) => {
@@ -54,16 +24,6 @@ export function Sidebar() {
     localStorage.setItem("selectedLabs", lab);
     setSleclab(lab);
   };
-
-  // useEffect(() => {
-  //   // Guardar el arreglo en el local storage cada vez que se actualiza
-  //   localStorage.setItem("labsmonitoring", JSON.stringify(labsActive));
-  // }, [labsActive]);
-
-  // useEffect(() => {
-  //   const value = localStorage.getItem("Labmonitoring");
-  //   setStoredValue(value);
-  // }, [sleclab]);
 
   return (
     <>
@@ -133,7 +93,7 @@ export function Sidebar() {
         </div>
 
         <div>
-          {accessToken ? (
+          {User ? (
             <div className="flex items-center justify-center pb-12 ">
               <Button onClick={logout}>Cerrar Sesion</Button>
             </div>

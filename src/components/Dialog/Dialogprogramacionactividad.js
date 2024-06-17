@@ -16,6 +16,7 @@ import {
 } from "@/layouts/LabsLayout/formsFecha/programacionForm.form";
 import { TimePicker } from "@mui/x-date-pickers";
 import { centosDirectory } from "@/api";
+import { useAuth } from "@/hooks";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,6 +36,8 @@ export function Dialogprogramacionactividad({
 }) {
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
+  const { user } = useAuth();
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -53,6 +56,21 @@ export function Dialogprogramacionactividad({
         "," +
         formValue.actividad;
 
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "w",
+        content: "",
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "a",
+        content: "",
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "i",
+        content: user.email,
+      });
       await cDirectory
         .createFileProg({ lab: lab, content: infoArch })
         .then((response) => {

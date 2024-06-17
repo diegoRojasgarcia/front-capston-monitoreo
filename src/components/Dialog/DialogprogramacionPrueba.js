@@ -16,6 +16,7 @@ import {
 } from "@/layouts/LabsLayout/formsFecha/programacionForm.form";
 import { TimePicker } from "@mui/x-date-pickers";
 import { centosDirectory } from "@/api";
+import { useAuth } from "@/hooks";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,6 +46,9 @@ export function Dialogprogramacionprueba({
   ];
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
+  const { user } = useAuth();
+
+  const [textformwebs, setText] = useState("");
 
   const handleCheckboxChange = (option) => {
     if (selectedOptions.includes(option)) {
@@ -60,6 +64,10 @@ export function Dialogprogramacionprueba({
     } else {
       setSelectedOptions(options);
     }
+  };
+
+  const handleChange = (e) => {
+    setText(e.target.value);
   };
 
   const formik = useFormik({
@@ -79,7 +87,23 @@ export function Dialogprogramacionprueba({
         valueTimerFin.minute() +
         "," +
         formValue.actividad;
-
+      const webs = textformwebs;
+      const apps = selectedOptions;
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "w",
+        content: webs,
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "a",
+        content: apps.join(";"),
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "i",
+        content: user.email,
+      });
       await cDirectory
         .createFileProg({ lab: lab, content: infoArch })
         .then((response) => {
@@ -163,6 +187,8 @@ export function Dialogprogramacionprueba({
           </div>
           <FormTextArea
             className="pt-2"
+            value={textformwebs}
+            onChange={handleChange}
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
           />
 

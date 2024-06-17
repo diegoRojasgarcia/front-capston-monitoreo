@@ -11,6 +11,7 @@ import {
   initialValues,
   validationSchema,
 } from "@/layouts/LabsLayout/formsActivity/activityForm.form";
+import { useAuth } from "@/hooks";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,14 +29,34 @@ export function Dialogmonitoractividad({
   selectedLab,
   setIsConfirmOpen,
 }) {
+  const { user } = useAuth();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
       localStorage.setItem("actividadmonitoring", formValue.actividad);
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "w",
+        content: "",
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "a",
+        content: "",
+      });
+      await cDirectory.createFiles({
+        lab: lab,
+        filename: "i",
+        content: user.email,
+      });
       await cDirectory
-        .createFile({ lab: lab, actividad: formValue.actividad })
+        .createFiles({
+          lab: lab,
+          filename: "c",
+          content: formValue.actividad,
+        })
         .then((response) => {
           if (response.status == 200) {
             startMonitor(lab);

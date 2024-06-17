@@ -11,11 +11,9 @@ import {
   Bars4Icon,
   XMarkIcon,
   PencilSquareIcon,
-  VideoCameraIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "@/hooks";
 import {
-  Dialogprogramacion,
   Dialogprogramacionactividad,
   Dialogprogramacionprueba,
 } from "../Dialog";
@@ -46,18 +44,10 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
     setOpenDialogOpcionProgramacion(false);
   };
 
-  //digalog programacion del monitoreo
-  const handleOpenDialogProg = () => {
-    setOpenDialogProgActividad(true);
-  };
   const handleCloseDialogProg = () => {
     setOpenDialogProgActividad(false);
   };
 
-  //digalog programacion del monitoreo
-  const handleOpenDialogProgPrueba = () => {
-    setOpenDialogProgPrueba(true);
-  };
   const handleCloseDialogProgPrueba = () => {
     setOpenDialogProgPrueba(false);
   };
@@ -114,30 +104,6 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
                 </Typography>
               </div>
             </MenuItem>
-            {/* <MenuItem className="flex items-center rounded-lg">
-              <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-                {" "}
-                {React.createElement(VideoCameraIcon, {
-                  strokeWidth: 2,
-                  className: "h-6 text-gray-900 w-6 ",
-                })}
-              </div>
-              <div>
-                <Typography
-                  variant="h6"
-                  color="blue-gray"
-                  className="flex items-center text-sm font-bold pl-2"
-                >
-                  Live View
-                </Typography>
-                <Typography
-                  variant="paragraph"
-                  className="text-xs !font-medium text-blue-gray-500 pl-2"
-                >
-                  Visualización live view del laboratorio
-                </Typography>
-              </div>
-            </MenuItem> */}
             <MenuItem onClick={logout} className="flex items-center rounded-lg">
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}

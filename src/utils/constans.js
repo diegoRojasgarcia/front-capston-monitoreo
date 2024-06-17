@@ -12,6 +12,8 @@ export const ENV = {
     },
     LABS: {
       LABS: "labs/",
+      LABSMONITORING: "labs/labsmonitoring",
+      WRITEFILES: "labs/writeTofiles",
       DATES: "labs/dates/",
       ACTIVIDADES: "labs/actividades/",
       PCS: "labs/pcs/",
