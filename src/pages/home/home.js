@@ -7,7 +7,6 @@ import { centosDirectory } from "@/api";
 import Link from "next/link";
 import { VideoCameraIcon } from "@heroicons/react/24/solid";
 
-
 export default function HomePage({ title }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -15,19 +14,16 @@ export default function HomePage({ title }) {
   const [labsmonitoring, setLabsMonitoring] = React.useState([]);
   const cDirectory = new centosDirectory();
 
-
   React.useEffect(() => {
-
     (async () => {
       var labs = [];
       labs = await cDirectory.getLabsMonitoring();
       if (labs) {
-        setShowButtonLiveView(true)
+        setShowButtonLiveView(true);
         setLabsMonitoring(labs);
       }
     })();
   }, []);
-
 
   //si no es un usuario logeado, redireccionamos al login
   if (!user) {
@@ -38,9 +34,7 @@ export default function HomePage({ title }) {
   return (
     <>
       <Layout pageTitle={title}>
-        
         <div className="flex flex-col">{title ? <LabsLayout /> : null}</div>
-
 
         {/* {labsmonitoring.length > 0 ? (
          <>
@@ -72,8 +66,6 @@ export default function HomePage({ title }) {
           </div>
         )} */}
 
-
-
         {showButtonLiveView ? (
           <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
             {" "}
@@ -84,9 +76,7 @@ export default function HomePage({ title }) {
               })}
             </Link>
           </button>
-        ) : (
-          null
-        )}
+        ) : null}
       </Layout>
     </>
   );

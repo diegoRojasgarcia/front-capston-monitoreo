@@ -37,6 +37,16 @@ export function LabsLayout({ lab }) {
     return null;
   }
 
+  React.useEffect(() => {
+    (async () => {
+      var labs = [];
+      labs = await cDirectory.getLabsMonitoring();
+      if (labs) {
+        setShowButtonLiveView(true);
+      }
+    })();
+  }, []);
+
   //datepicker
   const [valueDateP, setValueDateP] = useState({
     startDate: "",
@@ -94,15 +104,12 @@ export function LabsLayout({ lab }) {
       cDirectory.existFile({ lab: selectedLab }).then((response) => {
         setExistFile(response.exist);
         setShowButtonStopMntor(response.exist);
-        setShowButtonLiveView(response.exist);
       });
     } catch (error) {
       console.error(error);
     }
     let showButtomStop = existFile;
-    let showButtonLiveView = existFile;
     setShowButtonStopMntor(showButtomStop);
-    setShowButtonLiveView(showButtonLiveView);
   }, [selectedLab]);
 
   //dialog monitoreo
@@ -287,15 +294,17 @@ export function LabsLayout({ lab }) {
         )}
       </div>
 
-      <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-        {" "}
-        <Link href="/home/liveview">
-          {React.createElement(VideoCameraIcon, {
-            strokeWidth: 2,
-            className: " text-gray-900 w-7",
-          })}
-        </Link>
-      </button>
+      {showButtonLiveView || showButtonStopMntor ? (
+        <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+          {" "}
+          <Link href="/home/liveview">
+            {React.createElement(VideoCameraIcon, {
+              strokeWidth: 2,
+              className: " text-gray-900 w-7",
+            })}
+          </Link>
+        </button>
+      ) : null}
 
       <Dialogopcion
         openDialogOpcion={openDialogOpcion}
