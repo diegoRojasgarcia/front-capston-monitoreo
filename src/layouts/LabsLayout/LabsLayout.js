@@ -209,7 +209,7 @@ export function LabsLayout({ lab }) {
               {showButtonStopMntor ? (
                 <>
                   <div className="flex items-center space-x-4">
-                    <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
+                    {/* <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
                       {" "}
                       <Link href="/home/liveview">
                         {React.createElement(VideoCameraIcon, {
@@ -217,7 +217,7 @@ export function LabsLayout({ lab }) {
                           className: " text-gray-900 w-6",
                         })}
                       </Link>
-                    </button>
+                    </button> */}
                     <button
                       className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
                       onClick={handleOpenDialogStopMntor}
@@ -225,15 +225,6 @@ export function LabsLayout({ lab }) {
                       Detener Monitoreo
                     </button>
                   </div>
-                  {/* <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    {" "}
-                    <Link href="/home/liveview">
-                      {React.createElement(VideoCameraIcon, {
-                        strokeWidth: 2,
-                        className: " text-gray-900 w-7",
-                      })}
-                    </Link>
-                  </button> */}
                 </>
               ) : (
                 <>
@@ -295,6 +286,16 @@ export function LabsLayout({ lab }) {
           </div>
         )}
       </div>
+
+      <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        {" "}
+        <Link href="/home/liveview">
+          {React.createElement(VideoCameraIcon, {
+            strokeWidth: 2,
+            className: " text-gray-900 w-7",
+          })}
+        </Link>
+      </button>
 
       <Dialogopcion
         openDialogOpcion={openDialogOpcion}
