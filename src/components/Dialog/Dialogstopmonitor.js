@@ -21,12 +21,14 @@ export function Dialogstopmonitor({
   setOpenDialogStopMntor,
   lab,
   setIsConfirmOpen,
+  setShowButtonLiveView
 }) {
   const handleClickSMonitor = () => {
     cDirectory.deleteFile({ lab: lab }).then((response) => {
       stopMonitor(lab);
       setOpenDialogStopMntor(false);
       setShowButtonStopMntor(false);
+      setShowButtonLiveView(false);
       localStorage.setItem("actividadmonitoring", null);
       setIsConfirmOpen(true);
     });

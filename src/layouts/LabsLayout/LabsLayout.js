@@ -29,6 +29,8 @@ export function LabsLayout({ lab }) {
   const { user, startMonitor, stopMonitor, logout } = useAuth();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [showButtonLiveView, setShowButtonLiveView] = React.useState(false);
+  const [labsMonitoring, setLabsMonitoring] = React.useState([]);
 
   if (!user) {
     router.push("/");
@@ -69,7 +71,6 @@ export function LabsLayout({ lab }) {
   const [inputValueFecha, setInputValueFecha] = React.useState("");
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [labmonitoring, setLabmonitoring] = React.useState(false);
 
   //para los computadores
   const [openPcs, setOpenPcs] = React.useState(false);
@@ -93,12 +94,15 @@ export function LabsLayout({ lab }) {
       cDirectory.existFile({ lab: selectedLab }).then((response) => {
         setExistFile(response.exist);
         setShowButtonStopMntor(response.exist);
+        setShowButtonLiveView(response.exist);
       });
     } catch (error) {
       console.error(error);
     }
     let showButtomStop = existFile;
+    let showButtonLiveView = existFile;
     setShowButtonStopMntor(showButtomStop);
+    setShowButtonLiveView(showButtonLiveView);
   }, [selectedLab]);
 
   //dialog monitoreo
@@ -217,6 +221,15 @@ export function LabsLayout({ lab }) {
                       Detener Monitoreo
                     </button>
                   </div>
+                  {/* <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    {" "}
+                    <Link href="/home/liveview">
+                      {React.createElement(VideoCameraIcon, {
+                        strokeWidth: 2,
+                        className: " text-gray-900 w-7",
+                      })}
+                    </Link>
+                  </button> */}
                 </>
               ) : (
                 <>
@@ -323,6 +336,7 @@ export function LabsLayout({ lab }) {
         setShowButtonStopMntor={setShowButtonStopMntor}
         setOpenDialogStopMntor={setOpenDialogStopMntor}
         setIsConfirmOpen={setIsConfirmOpen}
+        setShowButtonLiveView={setShowButtonLiveView}
       />
 
       <Dialogopcionprogramacion
@@ -376,6 +390,18 @@ export function LabsLayout({ lab }) {
             valuePcs={valuePcs ? valuePcs.nombre : null}
           />
         ) : null}
+
+        {/* { showButtonLiveView ? (
+          <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            {" "}
+            <Link href="/home/liveview">
+              {React.createElement(VideoCameraIcon, {
+                strokeWidth: 2,
+                className: " text-gray-900 w-7",
+              })}
+            </Link>
+          </button>
+        ) : null} */}
       </div>
     </>
   );
