@@ -21,6 +21,26 @@ export class centosDirectory {
     }
   }
 
+  async getLaboratorios() {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABORATORIOS}`;
+      const params = {
+        method: "Get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.folders;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getLabsMonitoring() {
     try {
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABSMONITORING}`;

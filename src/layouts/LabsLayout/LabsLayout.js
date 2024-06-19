@@ -177,27 +177,31 @@ export function LabsLayout({ lab }) {
               />
             </div>
             <div className="hidden sm:inline-block  text-white font-bold  rounded">
-              <AutocompleteActividad
-                openActividades={openActividades}
-                setOpenActividades={setOpenActividades}
-                valueActividad={valueActividad}
-                inputValue={inputValueActividad}
-                setValueActividad={setValueActividad}
-                valueFecha={valueFecha}
-                setInputValueActividad={setInputValueActividad}
-              />
+              {valueFecha ? (
+                <AutocompleteActividad
+                  openActividades={openActividades}
+                  setOpenActividades={setOpenActividades}
+                  valueActividad={valueActividad}
+                  inputValue={inputValueActividad}
+                  setValueActividad={setValueActividad}
+                  valueFecha={valueFecha}
+                  setInputValueActividad={setInputValueActividad}
+                />
+              ) : null}
             </div>
             <div className="hidden sm:inline-block  text-white font-bold  rounded">
-              <AutocompletePcs
-                openPcs={openPcs}
-                setOpenPcs={setOpenPcs}
-                valuePcs={valuePcs}
-                inputValue={inputValuePcs}
-                setValuePcs={setValuePcs}
-                setInputValuePcs={setInputValuePcs}
-                valueFecha={valueFecha}
-                valueActividad={valueActividad}
-              />
+              {valueActividad ? (
+                <AutocompletePcs
+                  openPcs={openPcs}
+                  setOpenPcs={setOpenPcs}
+                  valuePcs={valuePcs}
+                  inputValue={inputValuePcs}
+                  setValuePcs={setValuePcs}
+                  setInputValuePcs={setInputValuePcs}
+                  valueFecha={valueFecha}
+                  valueActividad={valueActividad}
+                />
+              ) : null}
             </div>
           </div>
           <div className="flex items-center space-x-4">

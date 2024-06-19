@@ -2,7 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import LatestImage from "../LatestImage/LatestImage.js";
 
-const DirectoryViewer = ({ lab, actividad, currentDate, currentPC }) => {
+const getCurrentDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses en JavaScript son de 0 a 11
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const DirectoryViewer = ({ lab, actividad, currentPC }) => {
   const [path, setPath] = useState("");
   const [latestImageSrc, setLatestImageSrc] = useState("");
   const [loading, setLoading] = useState(true);
@@ -10,10 +18,11 @@ const DirectoryViewer = ({ lab, actividad, currentDate, currentPC }) => {
 
   useEffect(() => {
     if (currentPC) {
-      const newPath = `${lab}/${currentDate}/${actividad}/${currentPC}/`;
+      const currentDate = getCurrentDate();
+      const newPath = `${lab.nombre}/${currentDate}/${actividad.nombre}/${currentPC.nombre}/`;
       setPath(newPath);
     }
-  }, [lab, actividad, currentDate, currentPC]);
+  }, [lab, actividad, currentPC]);
 
   const fetchFoldersAndLatestImage = useCallback(async () => {
     if (!path) return;
