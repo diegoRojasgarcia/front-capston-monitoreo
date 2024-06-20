@@ -27,7 +27,7 @@ export default function HomePage({ title }) {
 
   //si no es un usuario logeado, redireccionamos al login
   if (!user) {
-    //router.push("/");
+    router.push("/");
     return null;
   }
 

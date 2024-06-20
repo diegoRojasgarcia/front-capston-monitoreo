@@ -45,7 +45,7 @@ export function LabsLayout({ lab }) {
         setShowButtonLiveView(true);
       }
     })();
-  }, []);
+  }, [selectedLab]);
 
   //datepicker
   const [valueDateP, setValueDateP] = useState({
