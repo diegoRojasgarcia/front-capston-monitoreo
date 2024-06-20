@@ -66,13 +66,19 @@ const LabsViewer = ({ lab, actividad }) => {
 
   return (
     <>
-      <div>Cargando Lab live view</div>
-      <div>Arreglo de computadores</div>
-      <ul>
-        {selectedPaths.map((path, index) => (
-          <li key={index}>{path}</li>
-        ))}
-      </ul>
+      <div>
+        <h1 className="text-2xl mb-4">Rutas seleccionadas aleatoriamente:</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {selectedPaths.map((path, index) => (
+            <div
+              key={index}
+              className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
+            >
+              <p>{path}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
