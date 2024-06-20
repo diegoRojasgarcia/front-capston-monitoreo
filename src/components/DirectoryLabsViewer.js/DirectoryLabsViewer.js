@@ -47,7 +47,7 @@ const DirectoryLabsViewer = ({ path }) => {
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [fetchFoldersAndLatestImage]);
 
-  return <div>{latestImageSrc && <LatestImage src={latestImageSrc} />}</div>;
+  return <>{latestImageSrc && <LatestImage src={latestImageSrc} />}</>;
 };
 
 export default DirectoryLabsViewer;

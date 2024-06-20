@@ -48,9 +48,9 @@ export function Sidebar() {
             </li>
             {stateLabs.length > 0 ? (
               <li>
-                {stateLabs.map((labs) => (
+                {stateLabs.map((labs, index) => (
                   <Link
-                    key={labs}
+                    key={index}
                     href={`/home/${labs}`}
                     onClick={() => handleLabClick(labs)}
                     className={`block text-lg font-medium ${

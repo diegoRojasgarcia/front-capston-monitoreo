@@ -1,6 +1,6 @@
 import { centosDirectory } from "@/api";
 import React, { useEffect, useState } from "react";
-import LatestImage from "../LatestImage/LatestImage";
+import captura from "@/img/captura.png";
 import DirectoryLabsViewer from "../DirectoryLabsViewer.js/DirectoryLabsViewer";
 
 const getCurrentDate = () => {
@@ -61,14 +61,16 @@ const LabsViewer = ({ lab, actividad }) => {
     <>
       <div>
         <h1 className="text-2xl mb-4 text-white">Live View - {lab.nombre}</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {selectedPaths.map((computer, index) => (
             <>
               <div
                 key={index}
-                className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
+                className="relative w-[426px] h-[240px] bg-gray-200 rounded-lg shadow-md overflow-hidden"
               >
-                <p>{computer.name.nombre}</p>
+                <h2 className="absolute top-2 left-2 text-xl font-bold bg-black text-white p-1 rounded">
+                  {computer.name.nombre}
+                </h2>
                 {selectedPaths && <DirectoryLabsViewer path={computer.path} />}
               </div>
             </>

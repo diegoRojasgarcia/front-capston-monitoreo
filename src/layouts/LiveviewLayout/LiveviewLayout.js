@@ -57,7 +57,7 @@ export function LiveViewLayout({ lab, actividad }) {
   return (
     <>
       {/* TOP BAR */}
-      <div className="bg-white text-white max-w-full">
+      <div className="bg-white text-white max-w-full ">
         <div className="mx-auto flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center">
             <AutocompleteLaboratorio
