@@ -33,7 +33,6 @@ const LabsViewer = ({ lab, actividad }) => {
           (computer) => `${basePath}/${computer.nombre}`
         );
         setPaths(newPaths);
-        console.log(newPaths);
       } catch (error) {
         console.error("Error fetching computers:", error);
       }
