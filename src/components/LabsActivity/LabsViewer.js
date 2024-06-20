@@ -29,9 +29,10 @@ const LabsViewer = ({ lab, actividad }) => {
         }
         //
         const basePath = `${lab.nombre}/${currentDate}/${actividad.nombre}`;
-        const newPaths = pcss.map(
-          (computer) => `${basePath}/${computer.nombre}`
-        );
+        const newPaths = pcss.map((computer) => ({
+          name: computer,
+          path: `${basePath}/${computer.nombre}`,
+        }));
         setPaths(newPaths);
       } catch (error) {
         console.error("Error fetching computers:", error);
@@ -44,7 +45,7 @@ const LabsViewer = ({ lab, actividad }) => {
   useEffect(() => {
     const selectRandomPaths = () => {
       const shuffled = [...paths].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 9);
+      const selected = shuffled.slice(0, 12);
       setSelectedPaths(selected);
     };
 
@@ -55,6 +56,8 @@ const LabsViewer = ({ lab, actividad }) => {
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
   }, [paths]);
+
+  console.log(paths);
 
   // useEffect(() => {
   //   if (actividad) {
@@ -68,13 +71,14 @@ const LabsViewer = ({ lab, actividad }) => {
     <>
       <div>
         <h1 className="text-2xl mb-4">Rutas seleccionadas aleatoriamente:</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {selectedPaths.map((path, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {selectedPaths.map((computer, index) => (
             <div
               key={index}
               className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
             >
-              <p>{path}</p>
+              <h2 className="text-xl font-bold mb-2">{computer.name.nombre}</h2>
+              <p>{computer.path}</p>
             </div>
           ))}
         </div>
