@@ -81,7 +81,10 @@ const LabsViewer = ({ lab, actividad }) => {
             //   <h2 className="text-xl font-bold mb-2">{computer.name.nombre}</h2>
             //   <p>{computer.path}</p>
             // </div>
-            <div>{selectedPaths && <LatestImage src={computer.path} />}</div>
+            <div>
+              {selectedPaths && <LatestImage src={computer.path} />}
+              <p>{computer.path}</p>
+            </div>
           ))}
         </div>
       </div>
