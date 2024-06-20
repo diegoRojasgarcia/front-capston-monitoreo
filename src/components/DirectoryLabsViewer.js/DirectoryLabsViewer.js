@@ -24,7 +24,7 @@ const DirectoryLabsViewer = ({ path }) => {
         (item) =>
           item.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(item.name)
       );
-      console.log(`Fetched files from: ${baseURL}${path}`);
+      console.log(`Fetched files from: ${path}`);
       files.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
 
       if (files.length > 0) {
