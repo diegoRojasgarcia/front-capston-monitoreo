@@ -1,5 +1,6 @@
 import { centosDirectory } from "@/api";
 import React, { useEffect, useState } from "react";
+import LatestImage from "../LatestImage/LatestImage";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -73,13 +74,14 @@ const LabsViewer = ({ lab, actividad }) => {
         <h1 className="text-2xl mb-4">Rutas seleccionadas aleatoriamente:</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {selectedPaths.map((computer, index) => (
-            <div
-              key={index}
-              className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
-            >
-              <h2 className="text-xl font-bold mb-2">{computer.name.nombre}</h2>
-              <p>{computer.path}</p>
-            </div>
+            // <div
+            //   key={index}
+            //   className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
+            // >
+            //   <h2 className="text-xl font-bold mb-2">{computer.name.nombre}</h2>
+            //   <p>{computer.path}</p>
+            // </div>
+            <div>{selectedPaths && <LatestImage src={computer.path} />}</div>
           ))}
         </div>
       </div>
