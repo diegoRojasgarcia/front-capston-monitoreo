@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import LatestImage from "../LatestImage/LatestImage.js";
+import LatesImageView from "../LatesImageView/LatesImageView.js";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -47,7 +48,7 @@ const DirectoryLabsViewer = ({ path }) => {
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [fetchFoldersAndLatestImage]);
 
-  return <>{latestImageSrc && <LatestImage src={latestImageSrc} />}</>;
+  return <>{latestImageSrc && <LatesImageView src={latestImageSrc} />}</>;
 };
 
 export default DirectoryLabsViewer;
