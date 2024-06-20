@@ -60,18 +60,18 @@ const LabsViewer = ({ lab, actividad }) => {
   return (
     <>
       <div>
-        <h1 className="text-2xl mb-4">Rutas seleccionadas aleatoriamente:</h1>
+        <h1 className="text-2xl mb-4 text-white">Live View - {lab.nombre}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {selectedPaths.map((computer, index) => (
-            <div
-              key={index}
-              className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
-            >
-              <p>{computer.path}</p>
-              <div>
+            <>
+              <div
+                key={index}
+                className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
+              >
+                <p>{computer.name.nombre}</p>
                 {selectedPaths && <DirectoryLabsViewer path={computer.path} />}
               </div>
-            </div>
+            </>
           ))}
         </div>
       </div>
