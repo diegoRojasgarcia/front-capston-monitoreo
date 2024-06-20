@@ -31,7 +31,8 @@ const LabsViewer = ({ lab, actividad }) => {
         }
         const baseURL = "http://192.168.100.25/imagenes";
         const basePath = `${baseURL}/${lab.nombre}/${currentDate}/${actividad.nombre}`;
-        const newPaths = pcss.map((computer) => ({
+        const newPaths = pcss.map((computer, index) => ({
+          id: index,
           name: computer,
           path: `${basePath}/${computer.nombre}`,
         }));
@@ -59,14 +60,14 @@ const LabsViewer = ({ lab, actividad }) => {
 
   return (
     <>
-      <div>
+      <div className="">
         {/* <h1 className="text-xl mb-4 text-white">Live View - {lab.nombre}</h1> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-x-8">
           {selectedPaths.map((computer, index) => (
             <>
               <div
-                key={index}
-                className="relative w-[426px] h-[240px] bg-gray-200 rounded-lg shadow-md overflow-hidden"
+                key={computer}
+                className="relative w-[426px] h-[240px] bg-gray-200 rounded-lg shadow-md overflow-hidden "
               >
                 <h2 className="absolute top-2 left-2 text-xl font-bold bg-black text-white p-1 rounded">
                   {computer.name.nombre}
