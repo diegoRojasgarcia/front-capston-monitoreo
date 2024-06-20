@@ -10,27 +10,16 @@ const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
-const DirectoryViewer = ({ lab, actividad, currentPC }) => {
-  const [path, setPath] = useState("");
+const DirectoryLabsViewer = ({ path }) => {
   const [latestImageSrc, setLatestImageSrc] = useState("");
   const [loading, setLoading] = useState(true);
   const [latestFile, setLatestFile] = useState("");
-
-  useEffect(() => {
-    if (currentPC) {
-      const currentDate = getCurrentDate();
-      const newPath = `${lab.nombre}/${currentDate}/${actividad.nombre}/${currentPC.nombre}/`;
-      setPath(newPath);
-    }
-  }, [lab, actividad, currentPC]);
 
   const fetchFoldersAndLatestImage = useCallback(async () => {
     if (!path) return;
 
     try {
-      const baseURL = "http://192.168.100.25/imagenes/";
-      console.log(`Fetching files from: ${baseURL}${path}`);
-      const response = await axios.get(`${baseURL}${path}`);
+      const response = await axios.get(`${path}`);
       const files = response.data.filter(
         (item) =>
           item.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(item.name)
@@ -41,7 +30,7 @@ const DirectoryViewer = ({ lab, actividad, currentPC }) => {
       if (files.length > 0) {
         const latestFile = files[0].name;
         setLatestFile(latestFile);
-        setLatestImageSrc(`${baseURL}${path}${latestFile}`);
+        setLatestImageSrc(`${path}${latestFile}`);
       } else {
         setLatestImageSrc("");
       }
@@ -61,4 +50,4 @@ const DirectoryViewer = ({ lab, actividad, currentPC }) => {
   return <div>{latestImageSrc && <LatestImage src={latestImageSrc} />}</div>;
 };
 
-export default DirectoryViewer;
+export default DirectoryLabsViewer;

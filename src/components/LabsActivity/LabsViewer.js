@@ -1,6 +1,7 @@
 import { centosDirectory } from "@/api";
 import React, { useEffect, useState } from "react";
 import LatestImage from "../LatestImage/LatestImage";
+import DirectoryLabsViewer from "../DirectoryLabsViewer.js/DirectoryLabsViewer";
 
 const getCurrentDate = () => {
   const date = new Date();
@@ -28,8 +29,8 @@ const LabsViewer = ({ lab, actividad }) => {
             actividad.nombre
           );
         }
-        //
-        const basePath = `${lab.nombre}/${currentDate}/${actividad.nombre}`;
+        const baseURL = "http://192.168.100.25/imagenes/";
+        const basePath = `${baseURL}/${lab.nombre}/${currentDate}/${actividad.nombre}`;
         const newPaths = pcss.map((computer) => ({
           name: computer,
           path: `${basePath}/${computer.nombre}`,
@@ -49,24 +50,12 @@ const LabsViewer = ({ lab, actividad }) => {
       const selected = shuffled.slice(0, 12);
       setSelectedPaths(selected);
     };
-
     // Seleccionar rutas inmediatamente y luego cada minuto
     selectRandomPaths();
     const intervalId = setInterval(selectRandomPaths, 60000);
-
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
   }, [paths]);
-
-  console.log(paths);
-
-  // useEffect(() => {
-  //   if (actividad) {
-  //     const currentDate = getCurrentDate();
-  //     const newPath = `${lab.nombre}/${currentDate}/${actividad.nombre}`;
-  //     setPath(newPath);
-  //   }
-  // }, [lab, actividad]);
 
   return (
     <>
@@ -74,16 +63,14 @@ const LabsViewer = ({ lab, actividad }) => {
         <h1 className="text-2xl mb-4">Rutas seleccionadas aleatoriamente:</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {selectedPaths.map((computer, index) => (
-            // <div
-            //   key={index}
-            //   className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
-            // >
-            //   <h2 className="text-xl font-bold mb-2">{computer.name.nombre}</h2>
-            //   <p>{computer.path}</p>
-            // </div>
-            <div>
-              {selectedPaths && <LatestImage src={computer.path} />}
+            <div
+              key={index}
+              className="w-[426px] h-[240px] bg-gray-200 p-4 rounded-lg shadow-md"
+            >
               <p>{computer.path}</p>
+              <div>
+                {selectedPaths && <DirectoryLabsViewer path={computer.path} />}
+              </div>
             </div>
           ))}
         </div>
