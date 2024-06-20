@@ -30,7 +30,7 @@ const DirectoryLabsViewer = ({ path }) => {
       if (files.length > 0) {
         const latestFile = files[0].name;
         setLatestFile(latestFile);
-        setLatestImageSrc(`${path}${latestFile}`);
+        setLatestImageSrc(`${path}/${latestFile}`);
       } else {
         setLatestImageSrc("");
       }

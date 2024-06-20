@@ -29,7 +29,7 @@ const LabsViewer = ({ lab, actividad }) => {
             actividad.nombre
           );
         }
-        const baseURL = "http://192.168.100.25/imagenes/";
+        const baseURL = "http://192.168.100.25/imagenes";
         const basePath = `${baseURL}/${lab.nombre}/${currentDate}/${actividad.nombre}`;
         const newPaths = pcss.map((computer) => ({
           name: computer,
