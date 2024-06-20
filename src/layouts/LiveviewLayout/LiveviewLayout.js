@@ -114,15 +114,36 @@ export function LiveViewLayout({ lab, actividad }) {
 
       {/* Contenido de la pagina */}
 
-      <div className={styles.block}>
+      {valueActividad && valuePcs == null ? (
+        <div className={styles.block}>
+          <div className="bg-white text-white max-w-full mt-20">
+            <div className="flex items-center justify-center  py-4 px-4 sm:px-6 lg:px-8">
+              Cargando LiveView de la actividad - Room ruta:{" "}
+              {valueLaboratorio.nombre}/{valueFecha}/{valueActividad.nombre}
+              /[computadores]
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {valueActividad && valuePcs ? (
+        <div className={styles.block}>
+          <div className="bg-white text-white max-w-full mt-20">
+            <div className="flex items-center justify-center  py-4 px-4 sm:px-6 lg:px-8">
+              Cargando Live view del pc - ruta: {valueLaboratorio.nombre}/
+              {valueFecha}/{valueActividad.nombre}/{valuePcs.nombre}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* <div className={styles.block}>
         <DirectoryViewer
           lab={valueLaboratorio}
           actividad={valueActividad}
           currentPC={valuePcs}
         />
-        {/* LiveView del {lab} en la actividad {actividad} fecha: {currentDate} y pc{" "}
-        {valuePc} */}
-      </div>
+      </div> */}
     </>
   );
 }
