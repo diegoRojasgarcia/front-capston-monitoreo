@@ -91,9 +91,9 @@ export function LiveViewLayout({ lab, actividad }) {
                   valueActividad={valueActividad}
                   valueLaboratorio={valueLaboratorio}
                 />
-                <button className="hidden sm:inline-block rounded-xl ml-2 px-3 h-16 text-gray-600 bg-gray-300 hover:bg-gray-400 font-bold  rounded">
+                {/* <button className="hidden sm:inline-block rounded-xl ml-2 px-3 h-16 text-gray-600 bg-gray-300 hover:bg-gray-400 font-bold  rounded">
                   Laboratorio
-                </button>
+                </button> */}
               </>
             ) : null}
           </div>
