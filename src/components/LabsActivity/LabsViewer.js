@@ -60,7 +60,7 @@ const LabsViewer = ({ lab, actividad }) => {
 
   return (
     <>
-      <div className="">
+      <div className="flex mx-auto">
         {/* <h1 className="text-xl mb-4 text-white">Live View - {lab.nombre}</h1> */}
         <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-x-8">
           {selectedPaths.map((computer, index) => (
