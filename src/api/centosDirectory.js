@@ -103,6 +103,27 @@ export class centosDirectory {
     }
   }
 
+  async getLastActividad(lab, fecha) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LASTACTIVIDAD}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ lab: lab, fecha: fecha }),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result.folders;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getPcs(lab, fecha, actividad) {
     try {
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.PCS}`;

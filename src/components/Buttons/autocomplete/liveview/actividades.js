@@ -47,7 +47,7 @@ export function AutocompleteActividad({
       await sleep(500); // For demo purposes.
       var actividadess = [];
       if (currentDate && valueLaboratorio) {
-        actividadess = await cDirectory.getActividades(
+        actividadess = await cDirectory.getLastActividad(
           valueLaboratorio.nombre,
           currentDate
         );

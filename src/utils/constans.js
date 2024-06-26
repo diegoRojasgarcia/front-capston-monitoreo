@@ -17,6 +17,7 @@ export const ENV = {
       WRITEFILES: "labs/writeTofiles",
       DATES: "labs/dates",
       ACTIVIDADES: "labs/actividades",
+      LASTACTIVIDAD: "labs/lastactividad",
       PCS: "labs/pcs",
       VALIDATE: "labs/existFile",
       PROG: "labs/prog",

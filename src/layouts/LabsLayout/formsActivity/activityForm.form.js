@@ -8,6 +8,8 @@ export function initialValues() {
 
 export function validationSchema() {
   return Yup.object({
-    actividad: Yup.string().required(true),
+    actividad: Yup.string()
+      .matches(/^[a-zA-Z]+$/, "Solo se permiten letras")
+      .required(true),
   });
 }
