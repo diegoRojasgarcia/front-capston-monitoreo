@@ -30,7 +30,6 @@ export function LabsLayout({ lab }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [showButtonLiveView, setShowButtonLiveView] = React.useState(false);
-  const [labsMonitoring, setLabsMonitoring] = React.useState([]);
 
   if (!user) {
     router.push("/");
