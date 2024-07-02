@@ -3,6 +3,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { centosDirectory } from "@/api";
 import { TextField } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 function sleep(duration) {
   return new Promise((resolve) => {
@@ -22,7 +23,7 @@ export function AutocompleteFecha({
 }) {
   const [fechas, setFechas] = React.useState([]);
   const loadingFechas = openFechas && fechas.length === 0;
-  var selectedLab = localStorage.getItem("selectedLabs");
+  var selectedLab = JSON.parse(localStorage.getItem("selectedLabs"));
 
   const cDirectory = new centosDirectory();
 
@@ -36,7 +37,7 @@ export function AutocompleteFecha({
 
     (async () => {
       await sleep(500); // For demo purposes.
-      const dates = await cDirectory.getDates(selectedLab);
+      const dates = await cDirectory.getDates(selectedLab.nombre);
       if (active) {
         setFechas([...dates]);
       }
@@ -67,6 +68,7 @@ export function AutocompleteFecha({
       sx={{
         width: 160,
         marginRight: 2,
+        bordercolor: "#2196F3",
       }}
       open={openFechas}
       onOpen={() => {

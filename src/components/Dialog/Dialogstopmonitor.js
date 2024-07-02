@@ -15,17 +15,17 @@ const cDirectory = new centosDirectory();
 export function Dialogstopmonitor({
   openDialogStopMntor,
   handleCloseDialogStopMntor,
-  selectedLab,
+  selectedLabNombre,
+  selectedLabDN,
   stopMonitor,
   setShowButtonStopMntor,
   setOpenDialogStopMntor,
-  lab,
   setIsConfirmOpen,
-  setShowButtonLiveView
+  setShowButtonLiveView,
 }) {
   const handleClickSMonitor = () => {
-    cDirectory.deleteFile({ lab: lab }).then((response) => {
-      stopMonitor(lab);
+    cDirectory.deleteFile({ lab: selectedLabNombre }).then((response) => {
+      stopMonitor(selectedLabNombre);
       setOpenDialogStopMntor(false);
       setShowButtonStopMntor(false);
       setShowButtonLiveView(false);
@@ -57,8 +57,8 @@ export function Dialogstopmonitor({
                 clipRule="evenodd"
               ></path>
             </svg>
-            Se detendrá la monitorización en el laboratorio {selectedLab}, estás
-            seguro?
+            Se detendrá la monitorización en el laboratorio {selectedLabDN},
+            estás seguro?
           </p>
         </div>
       </DialogContent>

@@ -3,7 +3,7 @@ import { ENV } from "@/utils";
 export class centosDirectory {
   async getLabs() {
     try {
-      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABS}`;
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.LABORATORIOSDB}`;
       const params = {
         method: "Get",
         headers: {
@@ -15,7 +15,27 @@ export class centosDirectory {
 
       if (response.status !== 200) throw result;
 
-      return result.folders;
+      return result.laboratorios;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getProgramaciones() {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.PROGRAMACIONES}`;
+      const params = {
+        method: "Get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.programaciones;
     } catch (error) {
       throw error;
     }
@@ -36,6 +56,54 @@ export class centosDirectory {
       if (response.status !== 200) throw result;
 
       return result.folders;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateLaboratorio(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.UPTDATELAB}`;
+      const params = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: item.id, displayName: item.displayName }),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.laboratorio;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateProgramacion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.UPDATEPROGRAMACION}`;
+      const params = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: item.id,
+          actividad: item.actividad,
+          fecha: item.fecha,
+          horainicio: item.horainicio,
+          horafin: item.horafin,
+        }),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.programacion;
     } catch (error) {
       throw error;
     }
@@ -227,6 +295,27 @@ export class centosDirectory {
     }
   }
 
+  async deleteProgramacion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.DELETEPROGRAMACION}`;
+      const params = {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: item.id }),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.programacion;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async existFile(lab) {
     try {
       const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.VALIDATE}`;
@@ -236,6 +325,69 @@ export class centosDirectory {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(lab),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createProgramacion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.CREATEPROGRAMACION}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createA(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.CREATEA}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createW(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.CREATEW}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
       };
       const response = await fetch(url, params);
       const result = await response.json();

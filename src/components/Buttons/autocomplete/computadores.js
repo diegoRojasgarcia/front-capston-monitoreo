@@ -26,7 +26,7 @@ export function AutocompletePcs({
   const [pcs, setPcs] = React.useState([]);
   const loadingPcs = openPcs && pcs.length === 0;
   const cDirectory = new centosDirectory();
-  var selectedLab = localStorage.getItem("selectedLabs");
+  var selectedLab = JSON.parse(localStorage.getItem("selectedLabs"));
 
   //fetch pcs open autocomplete
   React.useEffect(() => {
@@ -41,7 +41,7 @@ export function AutocompletePcs({
       var pcss = [];
       if (valueFecha && valueActividad && selectedLab) {
         pcss = await cDirectory.getPcs(
-          selectedLab,
+          selectedLab.nombre,
           valueFecha.nombre,
           valueActividad.nombre
         );

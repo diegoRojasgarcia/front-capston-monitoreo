@@ -22,11 +22,11 @@ const cDirectory = new centosDirectory();
 export function Dialogmonitoractividad({
   openDialogMntorActividad,
   handleCloseDialogMntorActividad,
-  lab,
   startMonitor,
   setOpenDialogMntorActividad,
   setShowButtonStopMntor,
-  selectedLab,
+  selectedLabNombre,
+  selectedLabDN,
   setIsConfirmOpen,
 }) {
   const { user } = useAuth();
@@ -37,29 +37,29 @@ export function Dialogmonitoractividad({
     onSubmit: async (formValue) => {
       localStorage.setItem("actividadmonitoring", formValue.actividad);
       await cDirectory.createFiles({
-        lab: lab,
+        lab: selectedLabNombre,
         filename: "w",
         content: "",
       });
       await cDirectory.createFiles({
-        lab: lab,
+        lab: selectedLabNombre,
         filename: "a",
         content: "",
       });
       await cDirectory.createFiles({
-        lab: lab,
+        lab: selectedLabNombre,
         filename: "i",
         content: user.email,
       });
       await cDirectory
         .createFiles({
-          lab: lab,
+          lab: selectedLabNombre,
           filename: "c",
           content: formValue.actividad,
         })
         .then((response) => {
           if (response.status == 200) {
-            startMonitor(lab);
+            startMonitor(selectedLabNombre);
             setShowButtonStopMntor(true);
             setOpenDialogMntorActividad(false);
             setIsConfirmOpen(true);
@@ -80,10 +80,17 @@ export function Dialogmonitoractividad({
         <DialogContent>
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
-            <p>
-              Monitorización de <b>Actividad</b> en {""}
-              <b>{lab}</b>
-            </p>
+            {selectedLabDN ? (
+              <p>
+                Monitorización de <b>Actividad</b> en {""}
+                <b>{selectedLabDN}</b>
+              </p>
+            ) : (
+              <p>
+                Monitorización de <b>Actividad</b> en {""}
+                <b>{selectedLabNombre}</b>
+              </p>
+            )}
           </div>
           <div className="pt-2">
             <Form.Input
@@ -108,8 +115,8 @@ export function Dialogmonitoractividad({
                 clipRule="evenodd"
               ></path>
             </svg>
-            Para empezar la monitorización en el laboratorio {selectedLab} {""}
-            ingresa la actividad
+            Para empezar la monitorización en el laboratorio ingresa la
+            actividad
           </p>
         </DialogContent>
 

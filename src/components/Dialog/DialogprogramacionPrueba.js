@@ -27,7 +27,8 @@ const cDirectory = new centosDirectory();
 export function Dialogprogramacionprueba({
   OpenDialogProgPrueba,
   handleCloseDialogProgPrueba,
-  lab,
+  selectedLabNombre,
+  selectedLabDN,
   valueDateP,
   setValueDateP,
   setOpenDialogProg,
@@ -35,15 +36,7 @@ export function Dialogprogramacionprueba({
   setOpenDialogProgPrueba,
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const options = [
-    "Discord",
-    "Steam",
-    "Whatsapp",
-    "OperaGX",
-    "Bing",
-    "Teams",
-    "Mozilla Firefox",
-  ];
+  const options = ["Discord", "Steam", "Whatsapp", "Skype", "Bing", "Teams"];
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
   const { user } = useAuth();
@@ -75,37 +68,29 @@ export function Dialogprogramacionprueba({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const infoArch =
-        valueDateP.startDate +
-        "," +
-        valueTimerInic.hour() +
-        ":" +
-        valueTimerInic.minute() +
-        "," +
-        valueTimerFin.hour() +
-        ":" +
-        valueTimerFin.minute() +
-        "," +
-        formValue.actividad;
-      const webs = textformwebs;
-      const apps = selectedOptions;
-      await cDirectory.createFiles({
-        lab: lab,
-        filename: "w",
-        content: webs,
+      const domainList = textformwebs.split(";");
+      console.log(domainList);
+      console.log(selectedOptions);
+      const respA = await cDirectory.createA({
+        aplicaciones: selectedOptions,
       });
-      await cDirectory.createFiles({
-        lab: lab,
-        filename: "a",
-        content: apps.join(";"),
+      const respW = await cDirectory.createW({
+        websites: domainList,
       });
-      await cDirectory.createFiles({
-        lab: lab,
-        filename: "i",
-        content: user.email,
-      });
+      const horainicio = valueTimerInic.hour() + ":" + valueTimerInic.minute();
+      const horafin = valueTimerFin.hour() + ":" + valueTimerFin.minute();
+
       await cDirectory
-        .createFileProg({ lab: lab, content: infoArch })
+        .createProgramacion({
+          actividad: formValue.actividad,
+          laboratorio: selectedLabNombre,
+          email: user.email,
+          fecha: valueDateP.startDate,
+          horainicio: horainicio,
+          horafin: horafin,
+          a: respA.aplicaciones.id,
+          w: respW.websites.id,
+        })
         .then((response) => {
           if (response.status == 200) {
             setOpenDialogProgPrueba(false);
@@ -113,6 +98,44 @@ export function Dialogprogramacionprueba({
             setIsConfirmOpen(true);
           }
         });
+
+      //   valueDateP.startDate +
+      //   "," +
+      //   valueTimerInic.hour() +
+      //   ":" +
+      //   valueTimerInic.minute() +
+      //   "," +
+      //   valueTimerFin.hour() +
+      //   ":" +
+      //   valueTimerFin.minute() +
+      //   "," +
+      //   formValue.actividad;
+      // const webs = textformwebs;
+      // const apps = selectedOptions;
+      // await cDirectory.createFiles({
+      //   lab: selectedLabNombre,
+      //   filename: "w",
+      //   content: webs,
+      // });
+      // await cDirectory.createFiles({
+      //   lab: selectedLabNombre,
+      //   filename: "a",
+      //   content: apps.join(";"),
+      // });
+      // await cDirectory.createFiles({
+      //   lab: selectedLabNombre,
+      //   filename: "i",
+      //   content: user.email,
+      // });
+      // await cDirectory
+      //   .createFileProg({ lab: selectedLabNombre, content: infoArch })
+      //   .then((response) => {
+      //     if (response.status == 200) {
+      //       setOpenDialogProgPrueba(false);
+      //       setOpenDialogProg(false);
+      //       setIsConfirmOpen(true);
+      //     }
+      //   });
     },
   });
 
@@ -128,10 +151,17 @@ export function Dialogprogramacionprueba({
         <DialogContent className="lg:w-[34rem]">
           <div className="py-6 text-xl flex items-center justify-center">
             {" "}
-            <p>
-              Programación de <b>Evaluación</b> en {""}
-              <b>{lab}</b>
-            </p>
+            {selectedLabDN ? (
+              <p>
+                Monitorización de <b>Evaluación</b> en {""}
+                <b>{selectedLabDN}</b>
+              </p>
+            ) : (
+              <p>
+                Monitorización de <b>Evaluación</b> en {""}
+                <b>{selectedLabNombre}</b>
+              </p>
+            )}
           </div>
 
           <div className="pt-2 mb-8">
@@ -234,8 +264,8 @@ export function Dialogprogramacionprueba({
                 clipRule="evenodd"
               ></path>
             </svg>
-            Para empezar la monitorización en el laboratorio {lab} {""}
-            ingresa la actividad
+            Para empezar la monitorización en el laboratorio ingresa la
+            actividad
           </p>
         </DialogContent>
 

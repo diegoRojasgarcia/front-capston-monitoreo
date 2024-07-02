@@ -74,7 +74,7 @@ export function AutocompleteLaboratorio({
       onClose={() => {
         setOpenLaboratorios(false);
       }}
-      getOptionLabel={(option) => option.nombre}
+      getOptionLabel={(option) => option.displayName}
       options={laboratorios}
       loading={loadingLaboratorios}
       renderInput={(params) => (

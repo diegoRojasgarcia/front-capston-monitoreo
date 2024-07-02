@@ -23,7 +23,7 @@ export function AutocompleteActividad({
 }) {
   const [actividades, setActividades] = React.useState([]);
   const loadingActividades = openActividades && actividades.length === 0;
-  var selectedLab = localStorage.getItem("selectedLabs");
+  var selectedLab = JSON.parse(localStorage.getItem("selectedLabs"));
 
   const cDirectory = new centosDirectory();
 
@@ -40,7 +40,7 @@ export function AutocompleteActividad({
       var actividadess = [];
       if (valueFecha && selectedLab) {
         actividadess = await cDirectory.getActividades(
-          selectedLab,
+          selectedLab.nombre,
           valueFecha.nombre
         );
       }

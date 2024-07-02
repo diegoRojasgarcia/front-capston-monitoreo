@@ -13,7 +13,8 @@ export function Dialogopcion({
   handleCloseDialogOpcion,
   setOpenDialogMntorActividad,
   setOpenDialogOpcion,
-  selectedLab,
+  selectedLabNombre,
+  selectedLabDN,
   setOpenDialogMntorPrueba,
   message,
 }) {
@@ -43,12 +44,22 @@ export function Dialogopcion({
             <div className="bg-white ">
               <div className="sm:flex sm:items-start sm:justify-center">
                 <div className="mt-3 text-center justify-center">
-                  <h3
-                    className="text-lg leading-6 font-medium text-gray-900"
-                    id="modal-title"
-                  >
-                    {message} {selectedLab}
-                  </h3>
+                  {selectedLabDN ? (
+                    <h3
+                      className="text-lg leading-6 font-medium text-gray-900"
+                      id="modal-title"
+                    >
+                      {message} {selectedLabDN}
+                    </h3>
+                  ) : (
+                    <h3
+                      className="text-lg leading-6 font-medium text-gray-900"
+                      id="modal-title"
+                    >
+                      {message} {selectedLabNombre}
+                    </h3>
+                  )}
+
                   <div className="mt-2">
                     <p className="text-lg text-gray-500 justify-center">
                       ¿ Qué es lo que vas a monitorear ?

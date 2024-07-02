@@ -11,6 +11,7 @@ import {
   Bars4Icon,
   XMarkIcon,
   PencilSquareIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "@/hooks";
 import {
@@ -18,8 +19,13 @@ import {
   Dialogprogramacionprueba,
 } from "../Dialog";
 import { Dialogopcionprogramacion } from "../Dialog/Dialogopcionprogramacion";
+import { DialogoProgramaciones } from "../Dialog/dialogProgramaciones";
 
-export function NavListMenu({ lab, setIsConfirmOpen }) {
+export function NavListMenu({
+  selectedLabNombre,
+  selectedLabDN,
+  setIsConfirmOpen,
+}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { logout } = useAuth();
@@ -30,11 +36,22 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
   const [OpenDialogProgPrueba, setOpenDialogProgPrueba] = React.useState(false);
 
   const [openDialogProg, setOpenDialogProg] = React.useState(false);
+
+  const [openDialogProgramaciones, setOpenDialogProgramaciones] =
+    React.useState(false);
   //datepicker
   const [valueDateP, setValueDateP] = useState({
     startDate: "",
     endDate: new Date().setMonth(11),
   });
+
+  //dialog programaciones
+  const handleOpenDialogProgramaciones = () => {
+    setOpenDialogProgramaciones(true);
+  };
+  const handleCloseDialogProgramaciones = () => {
+    setOpenDialogProgramaciones(false);
+  };
 
   //dialog monitoreo
   const handleOpenDialogOpcionProgramacion = () => {
@@ -75,12 +92,12 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList
-          onClick={handleOpenDialogOpcionProgramacion}
-          className="hidden rounded-xl lg:block"
-        >
+        <MenuList className="hidden rounded-xl lg:block">
           <ul className="grid grid-cols-1 outline-none outline-0">
-            <MenuItem className="flex items-center rounded-lg">
+            <MenuItem
+              onClick={handleOpenDialogOpcionProgramacion}
+              className="flex items-center rounded-lg"
+            >
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}
                 {React.createElement(PencilSquareIcon, {
@@ -104,6 +121,34 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
                 </Typography>
               </div>
             </MenuItem>
+            <MenuItem
+              onClick={handleOpenDialogProgramaciones}
+              className="flex items-center rounded-lg"
+            >
+              <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+                {" "}
+                {React.createElement(BookOpenIcon, {
+                  strokeWidth: 2,
+                  className: "h-6 text-gray-900 w-6 ",
+                })}
+              </div>
+              <div>
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  className="flex items-center text-sm font-bold pl-2"
+                >
+                  Programaciones
+                </Typography>
+                <Typography
+                  variant="paragraph"
+                  className="text-xs !font-medium text-blue-gray-500 pl-2"
+                >
+                  Programaciones de monitoreo
+                </Typography>
+              </div>
+            </MenuItem>
+
             <MenuItem onClick={logout} className="flex items-center rounded-lg">
               <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                 {" "}
@@ -120,6 +165,7 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
                 >
                   Salir
                 </Typography>
+
                 <Typography
                   variant="paragraph"
                   className="text-xs !font-medium text-blue-gray-500 pl-2"
@@ -137,12 +183,19 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
         handleCloseDialogOpcionProgramacion={
           handleCloseDialogOpcionProgramacion
         }
+        selectedLabNombre={selectedLabNombre}
+        selectedLabDN={selectedLabDN}
         setOpenDialogOpcionProgramacion={setOpenDialogOpcionProgramacion}
         message={"Que actividad vas a programar en el "}
-        lab={lab}
         setOpenDialogProgActividad={setOpenDialogProgActividad}
         setOpenDialogProgPrueba={setOpenDialogProgPrueba}
         setIsConfirmOpen={setIsConfirmOpen}
+      />
+
+      <DialogoProgramaciones
+        openDialogProgramaciones={openDialogProgramaciones}
+        handleCloseDialogProgramaciones={handleCloseDialogProgramaciones}
+        setOpenDialogProgramaciones={setOpenDialogProgramaciones}
       />
 
       <Dialogprogramacionactividad
@@ -150,7 +203,8 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
         setOpenDialogProg={setOpenDialogProg}
         handleCloseDialogProg={handleCloseDialogProg}
         setOpenDialogProgActividad={setOpenDialogProgActividad}
-        lab={lab}
+        selectedLabNombre={selectedLabNombre}
+        selectedLabDN={selectedLabDN}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
         setIsConfirmOpen={setIsConfirmOpen}
@@ -161,7 +215,8 @@ export function NavListMenu({ lab, setIsConfirmOpen }) {
         setOpenDialogProg={setOpenDialogProgPrueba}
         handleCloseDialogProgPrueba={handleCloseDialogProgPrueba}
         setOpenDialogProgPrueba={setOpenDialogProgPrueba}
-        lab={lab}
+        selectedLabNombre={selectedLabNombre}
+        selectedLabDN={selectedLabDN}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
         setIsConfirmOpen={setIsConfirmOpen}

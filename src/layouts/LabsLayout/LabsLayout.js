@@ -25,7 +25,7 @@ import Link from "next/link";
 
 const cDirectory = new centosDirectory();
 
-export function LabsLayout({ lab }) {
+export function LabsLayout() {
   const { user, startMonitor, stopMonitor, logout } = useAuth();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +52,7 @@ export function LabsLayout({ lab }) {
     endDate: new Date().setMonth(11),
   });
 
-  var selectedLab = localStorage.getItem("selectedLabs");
+  var selectedLab = JSON.parse(localStorage.getItem("selectedLabs"));
 
   //open dialog de Opcion
   const [openDialogOpcion, setOpenDialogOpcion] = React.useState(false);
@@ -100,7 +100,7 @@ export function LabsLayout({ lab }) {
 
   React.useEffect(() => {
     try {
-      cDirectory.existFile({ lab: selectedLab }).then((response) => {
+      cDirectory.existFile({ lab: selectedLab.nombre }).then((response) => {
         setExistFile(response.exist);
         setShowButtonStopMntor(response.exist);
       });
@@ -215,15 +215,6 @@ export function LabsLayout({ lab }) {
               {showButtonStopMntor ? (
                 <>
                   <div className="flex items-center space-x-4">
-                    {/* <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
-                      {" "}
-                      <Link href="/home/liveview">
-                        {React.createElement(VideoCameraIcon, {
-                          strokeWidth: 2,
-                          className: " text-gray-900 w-6",
-                        })}
-                      </Link>
-                    </button> */}
                     <button
                       className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl"
                       onClick={handleOpenDialogStopMntor}
@@ -244,7 +235,11 @@ export function LabsLayout({ lab }) {
               )}
             </div>
             <button className="hidden sm:inline-block  text-white font-bold  rounded">
-              <NavListMenu lab={lab} setIsConfirmOpen={setIsConfirmOpen} />
+              <NavListMenu
+                selectedLabNombre={selectedLab.nombre}
+                selectedLabDN={selectedLab.displayName}
+                setIsConfirmOpen={setIsConfirmOpen}
+              />
             </button>
             <button
               className="sm:hidden bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded"
@@ -310,7 +305,8 @@ export function LabsLayout({ lab }) {
         handleCloseDialogOpcion={handleCloseDialogOpcion}
         setOpenDialogOpcion={setOpenDialogOpcion}
         setShowButtonStopMntor={setShowButtonStopMntor}
-        selectedLab={selectedLab}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         setOpenDialogMntorActividad={setOpenDialogMntorActividad}
         handleOpenDialogMntorActividad={handleOpenDialogMntorActividad}
         setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
@@ -321,31 +317,31 @@ export function LabsLayout({ lab }) {
       <Dialogmonitoractividad
         openDialogMntorActividad={openDialogMntorActividad}
         handleCloseDialogMntorActividad={handleCloseDialogMntorActividad}
-        lab={lab}
         startMonitor={startMonitor}
         setOpenDialogMntorActividad={setOpenDialogMntorActividad}
         setShowButtonStopMntor={setShowButtonStopMntor}
-        selectedLab={selectedLab}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
       <Dialogmonitorprueba
         openDialogMntorPrueba={openDialogMntorPrueba}
         handleCloseDialogMntorPrueba={handleCloseDialogMntorPrueba}
-        lab={lab}
         startMonitor={startMonitor}
         setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
         setShowButtonStopMntor={setShowButtonStopMntor}
-        selectedLab={selectedLab}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
       <Dialogstopmonitor
         openDialogStopMntor={openDialogStopMntor}
         handleCloseDialogStopMntor={handleCloseDialogStopMntor}
-        selectedLab={selectedLab}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         stopMonitor={stopMonitor}
-        lab={lab}
         setShowButtonStopMntor={setShowButtonStopMntor}
         setOpenDialogStopMntor={setOpenDialogStopMntor}
         setIsConfirmOpen={setIsConfirmOpen}
@@ -357,21 +353,24 @@ export function LabsLayout({ lab }) {
         handleCloseDialogOpcionProgramacion={
           handleCloseDialogOpcionProgramacion
         }
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         setOpenDialogOpcionProgramacion={setOpenDialogOpcionProgramacion}
+        message={"Que actividad vas a programar en el "}
         setOpenDialogProgActividad={setOpenDialogProgActividad}
         setOpenDialogProgPrueba={setOpenDialogProgPrueba}
-        message={"Que actividad vas a programar en el "}
-        lab={lab}
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
       <Dialogprogramacionactividad
         OpenDialogProgActividad={OpenDialogProgActividad}
+        setOpenDialogProg={setOpenDialogProg}
         handleCloseDialogProg={handleCloseDialogProg}
-        lab={lab}
+        setOpenDialogProgActividad={setOpenDialogProgActividad}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
-        setOpenDialogProgActividad={setOpenDialogProgActividad}
         setIsConfirmOpen={setIsConfirmOpen}
       />
 
@@ -380,7 +379,8 @@ export function LabsLayout({ lab }) {
         setOpenDialogProg={setOpenDialogProgPrueba}
         handleCloseDialogProgPrueba={handleCloseDialogProgPrueba}
         setOpenDialogProgPrueba={setOpenDialogProgPrueba}
-        lab={lab}
+        selectedLabNombre={selectedLab.nombre}
+        selectedLabDN={selectedLab.displayName}
         valueDateP={valueDateP}
         setValueDateP={setValueDateP}
         setIsConfirmOpen={setIsConfirmOpen}
@@ -397,7 +397,7 @@ export function LabsLayout({ lab }) {
       <div className={styles.block}>
         {valuePcs ? (
           <VideoComp
-            selectedLab={selectedLab}
+            selectedLab={selectedLab.nombre}
             valueFecha={valueFecha ? valueFecha.nombre : null}
             valueActividad={valueActividad ? valueActividad.nombre : null}
             valuePcs={valuePcs ? valuePcs.nombre : null}
