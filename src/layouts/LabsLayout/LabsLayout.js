@@ -1,6 +1,5 @@
 import styles from "./LabsLayout.module.scss";
 import { useAuth } from "@/hooks";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { centosDirectory } from "@/api";
 import {
