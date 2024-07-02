@@ -34,6 +34,8 @@ export function Sidebar() {
     cDirectory.getLabs().then((response) => {
       setStateLabs(response);
     });
+    var selectedLab = JSON.parse(localStorage.getItem("selectedLabs"));
+    setSleclab(selectedLab);
   }, []);
 
   const handleLabClick = async (lab) => {
@@ -46,12 +48,22 @@ export function Sidebar() {
     setSleclab(laboratorio);
   };
 
+  const handleHomeClick = async () => {
+    localStorage.setItem("selectedLabs", null);
+  };
+
   return (
     <>
       <div className="fixed flex flex-col top-0 left-0 bg-gray-900 h-full min-w-64">
         <div className="flex items-center justify-center pt-24">
           <Link href="/home">
-            <img src={logo.src} alt="Company Logo" width={100} height={200} />
+            <img
+              onClick={() => handleHomeClick()}
+              src={logo.src}
+              alt="Company Logo"
+              width={100}
+              height={200}
+            />
           </Link>
         </div>
         <div className="relative flex flex-row text-xl text-white items-center justify-center mt-20 mb-4">
@@ -75,7 +87,7 @@ export function Sidebar() {
                     href={`/home/${labs.nombre}`}
                     onClick={() => handleLabClick(labs)}
                     className={`block text-lg font-medium ${
-                      labs.nombre == sleclab.nombre
+                      labs.nombre == sleclab?.nombre
                         ? "relative flex flex-row items-center rounded-xl h-12 focus:outline-none bg-orange-400 text-white text-xl  hover:text-gray-100 border-l-4 border-transparent border-orange-400 pr-6 mt-2"
                         : "relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-800 text-white text-xl hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
                     }`}

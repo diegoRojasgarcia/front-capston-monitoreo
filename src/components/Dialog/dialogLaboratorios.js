@@ -33,6 +33,8 @@ export function DialogLaboratorios({
         i === index ? item : item
       );
       setLaboratorios(updatedItems);
+      console.log(response);
+      localStorage.setItem("selectedLabs", JSON.stringify(response));
       setOpenDialogSetting(false);
       window.location.reload();
     } else {
