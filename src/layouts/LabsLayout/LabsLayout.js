@@ -311,7 +311,6 @@ export function LabsLayout() {
       <Dialogmonitoractividad
         openDialogMntorActividad={openDialogMntorActividad}
         handleCloseDialogMntorActividad={handleCloseDialogMntorActividad}
-        startMonitor={startMonitor}
         setOpenDialogMntorActividad={setOpenDialogMntorActividad}
         setShowButtonStopMntor={setShowButtonStopMntor}
         selectedLabNombre={selectedLab.nombre}
@@ -322,7 +321,6 @@ export function LabsLayout() {
       <Dialogmonitorprueba
         openDialogMntorPrueba={openDialogMntorPrueba}
         handleCloseDialogMntorPrueba={handleCloseDialogMntorPrueba}
-        startMonitor={startMonitor}
         setOpenDialogMntorPrueba={setOpenDialogMntorPrueba}
         setShowButtonStopMntor={setShowButtonStopMntor}
         selectedLabNombre={selectedLab.nombre}
@@ -335,7 +333,6 @@ export function LabsLayout() {
         handleCloseDialogStopMntor={handleCloseDialogStopMntor}
         selectedLabNombre={selectedLab.nombre}
         selectedLabDN={selectedLab.displayName}
-        stopMonitor={stopMonitor}
         setShowButtonStopMntor={setShowButtonStopMntor}
         setOpenDialogStopMntor={setOpenDialogStopMntor}
         setIsConfirmOpen={setIsConfirmOpen}
