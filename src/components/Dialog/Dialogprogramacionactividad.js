@@ -44,43 +44,6 @@ export function Dialogprogramacionactividad({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      // const infoArch =
-
-      //   valueDateP.startDate +
-      //   "," +
-      //   valueTimerInic.hour() +
-      //   ":" +
-      //   valueTimerInic.minute() +
-      //   "," +
-      //   valueTimerFin.hour() +
-      //   ":" +
-      //   valueTimerFin.minute() +
-      //   "," +
-      //   formValue.actividad;
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "w",
-      //   content: "",
-      // });
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "a",
-      //   content: "",
-      // });
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "i",
-      //   content: user.email,
-      // });
-      // await cDirectory
-      //   .createFileProg({ lab: selectedLabNombre, content: infoArch })
-      //   .then((response) => {
-      //     if (response.status == 200) {
-      //       setOpenDialogProgActividad(false);
-      //       setOpenDialogProg(false);
-      //       setIsConfirmOpen(true);
-      //     }
-      //   });
       const horainicio = valueTimerInic.hour() + ":" + valueTimerInic.minute();
       const horafin = valueTimerFin.hour() + ":" + valueTimerFin.minute();
 

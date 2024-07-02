@@ -22,7 +22,6 @@ const cDirectory = new centosDirectory();
 export function Dialogmonitoractividad({
   openDialogMntorActividad,
   handleCloseDialogMntorActividad,
-  startMonitor,
   setOpenDialogMntorActividad,
   setShowButtonStopMntor,
   selectedLabNombre,
@@ -35,7 +34,6 @@ export function Dialogmonitoractividad({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      localStorage.setItem("actividadmonitoring", formValue.actividad);
       await cDirectory.createFiles({
         lab: selectedLabNombre,
         filename: "w",
@@ -59,7 +57,6 @@ export function Dialogmonitoractividad({
         })
         .then((response) => {
           if (response.status == 200) {
-            startMonitor(selectedLabNombre);
             setShowButtonStopMntor(true);
             setOpenDialogMntorActividad(false);
             setIsConfirmOpen(true);

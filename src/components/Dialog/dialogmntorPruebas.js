@@ -22,7 +22,6 @@ const cDirectory = new centosDirectory();
 export function Dialogmonitorprueba({
   openDialogMntorPrueba,
   handleCloseDialogMntorPrueba,
-  startMonitor,
   setShowButtonStopMntor,
   setOpenDialogMntorPrueba,
   selectedLabNombre,
@@ -68,7 +67,6 @@ export function Dialogmonitorprueba({
         filename: "i",
         content: user.email,
       });
-
       await cDirectory
         .createFiles({
           lab: selectedLabNombre,
@@ -77,7 +75,6 @@ export function Dialogmonitorprueba({
         })
         .then((response) => {
           if (response.status == 200) {
-            startMonitor(selectedLabNombre);
             setShowButtonStopMntor(true);
             setOpenDialogMntorPrueba(false);
             setIsConfirmOpen(true);

@@ -25,7 +25,6 @@ export function DialogoProgramaciones({
 
   const handleEdit = async (index) => {
     const item = programaciones[index];
-    console.log(item);
 
     const response = await cDirectory.updateProgramacion(item);
     if (response) {

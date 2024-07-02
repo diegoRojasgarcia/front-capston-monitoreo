@@ -15,11 +15,6 @@ export function AuthProvider(props) {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //laboratorio
-  const [isMonitoring, setIsMonitoring] = useState(false);
-  const [labmonitoring, setLabmonitoring] = useState(null);
-  const [labmonitorings, setLabmonitorings] = useState([]);
-
   useEffect(() => {
     (async () => {
       const token = tokenCtrl.getToken();
@@ -60,37 +55,32 @@ export function AuthProvider(props) {
     localStorage.setItem("actividadmonitoring", null);
   };
 
-  //laboratorio
-  const startMonitor = async (lab) => {
-    try {
-      labCtrl.setLabMonitoring(lab);
-      labCtrl.setIsMonitoring(true);
-      setLabmonitoring(labCtrl.getLabMonitoring());
-      labmonitorings.push(labCtrl.getLabMonitoring());
-      setIsMonitoring(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // //laboratorio
+  // const startMonitor = async (lab) => {
+  //   try {
+  //     labCtrl.setLabMonitoring(lab);
+  //     labCtrl.setIsMonitoring(true);
+  //     setLabmonitoring(labCtrl.getLabMonitoring());
+  //     labmonitorings.push(labCtrl.getLabMonitoring());
+  //     setIsMonitoring(true);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const stopMonitor = (lab) => {
-    labCtrl.removeLabMonitoring();
-    labmonitorings.pop(lab);
-    labCtrl.setIsMonitoring(false);
-    setLabmonitoring(null);
-    setIsMonitoring(false);
-  };
+  // const stopMonitor = (lab) => {
+  //   labCtrl.removeLabMonitoring();
+  //   labmonitorings.pop(lab);
+  //   labCtrl.setIsMonitoring(false);
+  //   setLabmonitoring(null);
+  //   setIsMonitoring(false);
+  // };
 
   const data = {
     accessToken: token,
     user,
     login,
     logout,
-    startMonitor,
-    stopMonitor,
-    isMonitoring,
-    labmonitoring,
-    labmonitorings,
   };
 
   if (loading) return null;
