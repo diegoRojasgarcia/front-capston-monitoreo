@@ -23,7 +23,7 @@ const getCurrentDate = () => {
 
 const cDirectory = new centosDirectory();
 
-export function LiveViewLayout({ lab, actividad }) {
+export function LiveViewLayout() {
   const { user, stopMonitor } = useAuth();
   const router = useRouter();
 

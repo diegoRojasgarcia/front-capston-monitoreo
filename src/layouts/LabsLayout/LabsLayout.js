@@ -31,10 +31,10 @@ export function LabsLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const [showButtonLiveView, setShowButtonLiveView] = React.useState(false);
 
-  // if (!user) {
-  //   router.push("/");
-  //   return null;
-  // }
+  if (!user) {
+    router.push("/");
+    return null;
+  }
 
   React.useEffect(() => {
     (async () => {
