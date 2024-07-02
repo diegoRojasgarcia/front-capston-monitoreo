@@ -66,7 +66,7 @@ export function Sidebar() {
             />
           </Link>
         </div>
-        <div className="relative flex flex-row text-xl text-white items-center justify-center mt-20 mb-4">
+        <div className="relative flex flex-row text-lg text-white items-center justify-center mt-20 mb-4">
           <div className="text-white">Sistema De Monitoreo EIC</div>
         </div>
 
@@ -88,8 +88,8 @@ export function Sidebar() {
                     onClick={() => handleLabClick(labs)}
                     className={`block text-lg font-medium ${
                       labs.nombre == sleclab?.nombre
-                        ? "relative flex flex-row items-center rounded-xl h-12 focus:outline-none bg-orange-400 text-white text-xl  hover:text-gray-100 border-l-4 border-transparent border-orange-400 pr-6 mt-2"
-                        : "relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-800 text-white text-xl hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
+                        ? "relative flex flex-row items-center rounded-xl h-12 focus:outline-none bg-gray-700  text-xl  hover:text-gray-100 border-l-4 border-transparent border-orange-400 pr-6 mt-2"
+                        : "relative flex flex-row items-center rounded-xl h-12 focus:outline-none hover:bg-gray-800  text-xl hover:text-gray-100 border-l-4 border-transparent hover:border-orange-400 pr-6 mt-2"
                     }`}
                   >
                     <span className="inline-flex justify-center items-center ml-4 ">
