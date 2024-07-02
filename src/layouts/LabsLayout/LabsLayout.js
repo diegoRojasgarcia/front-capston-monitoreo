@@ -26,15 +26,9 @@ import Link from "next/link";
 const cDirectory = new centosDirectory();
 
 export function LabsLayout() {
-  const { user, startMonitor, stopMonitor, logout } = useAuth();
-  const router = useRouter();
+  const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [showButtonLiveView, setShowButtonLiveView] = React.useState(false);
-
-  // if (!user) {
-  //   router.push("/");
-  //   return null;
-  // }
 
   React.useEffect(() => {
     (async () => {
