@@ -1,9 +1,8 @@
 import { useState, useEffect, createContext } from "react";
-import { Token, User, LabMonitoring } from "@/api";
+import { Token, User } from "@/api";
 
 const tokenCtrl = new Token();
 const userCtrl = new User();
-const labCtrl = new LabMonitoring();
 
 export const AuthContext = createContext();
 
@@ -52,29 +51,7 @@ export function AuthProvider(props) {
     setToken(null);
     setUser(null);
     localStorage.setItem("selectedLabs", null);
-    localStorage.setItem("actividadmonitoring", null);
   };
-
-  // //laboratorio
-  // const startMonitor = async (lab) => {
-  //   try {
-  //     labCtrl.setLabMonitoring(lab);
-  //     labCtrl.setIsMonitoring(true);
-  //     setLabmonitoring(labCtrl.getLabMonitoring());
-  //     labmonitorings.push(labCtrl.getLabMonitoring());
-  //     setIsMonitoring(true);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const stopMonitor = (lab) => {
-  //   labCtrl.removeLabMonitoring();
-  //   labmonitorings.pop(lab);
-  //   labCtrl.setIsMonitoring(false);
-  //   setLabmonitoring(null);
-  //   setIsMonitoring(false);
-  // };
 
   const data = {
     accessToken: token,
