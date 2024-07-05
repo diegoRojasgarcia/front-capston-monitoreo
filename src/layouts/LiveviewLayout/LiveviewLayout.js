@@ -54,6 +54,11 @@ export function LiveViewLayout() {
     setValueFecha(currentDate);
   }, []);
 
+  const backtoHome = () => {
+    router.push("/home");
+    localStorage.setItem("selectedLabs", null);
+  };
+
   return (
     <>
       {/* TOP BAR */}
@@ -100,13 +105,14 @@ export function LiveViewLayout() {
           </div>
           <div className="flex items-center space-x-4">
             <div className="hidden sm:inline-block text-gray-400 h-16 font-bold rounded-xl">
-              <button className="bg-orange-300 hover:bg-orange-400  h-16 px-3 font-bold rounded-xl ">
-                <Link href="/home">
-                  {React.createElement(ArrowRightEndOnRectangleIcon, {
-                    strokeWidth: 2,
-                    className: " text-gray-900 w-6",
-                  })}
-                </Link>{" "}
+              <button
+                onClick={backtoHome}
+                className="bg-orange-300 hover:bg-orange-400 h-16 px-3 font-bold rounded-xl "
+              >
+                {React.createElement(ArrowRightEndOnRectangleIcon, {
+                  strokeWidth: 2,
+                  className: " text-gray-900 w-6",
+                })}
               </button>
             </div>
           </div>

@@ -45,7 +45,7 @@ export function DialogoProgramaciones({
       const updatedItems = programaciones.filter((_, i) => i !== index);
       setProgramaciones(updatedItems);
     } else {
-      console.error("Failed to delete activity");
+      console.error("Failed to delete Programación");
     }
   };
 

@@ -31,6 +31,10 @@ export default function HomePage({ title }) {
     return null;
   }
 
+  const backtoLiveView = () => {
+    router.push("/home/liveview");
+  };
+
   return (
     <>
       <Layout pageTitle={title}>
@@ -67,14 +71,14 @@ export default function HomePage({ title }) {
         )} */}
 
         {showButtonLiveView ? (
-          <button className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            {" "}
-            <Link href="/home/liveview">
-              {React.createElement(VideoCameraIcon, {
-                strokeWidth: 2,
-                className: " text-gray-900 w-7",
-              })}
-            </Link>
+          <button
+            onClick={backtoLiveView}
+            className="fixed bottom-4 right-4 bg-orange-300 text-white p-4 m-6 rounded-full shadow-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            {React.createElement(VideoCameraIcon, {
+              strokeWidth: 2,
+              className: " text-gray-900 w-7",
+            })}
           </button>
         ) : null}
       </Layout>
