@@ -45,6 +45,9 @@ export function Dialogmonitorprueba({
     "Teams",
     "Mozilla Firefox",
   ];
+  const [durationHours, setDurationHours] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState("");
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -52,6 +55,12 @@ export function Dialogmonitorprueba({
     onSubmit: async (formValue) => {
       const webs = textformwebs;
       const apps = selectedOptions;
+      await cDirectory.createDuracion({
+        laboratorio: selectedLabNombre,
+        actividad: formValue.actividad,
+        horas: durationHours,
+        minutos: durationMinutes,
+      });
       await cDirectory.createFiles({
         lab: selectedLabNombre,
         filename: "w",
@@ -98,9 +107,6 @@ export function Dialogmonitorprueba({
       setSelectedOptions(options);
     }
   };
-
-  const [durationHours, setDurationHours] = useState("");
-  const [durationMinutes, setDurationMinutes] = useState("");
 
   const handleDurationHoursChange = (event) => {
     const value = event.target.value;

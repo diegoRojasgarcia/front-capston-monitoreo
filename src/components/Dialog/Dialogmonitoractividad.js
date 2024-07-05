@@ -32,12 +32,20 @@ export function Dialogmonitoractividad({
   setIsConfirmOpen,
 }) {
   const { user } = useAuth();
+  const [durationHours, setDurationHours] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState("");
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
+      await cDirectory.createDuracion({
+        laboratorio: selectedLabNombre,
+        actividad: formValue.actividad,
+        horas: durationHours,
+        minutos: durationMinutes,
+      });
       await cDirectory.createFiles({
         lab: selectedLabNombre,
         filename: "w",
@@ -68,9 +76,6 @@ export function Dialogmonitoractividad({
         });
     },
   });
-
-  const [durationHours, setDurationHours] = useState("");
-  const [durationMinutes, setDurationMinutes] = useState("");
 
   const handleDurationHoursChange = (event) => {
     const value = event.target.value;
@@ -136,6 +141,7 @@ export function Dialogmonitoractividad({
                 className="border border-orange-500 p-1 w-[60px] mx-1"
                 placeholder="Horas"
                 min="0"
+                max="8"
               />
               <span>:</span>
               <input

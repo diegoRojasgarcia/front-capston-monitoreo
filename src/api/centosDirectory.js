@@ -399,4 +399,25 @@ export class centosDirectory {
       throw error;
     }
   }
+
+  async createDuracion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.CREATEDURACION}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

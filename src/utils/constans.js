@@ -29,6 +29,7 @@ export const ENV = {
       CREATEPROGRAMACION: "labs/createProgramacion",
       CREATEA: "labs/createA",
       CREATEW: "labs/createW",
+      CREATEDURACION: "labs/createDuracion",
     },
   },
   TOKEN: "token",
