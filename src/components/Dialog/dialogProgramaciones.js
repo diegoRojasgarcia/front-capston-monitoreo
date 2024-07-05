@@ -1,7 +1,7 @@
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import DialogContent from "@mui/material/DialogContent";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { centosDirectory } from "@/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -16,12 +16,26 @@ export function DialogoProgramaciones({
   const [programaciones, setProgramaciones] = useState([]);
   const cDirectory = new centosDirectory();
   const [isEditing, setIsEditing] = useState(null);
+  const [minDate, setMinDate] = useState("");
+  const [minTime, setMinTime] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     cDirectory.getProgramaciones().then((response) => {
       setProgramaciones(response);
     });
   }, [openDialogProgramaciones]);
+
+  useEffect(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); // Meses empiezan en 0
+    const dd = String(today.getDate()).padStart(2, "0");
+    setMinDate(`${yyyy}-${mm}-${dd}`);
+
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+    setMinTime(`${hours}:${minutes}`);
+  }, []);
 
   const handleEdit = async (index) => {
     const item = programaciones[index];
@@ -36,6 +50,17 @@ export function DialogoProgramaciones({
     } else {
       console.error("Failed to update Programación");
     }
+  };
+
+  const handleDateChange = (event, index) => {
+    const { value } = event.target;
+    const date = new Date(value);
+    // Validar que la fecha ingresada sea válida
+    if (isNaN(date.getTime())) {
+      alert("Por favor, ingrese una fecha válida.");
+      return;
+    }
+    handleChange(index, "fecha", event);
   };
 
   const handleDelete = async (index) => {
@@ -95,7 +120,7 @@ export function DialogoProgramaciones({
                           handleChange(index, "laboratorio", event)
                         }
                         className="border p-1 w-[120px] "
-                        disabled={isEditing !== index}
+                        disabled={true}
                       />
                     </td>
                     <td className="py-2 px-2 border-b">
@@ -123,11 +148,10 @@ export function DialogoProgramaciones({
                       <input
                         type="date"
                         value={item.fecha}
-                        onChange={(event) =>
-                          handleChange(index, "fecha", event)
-                        }
+                        onChange={(event) => handleDateChange(event, index)}
                         className="border p-1 w-full"
                         disabled={isEditing !== index}
+                        min={minDate}
                       />
                     </td>
                     <td className="py-2 px-2 border-b">
@@ -139,6 +163,7 @@ export function DialogoProgramaciones({
                         }
                         className="border p-1 w-full"
                         disabled={isEditing !== index}
+                        min={minTime}
                       />
                     </td>
                     <td className="py-2 px-2 border-b">

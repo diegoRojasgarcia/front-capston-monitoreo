@@ -99,6 +99,30 @@ export function Dialogmonitorprueba({
     }
   };
 
+  const [durationHours, setDurationHours] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState("");
+
+  const handleDurationHoursChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value) || value < 0) {
+      alert("Por favor, ingrese un número válido.");
+      return;
+    }
+    setDurationHours(value);
+  };
+
+  const handleDurationMinutesChange = (event) => {
+    let value = event.target.value;
+    if (isNaN(value) || value < 0 || value > 59) {
+      alert("Por favor, ingrese un número válido entre 0 y 59.");
+      return;
+    }
+    if (value.length === 1) {
+      value = "0" + value;
+    }
+    setDurationMinutes(value);
+  };
+
   return (
     <Dialog
       open={openDialogMntorPrueba}
@@ -132,6 +156,28 @@ export function Dialogmonitorprueba({
               onChange={formik.handleChange}
               error={formik.errors.actividad}
             />
+          </div>
+          <div className="pt-2">
+            <div className="flex items-center">
+              <input
+                type="number"
+                value={durationHours}
+                onChange={handleDurationHoursChange}
+                className="border border-orange-500 p-1 w-[60px] mx-1"
+                placeholder="Horas"
+                min="0"
+              />
+              <span>:</span>
+              <input
+                type="number"
+                value={durationMinutes}
+                onChange={handleDurationMinutesChange}
+                className="border border-orange-500 p-1 w-[60px] mx-1"
+                placeholder="Minutos"
+                min="0"
+                max="59"
+              />
+            </div>
           </div>
           <div className="pt-6 ">
             <h1 className="text-lg mb-2">Aplicaciones no permitidas</h1>
