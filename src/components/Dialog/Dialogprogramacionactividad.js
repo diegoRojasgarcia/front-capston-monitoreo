@@ -54,6 +54,7 @@ export function Dialogprogramacionactividad({
           email: user.email,
           fecha: valueDateP.startDate,
           horainicio: horainicio,
+          labdisplayname: selectedLabDN,
           horafin: horafin,
         })
         .then((response) => {

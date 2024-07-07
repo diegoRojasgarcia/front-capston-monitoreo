@@ -115,7 +115,7 @@ export function DialogoProgramaciones({
                     <td className="py-2 px-2 border-b">
                       <input
                         type="text"
-                        value={item.laboratorio}
+                        value={item.labdisplayname}
                         onChange={(event) =>
                           handleChange(index, "laboratorio", event)
                         }
