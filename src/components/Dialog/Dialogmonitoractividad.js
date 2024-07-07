@@ -40,12 +40,13 @@ export function Dialogmonitoractividad({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      await cDirectory.createDuracion({
-        laboratorio: selectedLabNombre,
-        actividad: formValue.actividad,
-        horas: durationHours,
-        minutos: durationMinutes,
-      });
+      if (durationHours != "" && durationMinutes != "")
+        await cDirectory.createDuracion({
+          laboratorio: selectedLabNombre,
+          actividad: formValue.actividad,
+          horas: durationHours,
+          minutos: durationMinutes,
+        });
       await cDirectory.createFiles({
         lab: selectedLabNombre,
         filename: "w",
@@ -88,13 +89,22 @@ export function Dialogmonitoractividad({
 
   const handleDurationMinutesChange = (event) => {
     let value = event.target.value;
+
+    // Permitir que el input esté vacío
+    if (value === "") {
+      setDurationMinutes(value);
+      return;
+    }
+    // Validar que el valor sea un número entre 0 y 59
     if (isNaN(value) || value < 0 || value > 59) {
       alert("Por favor, ingrese un número válido entre 0 y 59.");
       return;
     }
+    // Agregar un cero a la izquierda si el valor tiene solo un dígito
     if (value.length === 1) {
       value = "0" + value;
     }
+
     setDurationMinutes(value);
   };
 
