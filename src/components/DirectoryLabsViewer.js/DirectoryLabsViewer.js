@@ -20,12 +20,20 @@ const DirectoryLabsViewer = ({ path }) => {
     if (!path) return;
 
     try {
-      const response = await axios.get(`${path}`);
+      const username = "admin"; // reemplaza con tu nombre de usuario
+      const password = "Ty22-Op4a"; // reemplaza con tu contraseña
+      const token = btoa(`${username}:${password}`);
+
+      const response = await axios.get(`${path}`, {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      });
+
       const files = response.data.filter(
         (item) =>
           item.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(item.name)
       );
-      console.log(`Fetched files from: ${path}`);
       files.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
 
       if (files.length > 0) {

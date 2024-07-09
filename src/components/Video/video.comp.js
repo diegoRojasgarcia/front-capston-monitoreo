@@ -37,17 +37,22 @@ export function VideoComp({
   const fetchFiles = async (currentPath) => {
     try {
       const baseURL = "http://192.168.100.25/videos/";
-      console.log(`Fetching files from: ${baseURL}${currentPath}`);
-      const response = await axios(`${baseURL}${currentPath}`);
-      console.log("Response received:", response.data);
+
+      const username = ENV.AUTNGINX.USERNAME; // reemplaza con tu nombre de usuario
+      const password = ENV.AUTNGINX.PASSWORD; // reemplaza con tu contraseña
+      const token = btoa(`${username}:${password}`);
+
+      const response = await axios(`${baseURL}${currentPath}`, {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      });
 
       const parser = new DOMParser();
       const doc = parser.parseFromString(response.data, "text/html");
       const links = Array.from(doc.querySelectorAll("a"))
         .map((link) => link.getAttribute("href"))
         .filter((href) => href !== "../");
-
-      console.log("Parsed links:", links);
 
       // Separate directories and .mp4 files
       const dirs = links.filter((link) => link.endsWith("/"));

@@ -33,4 +33,8 @@ export const ENV = {
     },
   },
   TOKEN: "token",
+  AUTNGINX: {
+    USERNAME: "admin",
+    PASSWORD: "Ty22-Op4a",
+  },
 };

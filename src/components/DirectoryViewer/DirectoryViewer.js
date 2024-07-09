@@ -29,13 +29,21 @@ const DirectoryViewer = ({ lab, actividad, currentPC }) => {
 
     try {
       const baseURL = "http://192.168.100.25/imagenes/";
-      console.log(`Fetching files from: ${baseURL}${path}`);
-      const response = await axios.get(`${baseURL}${path}`);
+
+      const username = ENV.AUTNGINX.USERNAME; // reemplaza con tu nombre de usuario
+      const password = ENV.AUTNGINX.PASSWORD; // reemplaza con tu contraseña
+      const token = btoa(`${username}:${password}`);
+
+      const response = await axios.get(`${baseURL}${path}`, {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      });
+
       const files = response.data.filter(
         (item) =>
           item.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(item.name)
       );
-      console.log(`Fetched files from: ${baseURL}${path}`);
       files.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
 
       if (files.length > 0) {
