@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import LatestImage from "../LatestImage/LatestImage.js";
 import LatesImageView from "../LatesImageView/LatesImageView.js";
 import { ENV } from "@/utils";
 
@@ -21,8 +20,8 @@ const DirectoryLabsViewer = ({ path }) => {
     if (!path) return;
 
     try {
-      const username = "admin"; // reemplaza con tu nombre de usuario
-      const password = "Ty22-Op4a"; // reemplaza con tu contraseña
+      const username = ENV.AUTNGINX.USERNAME; // reemplaza con tu nombre de usuario
+      const password = ENV.AUTNGINX.PASSWORD; // reemplaza con tu contraseña
       const token = btoa(`${username}:${password}`);
 
       const response = await axios.get(`${path}`, {
