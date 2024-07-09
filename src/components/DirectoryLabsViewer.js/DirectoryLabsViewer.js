@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import LatestImage from "../LatestImage/LatestImage.js";
 import LatesImageView from "../LatesImageView/LatesImageView.js";
+import { ENV } from "@/utils";
 
 const getCurrentDate = () => {
   const date = new Date();
