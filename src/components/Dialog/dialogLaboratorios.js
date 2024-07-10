@@ -205,7 +205,7 @@ export function DialogLaboratorios({
                   key={aplicacion.id}
                   className="mb-2 flex items-center justify-between"
                 >
-                  <span className="mx-12">{aplicacion.nombre}</span>
+                  <span className="mx-2">{aplicacion.nombre}</span>
                   <button
                     onClick={() => eliminarAplicacion(aplicacion.id)}
                     className="bg-red-500 text-white px-2 py-1 rounded"
