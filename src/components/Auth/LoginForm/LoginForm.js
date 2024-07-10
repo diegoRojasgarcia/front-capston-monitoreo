@@ -57,12 +57,12 @@ export function LoginForm() {
 
       {errorMessage && (
         <div
-          class="bg-red-100 text-center border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          className="bg-red-100 text-center border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">Ups!</strong>
-          <span class="block sm:inline"> {errorMessage}</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+          <strong className="font-bold">Ups!</strong>
+          <span className="block sm:inline"> {errorMessage}</span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
         </div>
       )}
     </Form>

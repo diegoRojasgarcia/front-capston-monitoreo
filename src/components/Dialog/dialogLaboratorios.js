@@ -1,7 +1,7 @@
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import DialogContent from "@mui/material/DialogContent";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { centosDirectory } from "@/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -12,14 +12,23 @@ export function DialogLaboratorios({
   openDialogSetting,
   handleCloseDialogSetting,
   setOpenDialogSetting,
-  setLabActualizado,
 }) {
   const [laboratorios, setLaboratorios] = useState([]);
+  const [aplicaciones, setAplicaciones] = useState([]);
   const cDirectory = new centosDirectory();
+  const [showInput, setShowInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef(null);
 
   React.useEffect(() => {
     cDirectory.getLabs().then((response) => {
       setLaboratorios(response);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    cDirectory.getAplicaciones().then((response) => {
+      setAplicaciones(response);
     });
   }, []);
 
@@ -47,6 +56,55 @@ export function DialogLaboratorios({
       i === index ? { ...item, displayName: event.target.value } : item
     );
     setLaboratorios(updatedItems);
+  };
+
+  const handleButtonClick = () => {
+    setShowInput(true);
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleCloseInput = () => {
+    setShowInput(false);
+    setInputValue("");
+  };
+
+  const handleSubmit = async () => {
+    if (inputValue.trim() === "") return;
+    try {
+      await cDirectory
+        .createAplicacion({
+          nombre: inputValue,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            setAplicaciones([...aplicaciones, response.aplicacion]);
+            handleCloseInput();
+          }
+        });
+    } catch (error) {
+      console.error("Error al enviar la solicitud", error);
+      // Manejar el error según sea necesario
+    }
+    handleCloseInput();
+  };
+
+  const eliminarAplicacion = async (id) => {
+    try {
+      const newApplication = await cDirectory.deleteAplicacion({
+        id: id,
+      });
+      if (newApplication.status == 200) {
+        setAplicaciones(
+          aplicaciones.filter((aplicacion) => aplicacion.id !== id)
+        );
+      }
+    } catch (error) {
+      console.error("Error al enviar la solicitud", error);
+      // Manejar el error según sea necesario
+    }
   };
 
   return (
@@ -102,6 +160,65 @@ export function DialogLaboratorios({
               </div>
             )}
           </table>
+        </div>
+
+        <div className="flex justify-center p-5">
+          <div className="text-lg flex items-center justify-center pr-4">
+            <p>Aplicaciones</p>
+          </div>
+          <div className="">
+            {!showInput && (
+              <button
+                onClick={handleButtonClick}
+                className="bg-blue-500 text-white px-4 py-1 rounded"
+              >
+                +
+              </button>
+            )}
+            {showInput && (
+              <div className="relative inline-block">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  placeholder="app"
+                  className="border border-gray-300 rounded  py-1"
+                />
+                <button
+                  onClick={handleSubmit}
+                  className="ml-2 bg-green-500 text-white px-2 py-1 rounded"
+                >
+                  Enviar
+                </button>
+                <button
+                  onClick={handleCloseInput}
+                  className="ml-2 bg-red-500 text-white px-4 py-1 rounded"
+                >
+                  x
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex justify-center p-5">
+          {aplicaciones ? (
+            <div className="grid grid-cols-3 gap-4">
+              {aplicaciones.map((aplicacion) => (
+                <div
+                  key={aplicacion.id}
+                  className="mb-2 flex items-center justify-between"
+                >
+                  <span className="mx-12">{aplicacion.nombre}</span>
+                  <button
+                    onClick={() => eliminarAplicacion(aplicacion.id)}
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </DialogContent>
     </Dialog>

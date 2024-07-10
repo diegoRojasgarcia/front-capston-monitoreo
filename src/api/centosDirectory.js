@@ -420,4 +420,66 @@ export class centosDirectory {
       throw error;
     }
   }
+
+  async getAplicaciones() {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.APLICACIONES}`;
+      const params = {
+        method: "Get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result.aplicaciones;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createAplicacion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.CREATEAPP}`;
+      const params = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 201) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteAplicacion(item) {
+    try {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.LABS.DELETEDAPP}`;
+      const params = {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: item.id }),
+      };
+      const response = await fetch(url, params);
+      const result = await response.json();
+
+      if (response.status !== 200) throw result;
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

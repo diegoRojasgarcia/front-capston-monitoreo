@@ -36,17 +36,15 @@ export function Dialogmonitorprueba({
   };
 
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const options = [
-    "Discord",
-    "Steam",
-    "Whatsapp",
-    "OperaGX",
-    "Bing",
-    "Teams",
-    "Mozilla Firefox",
-  ];
   const [durationHours, setDurationHours] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("");
+  const [aplicaciones, setAplicaciones] = useState([]);
+
+  React.useEffect(() => {
+    cDirectory.getAplicaciones().then((response) => {
+      setAplicaciones(response);
+    });
+  }, [openDialogMntorPrueba]);
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -101,10 +99,10 @@ export function Dialogmonitorprueba({
   };
 
   const handleSelectAllChange = () => {
-    if (selectedOptions.length === options.length) {
+    if (selectedOptions.length === aplicaciones.length) {
       setSelectedOptions([]);
     } else {
-      setSelectedOptions(options);
+      setSelectedOptions(aplicaciones);
     }
   };
 
@@ -186,32 +184,23 @@ export function Dialogmonitorprueba({
             </div>
           </div>
           <div className="pt-6 ">
-            <h1 className="text-lg mb-2">Aplicaciones no permitidas</h1>
-            <div className="mb-4 pt-4">
-              <label className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-5 w-5 text-blue-600"
-                  checked={selectedOptions.length === options.length}
-                  onChange={handleSelectAllChange}
-                />
-                <span className="ml-2">Seleccionar todas</span>
-              </label>
-            </div>
+            <h1 className="text-lg mb-6">Aplicaciones no permitidas</h1>
+
             <div className="grid grid-cols-3 gap-4">
-              {options.map((option) => (
-                <div key={option} className="mb-2">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-blue-600"
-                      checked={selectedOptions.includes(option)}
-                      onChange={() => handleCheckboxChange(option)}
-                    />
-                    <span className="ml-2">{option}</span>
-                  </label>
-                </div>
-              ))}
+              {aplicaciones &&
+                aplicaciones.map((aplicacion) => (
+                  <div key={aplicacion.id} className="mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-5 w-5 text-blue-600"
+                        checked={selectedOptions.includes(aplicacion.nombre)}
+                        onChange={() => handleCheckboxChange(aplicacion.nombre)}
+                      />
+                      <span className="ml-2">{aplicacion.nombre}</span>
+                    </label>
+                  </div>
+                ))}
             </div>
           </div>
           <div>
