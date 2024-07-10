@@ -203,7 +203,7 @@ export function Dialogmonitorprueba({
                 ))}
             </div>
           </div>
-          <div>
+          {/* <div>
             <h1 className="text-lg ">Webs no permitidas</h1>
           </div>
           <FormTextArea
@@ -211,7 +211,7 @@ export function Dialogmonitorprueba({
             value={textformwebs}
             onChange={handleChange}
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
-          />
+          /> */}
           <p className="flex items-center justify-center gap-1 mt-3 font-sans text-l antialiased font-normal leading-normal text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"

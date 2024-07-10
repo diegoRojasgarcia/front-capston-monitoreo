@@ -74,16 +74,13 @@ export function DialogLaboratorios({
   const handleSubmit = async () => {
     if (inputValue.trim() === "") return;
     try {
-      await cDirectory
-        .createAplicacion({
-          nombre: inputValue,
-        })
-        .then((response) => {
-          if (response.status == 200) {
-            setAplicaciones([...aplicaciones, response.aplicacion]);
-            handleCloseInput();
-          }
-        });
+      const resp = await cDirectory.createAplicacion({
+        nombre: inputValue,
+      });
+      if (resp.status == 200) {
+        setAplicaciones([...aplicaciones, resp.aplicacion]);
+        handleCloseInput();
+      }
     } catch (error) {
       console.error("Error al enviar la solicitud", error);
       // Manejar el error según sea necesario
@@ -200,7 +197,7 @@ export function DialogLaboratorios({
             )}
           </div>
         </div>
-        <div className="flex justify-center p-5">
+        <div className="flex justify-center ">
           {aplicaciones ? (
             <div className="grid grid-cols-3 gap-4">
               {aplicaciones.map((aplicacion) => (

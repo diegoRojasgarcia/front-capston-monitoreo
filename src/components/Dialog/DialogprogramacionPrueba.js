@@ -105,44 +105,6 @@ export function Dialogprogramacionprueba({
             setIsConfirmOpen(true);
           }
         });
-
-      //   valueDateP.startDate +
-      //   "," +
-      //   valueTimerInic.hour() +
-      //   ":" +
-      //   valueTimerInic.minute() +
-      //   "," +
-      //   valueTimerFin.hour() +
-      //   ":" +
-      //   valueTimerFin.minute() +
-      //   "," +
-      //   formValue.actividad;
-      // const webs = textformwebs;
-      // const apps = selectedOptions;
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "w",
-      //   content: webs,
-      // });
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "a",
-      //   content: apps.join(";"),
-      // });
-      // await cDirectory.createFiles({
-      //   lab: selectedLabNombre,
-      //   filename: "i",
-      //   content: user.email,
-      // });
-      // await cDirectory
-      //   .createFileProg({ lab: selectedLabNombre, content: infoArch })
-      //   .then((response) => {
-      //     if (response.status == 200) {
-      //       setOpenDialogProgPrueba(false);
-      //       setOpenDialogProg(false);
-      //       setIsConfirmOpen(true);
-      //     }
-      //   });
     },
   });
 
@@ -219,7 +181,7 @@ export function Dialogprogramacionprueba({
             </LocalizationProvider>
           </div>
 
-          <div className="pt-8 mb-2">
+          {/* <div className="pt-8 mb-2">
             <h1 className="text-lg ">Webs no permitidas</h1>
           </div>
           <FormTextArea
@@ -227,7 +189,7 @@ export function Dialogprogramacionprueba({
             value={textformwebs}
             onChange={handleChange}
             placeholder="webs sin acceso en la actividad (ej: www.nombrepagina.com) Usa el punto y coma (;) para separar las entradas"
-          />
+          /> */}
 
           <div className="pt-4">
             <h1 className="text-lg mb-6">Aplicaciones no permitidas</h1>
