@@ -17,6 +17,7 @@ import {
 import { TimePicker } from "@mui/x-date-pickers";
 import { centosDirectory } from "@/api";
 import { useAuth } from "@/hooks";
+import { Alert } from "@material-tailwind/react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -38,6 +39,7 @@ export function Dialogprogramacionactividad({
   const [valueTimerInic, setValueTimerInic] = React.useState(dayjs(""));
   const [valueTimerFin, setValueTimerFin] = React.useState(dayjs(""));
   const { user } = useAuth();
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -64,6 +66,7 @@ export function Dialogprogramacionactividad({
             setIsConfirmOpen(true);
           } else {
             //controlar el codigo 409
+            setErrorMessage("Error en la creación o laboratorio ocupado.");
           }
         });
     },
@@ -171,6 +174,17 @@ export function Dialogprogramacionactividad({
           </Button>
         </DialogActions>
       </Form>
+
+      {errorMessage && (
+        <div
+          class="bg-red-100 text-center border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">Ups!</strong>
+          <span class="block sm:inline"> {errorMessage}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+        </div>
+      )}
     </Dialog>
   );
 }

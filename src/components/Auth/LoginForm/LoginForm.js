@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 import { Auth } from "@/api";
 import { useAuth } from "@/hooks";
 import { initialValues, validationSchema } from "./LoginForm.form";
+import { useState } from "react";
+import { Alert } from "@material-tailwind/react";
 
 const authCtrl = new Auth();
 
 export function LoginForm() {
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const { login } = useAuth();
 
   const formik = useFormik({
@@ -21,8 +25,9 @@ export function LoginForm() {
         if (response.token) {
           login(response.token);
         }
+        setErrorMessage("Credenciales incorrectas");
       } catch (error) {
-        console.error(error);
+        console.log("error al iniciar sesion");
       }
     },
   });
@@ -49,6 +54,17 @@ export function LoginForm() {
       <Form.Button type="submit" fluid loading={formik.isSubmitting}>
         Iniciar Sesión
       </Form.Button>
+
+      {errorMessage && (
+        <div
+          class="bg-red-100 text-center border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong class="font-bold">Ups!</strong>
+          <span class="block sm:inline"> {errorMessage}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+        </div>
+      )}
     </Form>
   );
 }
