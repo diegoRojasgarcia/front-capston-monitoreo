@@ -24,11 +24,10 @@ export function LoginForm() {
         const response = await authCtrl.login(formValue);
         if (response.token) {
           login(response.token);
+        } else {
+          setErrorMessage("Credenciales incorrectas");
         }
-        setErrorMessage("Credenciales incorrectas");
-      } catch (error) {
-        console.log("error al iniciar sesion");
-      }
+      } catch (error) {}
     },
   });
 
