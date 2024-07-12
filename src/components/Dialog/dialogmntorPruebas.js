@@ -53,12 +53,13 @@ export function Dialogmonitorprueba({
     onSubmit: async (formValue) => {
       const webs = textformwebs;
       const apps = selectedOptions;
-      await cDirectory.createDuracion({
-        laboratorio: selectedLabNombre,
-        actividad: formValue.actividad,
-        horas: durationHours,
-        minutos: durationMinutes,
-      });
+      if (durationHours != "" && durationMinutes != "")
+        await cDirectory.createDuracion({
+          laboratorio: selectedLabNombre,
+          actividad: formValue.actividad,
+          horas: durationHours,
+          minutos: durationMinutes,
+        });
       await cDirectory.createFiles({
         lab: selectedLabNombre,
         filename: "w",
